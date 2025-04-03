@@ -1,0 +1,21 @@
+mat-toolbar {
+  display: flex;                       /* Use flexbox to manage child elements */
+  justify-content: center;             /* Center the title in the toolbar */
+  align-items: center;                 /* Vertically center the content */
+  position: relative;
+}
+
+button {
+  position: absolute;
+  left: 10px;                          /* Position the menu button to the left */
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);         /* Center the title */
+  text-align: center;
+}

@@ -1,0 +1,90 @@
+<div class="dashboard-container">
+  <mat-card class="dashboard-card">
+    <mat-card-header>
+      <mat-card-title>Project Overview</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="progress-container">
+        <mat-progress-bar
+          mode="determinate"
+          [value]="progress"
+          class="progress-bar"
+        ></mat-progress-bar>
+        <span class="progress-text">{{ progress | number:'1.2-2' }}% Completed</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <!-- Task Summary -->
+  <mat-card class="task-summary">
+    <mat-card-header>
+      <mat-card-title>Task Summary</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="task-summary-stats">
+        <mat-card class="widget">
+          <mat-card-header>
+            <mat-card-title>Total Tasks</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <h3>{{ totalTasks }}</h3>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="widget">
+          <mat-card-header>
+            <mat-card-title>Tasks Completed</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <h3>{{ tasksCompleted }}</h3>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="widget">
+          <mat-card-header>
+            <mat-card-title>Overdue Tasks</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <h3>{{ overdueTasks }}</h3>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Team Performance (Pie/Bar Chart) -->
+  <mat-card class="team-performance">
+    <mat-card-header>
+      <mat-card-title>Team Performance</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <!-- Example Team Performance data -->
+      <div *ngFor="let member of teamData">
+        <p>{{ member.member }}: {{ member.tasksAssigned }} tasks assigned, {{ member.tasksCompleted }} tasks completed</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Upcoming Deadlines -->
+  <mat-card class="upcoming-deadlines">
+    <mat-card-header>
+      <mat-card-title>Upcoming Deadlines</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <table mat-table [dataSource]="upcomingDeadlines" class="mat-elevation-z8">
+        <ng-container matColumnDef="task">
+          <th mat-header-cell *matHeaderCellDef>Task</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="deadline">
+          <th mat-header-cell *matHeaderCellDef>Deadline</th>
+          <td mat-cell *matCellDef="let element">{{ element.deadline }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>

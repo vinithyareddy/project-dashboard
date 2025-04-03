@@ -1,0 +1,29 @@
+<div class="sidebar" [class.collapsed]="isCollapsed">
+  <!-- Sidebar content -->
+
+<div [class.collapsed]="isCollapsed" class="sidebar">
+    <button mat-icon-button (click)="toggleSidebar()" class="menu-btn">
+      <mat-icon>more_vert</mat-icon>  <!-- Menu icon (three dots) -->
+    </button>
+
+  <div *ngIf="!isCollapsed" class="menu">
+    <mat-nav-list>
+      <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link">Dashboard</a>
+      <a mat-list-item routerLink="/task-list" routerLinkActive="active-link">Task List</a>
+      <a mat-list-item routerLink="/task-detail" routerLinkActive="active-link">Task Details</a>
+      <a mat-list-item routerLink="/team-member" routerLinkActive="active-link">Team Member</a>
+      <a mat-list-item routerLink="/gantt-chart" routerLinkActive="active-link">Gantt Chart</a>
+    </mat-nav-list>
+  </div>
+</div>
+</div>
+
+  <!-- Sidebar content goes here -->
+  <ul>
+    <li>Dashboard</li>
+    <li>Task List</li>
+    <li>Task Details</li>
+    <li>Team Member</li>
+    <li>Gantt Chart</li>
+  </ul>
+
