@@ -18,12 +18,17 @@
       <mat-card-title>Task Status</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <div class="filter-buttons">
-        <button mat-button (click)="filterTasks('All')">All Tasks</button>
-        <button mat-button (click)="filterTasks('In Progress')">In Progress</button>
-        <button mat-button (click)="filterTasks('Completed')">Completed</button>
-        <button mat-button (click)="filterTasks('Overdue')">Overdue</button>
-      </div>
+      <!-- Task Status Filter Dropdown -->
+      <mat-form-field appearance="fill">
+        <mat-label>Filter by Status</mat-label>
+        <mat-select [(value)]="selectedStatus" (selectionChange)="filterTasks(selectedStatus)">
+          <mat-option value="All">All Tasks</mat-option>
+          <mat-option value="In Progress">In Progress</mat-option>
+          <mat-option value="Completed">Completed</mat-option>
+          <mat-option value="Overdue">Overdue</mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <table mat-table [dataSource]="filteredTasks" class="mat-elevation-z8">
         <ng-container matColumnDef="task">
           <th mat-header-cell *matHeaderCellDef> Task </th>
@@ -61,17 +66,22 @@
       <mat-card-title>Team Performance</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <div class="filter-buttons">
-        <button mat-button (click)="filterTeamMember('All')">All Members</button>
-        <button mat-button (click)="filterTeamMember('John')">John</button>
-        <button mat-button (click)="filterTeamMember('Alice')">Alice</button>
-        <button mat-button (click)="filterTeamMember('Bob')">Bob</button>
-      </div>
-      <ul>
+      <!-- Team Member Filter Dropdown -->
+      <mat-form-field appearance="fill">
+        <mat-label>Filter by Team Member</mat-label>
+        <mat-select [(value)]="selectedTeamMember" (selectionChange)="filterTeamMember(selectedTeamMember)">
+          <mat-option value="All">All Members</mat-option>
+          <mat-option value="John">John</mat-option>
+          <mat-option value="Alice">Alice</mat-option>
+          <mat-option value="Bob">Bob</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <ol class="list">
         <li *ngFor="let member of filteredTeamData">
           {{ member.member }}: {{ member.tasksAssigned }} tasks assigned, {{ member.tasksCompleted }} tasks completed
         </li>
-      </ul>
+      </ol>
     </mat-card-content>
   </mat-card>
 
@@ -81,12 +91,17 @@
       <mat-card-title>Upcoming Deadlines</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <div class="filter-buttons">
-        <button mat-button (click)="filterDeadlines('All')">All Dates</button>
-        <button mat-button (click)="filterDeadlines('2025-04-10')">April 10</button>
-        <button mat-button (click)="filterDeadlines('2025-04-12')">April 12</button>
-        <button mat-button (click)="filterDeadlines('2025-04-15')">April 15</button>
-      </div>
+      <!-- Deadline Filter Dropdown -->
+      <mat-form-field appearance="fill">
+        <mat-label>Filter by Deadline</mat-label>
+        <mat-select [(value)]="selectedDeadline" (selectionChange)="filterDeadlines(selectedDeadline)">
+          <mat-option value="All">All Dates</mat-option>
+          <mat-option value="2025-04-10">April 10</mat-option>
+          <mat-option value="2025-04-12">April 12</mat-option>
+          <mat-option value="2025-04-15">April 15</mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <table mat-table [dataSource]="filteredDeadlines" class="mat-elevation-z8">
         <ng-container matColumnDef="task">
           <th mat-header-cell *matHeaderCellDef> Task </th>

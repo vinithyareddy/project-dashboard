@@ -1,18 +1,21 @@
 .dashboard-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 20px;
+  // align-items: center;
+  // padding: 20px;
+  width: 120%;
+  margin-left: 20px;
 }
 
 .dashboard-card, .task-status-card, .task-summary-card, .team-performance-card, .upcoming-deadlines-card {
   width: 80%;
   margin-top: 20px;
+  
 }
 
 .progress-bar {
   width: 100%;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .filter-buttons {
@@ -32,7 +35,7 @@
 .task-summary-box {
   width: 30%;
   text-align: center;
-  background-color: #1976d2;
+  background-color: #58609b;
   color: white;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -49,4 +52,20 @@ mat-table {
 
 mat-header-row, mat-row {
   text-align: center;
+}
+
+mat-card-header {
+
+  background-color: #3f51b5; 
+  height: 40px;
+  color: white;
+  
+}
+mat-form-field  {
+  margin-top: 10px;
+}
+ol {
+  font-size: 120%;
+ font-family: 'Times New Roman', Times, serif;
+ margin-top: -5px;
 }

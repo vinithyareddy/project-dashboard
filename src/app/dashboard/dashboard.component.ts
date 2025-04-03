@@ -26,6 +26,7 @@ export class DashboardComponent implements OnInit {
 
   // Filtered Tasks for Task Status
   filteredTasks = [...this.taskStatus];
+  selectedStatus = 'All';
 
   // Team Performance Data
   teamData = [
@@ -36,6 +37,7 @@ export class DashboardComponent implements OnInit {
 
   // Filtered Team Data
   filteredTeamData = [...this.teamData];
+  selectedTeamMember = 'All';
 
   // Upcoming Deadlines
   upcomingDeadlines = [
@@ -46,6 +48,7 @@ export class DashboardComponent implements OnInit {
 
   // Filtered Deadlines
   filteredDeadlines = [...this.upcomingDeadlines];
+  selectedDeadline = 'All';
 
   // Columns for the task status table
   displayedColumns: string[] = ['task', 'status'];

@@ -20,6 +20,11 @@ import { MatListModule } from '@angular/material/list';  // For mat-nav-list
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core'; // Import this
+
+
 
 
 
@@ -45,6 +50,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatListModule, // MatListModule to use mat-nav-list
     MatCardModule,       // Import MatCardModule here
     MatProgressBarModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule, 
 
 
 
