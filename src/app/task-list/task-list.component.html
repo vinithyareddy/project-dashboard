@@ -1,24 +1,130 @@
-<mat-table [dataSource]="tasks">
-  <ng-container matColumnDef="title">
-    <mat-header-cell *matHeaderCellDef> Task Title </mat-header-cell>
-    <mat-cell *matCellDef="let task"> {{task.title}} </mat-cell>
-  </ng-container>
+<div class="task-list-container">
+  <!-- Task Summary Section -->
+  <div class="task-summary">
+    <mat-card class="summary-card">
+      <mat-card-header>
+        <mat-card-title>Task Summary</mat-card-title>
+        <div class="summary-details">
+            <strong class="tasklist-summary-box">Not Started: {{ taskSummary.notStarted }}</strong>
+            <strong class="tasklist-summary-box"> In Progress: {{ taskSummary.inProgress }}</strong>
+            <strong class="tasklist-summary-box">Completed: {{ taskSummary.completed }}</strong>
+        </div>
+      </mat-card-header>
+    </mat-card>
+  </div>
+ 
+  <!-- Task Filter Section -->
+  <mat-card class="task-table">
+    <mat-card-header class="task-header">
+      <mat-card-title>Task List</mat-card-title>
 
-  <ng-container matColumnDef="assignedTo">
-    <mat-header-cell *matHeaderCellDef> Assigned To </mat-header-cell>
-    <mat-cell *matCellDef="let task"> {{task.assignedTo}} </mat-cell>
-  </ng-container>
+      <!-- Filters Section -->
+      <mat-form-field class="filter">
+        <mat-label>Status</mat-label>
+        <mat-select [(value)]="filterStatus" (selectionChange)="applyFilters()">
+          <mat-option value="">All Status</mat-option>
+          <mat-option *ngFor="let status of taskStatuses" [value]="status">{{ status }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field class="filter">
+        <mat-label>Priority</mat-label>
+        <mat-select [(value)]="filterPriority" (selectionChange)="applyFilters()">
+          <mat-option value="">All Priority</mat-option>
+          <mat-option *ngFor="let priority of priorities" [value]="priority">{{ priority }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field class="filter">
+        <mat-label>Assigned To</mat-label>
+        <mat-select [(value)]="filterAssigned" (selectionChange)="applyFilters()">
+          <mat-option value="">All Members</mat-option>
+          <mat-option *ngFor="let member of teamMembers" [value]="member">{{ member }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field class="filter">
+        <mat-label>Due Date</mat-label>
+        <mat-select [(value)]="filterDueDate" (selectionChange)="applyFilters()">
+          <mat-option value="">All Dates</mat-option>
+          <mat-option *ngFor="let date of taskDueDates" [value]="date">{{ date }}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-  <ng-container matColumnDef="status">
-    <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
-    <mat-cell *matCellDef="let task"> {{task.status}} </mat-cell>
-  </ng-container>
+      <!-- Add Task Button -->
+      <button mat-raised-button color="primary" (click)="isAddingTask = !isAddingTask">Add Task</button>
+    </mat-card-header>
 
-  <ng-container matColumnDef="progress">
-    <mat-header-cell *matHeaderCellDef> Progress </mat-header-cell>
-    <mat-cell *matCellDef="let task"> {{task.progress}}% </mat-cell>
-  </ng-container>
+    <mat-card-content>
+      <!-- New Task Form (Visible when Add Task button is clicked) -->
+      <!-- New Task Form (Visible when Add Task button is clicked) -->
+<div *ngIf="isAddingTask">
+  <form (ngSubmit)="addTask()"> <!-- Change here -->
+    <mat-form-field>
+      <mat-label>Task Title</mat-label>
+      <input matInput [(ngModel)]="newTask.taskTitle" name="taskTitle" required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Assigned To</mat-label>
+      <input matInput [(ngModel)]="newTask.assignedTo" name="assignedTo" required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Status</mat-label>
+      <input matInput [(ngModel)]="newTask.status" name="status" required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Priority</mat-label>
+      <input matInput [(ngModel)]="newTask.priority" name="priority" required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Due Date</mat-label>
+      <input matInput [(ngModel)]="newTask.dueDate" name="dueDate" required type="date" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Save Task</button>
+  </form>
+</div>
 
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-</mat-table>
+
+      <!-- Task Table -->
+      <mat-table [dataSource]="filteredTasks">
+        <ng-container matColumnDef="taskTitle">
+          <mat-header-cell *matHeaderCellDef> Task Title </mat-header-cell>
+          <mat-cell *matCellDef="let task" (click)="goToTaskDetail(task)">
+            {{ task.taskTitle }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="assignedTo">
+          <mat-header-cell *matHeaderCellDef> Assigned To </mat-header-cell>
+          <mat-cell *matCellDef="let task"> {{ task.assignedTo }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+          <mat-cell *matCellDef="let task"> {{ task.status }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="priority">
+          <mat-header-cell *matHeaderCellDef> Priority </mat-header-cell>
+          <mat-cell *matCellDef="let task"> {{ task.priority }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="dueDate">
+          <mat-header-cell *matHeaderCellDef> Due Date </mat-header-cell>
+          <mat-cell *matCellDef="let task"> {{ task.dueDate | date:'shortDate' }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+          <mat-cell *matCellDef="let task">
+            <button mat-button (click)="editTask(task)">Edit</button>
+            <button mat-button (click)="deleteTask(task)">Delete</button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </mat-card-content>
+  </mat-card>
+</div>

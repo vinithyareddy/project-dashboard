@@ -12,7 +12,11 @@ const routes: Routes = [
   { path: 'task-detail', component: TaskDetailComponent },
   { path: 'team-member', component: TeamMemberComponent },
   { path: 'gantt-chart', component: GanttChartComponent },
+  { path: 'task-detail/:taskTitle', component: TaskDetailComponent },
+  { path: '', redirectTo: '/task-list', pathMatch: 'full' },
+
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
+  
 ];
 
 @NgModule({

@@ -1,1 +1,13 @@
-<p>task-detail works!</p>
+<div *ngIf="taskDetail">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ taskDetail.taskTitle }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p><strong>Assigned To:</strong> {{ taskDetail.assignedTo }}</p>
+        <p><strong>Status:</strong> {{ taskDetail.status }}</p>
+        <p><strong>Description:</strong> {{ taskDetail.description }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
