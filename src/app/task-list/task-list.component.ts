@@ -39,6 +39,7 @@ export class TaskListComponent implements OnInit {
     completed: 0
   };
 
+  // Define taskDueDates by extracting unique dates from the tasks
   taskDueDates = Array.from(new Set(this.tasks.map(task => task.dueDate.toLocaleDateString())));
 
   filteredTasks = this.tasks;
