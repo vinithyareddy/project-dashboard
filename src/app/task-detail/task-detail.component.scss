@@ -1,5 +1,52 @@
-mat-card {
-    margin: 20px;
-    padding: 15px;
-  }
+.task-detail-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 30px auto;
+}
+
+.task-detail-card {
+  padding: 20px;
+}
+
+.task-info {
+  margin-bottom: 20px;
+ 
+}
+
+.info-field {
+  margin-bottom: 10px;
+  font-size: 16px;
   
+
+}
+
+.progress-bar {
+  margin-top: 20px;
+}
+
+.comments-section {
+  margin-top: 30px;
+}
+
+.comment-input {
+  width: 100%;
+}
+
+.comment-list {
+  margin-top: 20px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+}
+.task-list-container {
+  .task-detail-card {
+    margin-bottom: 20px; /* Adds space below each task card */
+    padding: 10px; /* Optional: adds padding inside the card for better spacing */
+    border-radius: 8px; /* Optional: adds rounded corners */
+    box-shadow: 0 2px 5px rgba(0.1, 0.1, 0.1, 0.1); /* Optional: adds a light shadow around each task */
+  }
+}
