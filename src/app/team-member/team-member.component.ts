@@ -6,17 +6,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./team-member.component.scss']
 })
 export class TeamMemberComponent implements OnInit {
-  // Initializing teamData with empty array
-  teamData: { member: string, tasksAssigned: number, tasksCompleted: number }[] = [];
+  // Sample team member data
+  teamMembers = [
+    {
+      name: 'John Doe',
+      role: 'Developer',
+      taskCount: 5,
+      email: 'johndoe@example.com',
+    },
+    {
+      name: 'Alice Smith',
+      role: 'Project Manager',
+      taskCount: 3,
+      email: 'alice.smith@example.com',
+    },
+    {
+      name: 'Bob Johnson',
+      role: 'Designer',
+      taskCount: 2,
+      email: 'bob.johnson@example.com',
+    },
+    // Add more team members here...
+  ];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-    // Initializing teamData with some default values
-    this.teamData = [
-      { member: 'John', tasksAssigned: 10, tasksCompleted: 8 },
-      { member: 'Alice', tasksAssigned: 8, tasksCompleted: 6 },
-      { member: 'Bob', tasksAssigned: 12, tasksCompleted: 10 }
-    ];
-  }
+  ngOnInit(): void {}
 }

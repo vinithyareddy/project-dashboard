@@ -25,7 +25,7 @@
           <mat-option value="All">All Tasks</mat-option>
           <mat-option value="In Progress">In Progress</mat-option>
           <mat-option value="Completed">Completed</mat-option>
-          <mat-option value="Overdue">Overdue</mat-option>
+          <mat-option value="Not Started">Not Started</mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -55,7 +55,6 @@
       <div class="task-summary">
         <div class="task-summary-box">Total Tasks: {{ totalTasks }}</div>
         <div class="task-summary-box">Tasks Completed: {{ tasksCompleted }}</div>
-        <div class="task-summary-box">Overdue Tasks: {{ overdueTasks }}</div>
       </div>
     </mat-card-content>
   </mat-card>
@@ -71,17 +70,31 @@
         <mat-label>Filter by Team Member</mat-label>
         <mat-select [(value)]="selectedTeamMember" (selectionChange)="filterTeamMember(selectedTeamMember)">
           <mat-option value="All">All Members</mat-option>
-          <mat-option value="John">John</mat-option>
-          <mat-option value="Alice">Alice</mat-option>
-          <mat-option value="Bob">Bob</mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-option *ngFor="let member of teamMembers" [value]="member">{{ member }}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-      <ol class="list">
-        <li *ngFor="let member of filteredTeamData">
-          {{ member.member }}: {{ member.tasksAssigned }} tasks assigned, {{ member.tasksCompleted }} tasks completed
-        </li>
-      </ol>
+<mat-card-content>
+    <table mat-table [dataSource]="filteredTeamData" class="mat-elevation-z8">
+      <ng-container matColumnDef="member">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let teamMember"> {{ teamMember.member }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="tasksAssigned">
+        <mat-header-cell *matHeaderCellDef> Tasks Assigned </mat-header-cell>
+        <mat-cell *matCellDef="let teamMember"> {{ teamMember.tasksAssigned }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="tasksCompleted">
+        <mat-header-cell *matHeaderCellDef> Tasks Completed </mat-header-cell>
+        <mat-cell *matCellDef="let teamMember"> {{ teamMember.tasksCompleted }} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumnsTeam"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumnsTeam;"></mat-row>
+    </table>
+  </mat-card-content>
     </mat-card-content>
   </mat-card>
 
@@ -96,9 +109,17 @@
         <mat-label>Filter by Deadline</mat-label>
         <mat-select [(value)]="selectedDeadline" (selectionChange)="filterDeadlines(selectedDeadline)">
           <mat-option value="All">All Dates</mat-option>
-          <mat-option value="2025-04-10">April 10</mat-option>
-          <mat-option value="2025-04-12">April 12</mat-option>
-          <mat-option value="2025-04-15">April 15</mat-option>
+          <mat-option value="2025-04-11">2025 April 11</mat-option>
+          <mat-option value="2025-04-16">2025 April 16</mat-option>
+          <mat-option value="2025-04-24">2025 April 24</mat-option>
+          <mat-option value="2025-04-17">2025 April 17</mat-option>
+          <mat-option value="2025-04-22">2025 April 22</mat-option>
+          <mat-option value="2025-04-09">2025 April 09</mat-option>
+          <mat-option value="2025-04-14">2025 April 14</mat-option>
+          <mat-option value="2025-04-29">2025 April 29</mat-option>
+          <mat-option value="2025-04-28">2025 April 28</mat-option>
+          <mat-option value="2025-04-10">2025 April 10</mat-option>
+          <mat-option value="2025-04-20">2025 April 20</mat-option>
         </mat-select>
       </mat-form-field>
 
