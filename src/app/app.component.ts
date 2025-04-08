@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { filter } from 'rxjs/operators';
+import { Router, NavigationEnd, Event as RouterEvent } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   isSidebarCollapsed = false;
+
+showLayout = true;
+
+constructor(private router: Router) {
+  this.router.events.subscribe(event => {
+    if (event instanceof NavigationEnd) {
+      this.showLayout = event.url !== '/';
+    }
+  });
+}
 }

@@ -1,7 +1,9 @@
-<app-header></app-header> <!-- The header -->
-<div class="app-container">
-  <app-sidebar></app-sidebar> <!-- Sidebar (toggles visibility) -->
-  <div class="content">
-    <router-outlet></router-outlet> <!-- Routed content will go here -->
+<ng-container *ngIf="showLayout">
+  <app-header></app-header> <div class="app-container">
+    <app-sidebar></app-sidebar> <div class="content">
+      <router-outlet></router-outlet> </div>
   </div>
-</div>
+</ng-container>
+
+<ng-container *ngIf="!showLayout">
+  <router-outlet></router-outlet> </ng-container>

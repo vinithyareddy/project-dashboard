@@ -5,6 +5,7 @@
   // padding: 20px;
   width: 120%;
   margin-left: 20px;
+  transition: all 0.3s ease-in-out;
 }
 
 .dashboard-card, .task-status-card, .task-summary-card, .team-performance-card, .upcoming-deadlines-card {
@@ -75,4 +76,16 @@ ol {
 .expand{
   margin-top: 10px;
   margin-left: 10px;
+}
+
+.dashboard-container .section {
+  margin: 20px 0;
+  padding: 15px;
+  background: #f0f0f0;
+  border-radius: 8px;
+}
+
+.dashboard-container .section:hover {
+  background-color: #e0e0e0;
+  transform: scale(1.02);
 }
