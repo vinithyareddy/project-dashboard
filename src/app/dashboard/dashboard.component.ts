@@ -131,11 +131,21 @@ export class DashboardComponent implements OnInit {
   filteredDeadlines = [...this.upcomingDeadlines];
   selectedDeadline = 'All';
 
+  // For Pagination
+  taskStatusLimit = 12;
+  teamPerformanceLimit = 6;
+  upcomingDeadlinesLimit = 6;
+
+  showMoreTaskStatus = true;
+  showMoreTeamPerformance = true;
+  showMoreUpcomingDeadlines = true;
+
+  // Columns for task status table
   // Columns for task status table
   displayedColumns: string[] = ['task', 'status'];
 
+  // Columns for team performance table
   displayedColumnsTeam: string[] = ['member', 'tasksAssigned', 'tasksCompleted'];
-
 
   // Columns for upcoming deadlines table
   displayedColumnsDeadlines: string[] = ['task', 'deadline'];
@@ -152,9 +162,49 @@ export class DashboardComponent implements OnInit {
     this.tasksCompleted = this.taskStatus.filter(task => task.status === 'Completed').length;
     const currentDate = new Date();
     this.overdueTasks = this.taskStatus.filter(task => task.dueDate < currentDate && task.status !== 'Completed').length;
-
-    // Update the progress dynamically
     this.progress = (this.tasksCompleted / this.totalTasks) * 100;
+  }
+
+  // Load More functionality for Task Status Table
+  loadMoreTaskStatus() {
+    this.taskStatusLimit += 12;
+    if (this.taskStatusLimit >= this.taskStatus.length) {
+      this.showMoreTaskStatus = false;
+    }
+  }
+
+  // Load More functionality for Team Performance Table
+  loadMoreTeamPerformance() {
+    this.teamPerformanceLimit += 6;
+    if (this.teamPerformanceLimit >= this.teamData.length) {
+      this.showMoreTeamPerformance = false;
+    }
+  }
+
+  // Load More functionality for Upcoming Deadlines Table
+  loadMoreUpcomingDeadlines() {
+    this.upcomingDeadlinesLimit += 6;
+    if (this.upcomingDeadlinesLimit >= this.upcomingDeadlines.length) {
+      this.showMoreUpcomingDeadlines = false;
+    }
+  }
+
+  // Show Less functionality for Task Status Table
+  showLessTaskStatus() {
+    this.taskStatusLimit = 6;
+    this.showMoreTaskStatus = true;
+  }
+
+  // Show Less functionality for Team Performance Table
+  showLessTeamPerformance() {
+    this.teamPerformanceLimit = 6;
+    this.showMoreTeamPerformance = true;
+  }
+
+  // Show Less functionality for Upcoming Deadlines Table
+  showLessUpcomingDeadlines() {
+    this.upcomingDeadlinesLimit = 6;
+    this.showMoreUpcomingDeadlines = true;
   }
 
   // Filter tasks based on selected status

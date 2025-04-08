@@ -73,6 +73,11 @@ export class TaskListComponent implements OnInit {
     { taskTitle: 'Task 61', assignedTo: 'Bobby', status: 'Not Started', priority: 'High', dueDate: new Date('2025-04-21') },
   ];
 
+  filteredTasks = this.tasks;
+  displayedTasks: Task[] = [];
+  visibleTaskCount: number = 6;
+  showMore: boolean = true;
+
   taskStatuses = ['Not Started', 'In Progress', 'Completed'];
   priorities = ['High', 'Medium', 'Low'];
   teamMembers = ['John', 'Alice', 'Bob', 'Jones', 'James', 'Bobby', 'Betty', 'Veronica', 'Charles', 'Cheryl', 'Archie', 'Abhigail'];
@@ -91,8 +96,6 @@ export class TaskListComponent implements OnInit {
   // Define taskDueDates by extracting unique dates from the tasks
   taskDueDates = Array.from(new Set(this.tasks.map(task => task.dueDate.toLocaleDateString())));
 
-  filteredTasks = this.tasks;
-
   displayedColumns: string[] = ['taskTitle', 'assignedTo', 'status', 'priority', 'dueDate', 'action'];
 
   // New Task Form Variables
@@ -105,14 +108,13 @@ export class TaskListComponent implements OnInit {
     this.updateTaskSummary();
     this.applyFilters();
   }
+
   updateTaskSummary() {
-    this.taskSummary.notStarted = this.tasks.filter(task => task.status.trim() === 'Not Started').length;
-    this.taskSummary.inProgress = this.tasks.filter(task => task.status.trim() === 'In Progress').length;
-    this.taskSummary.completed = this.tasks.filter(task => task.status.trim() === 'Completed').length;
-  
-    console.log('Task Summary:', this.taskSummary);  // Add this to log and check if the count is correct
+    this.taskSummary.notStarted = this.tasks.filter(task => task.status === 'Not Started').length;
+    this.taskSummary.inProgress = this.tasks.filter(task => task.status === 'In Progress').length;
+    this.taskSummary.completed = this.tasks.filter(task => task.status === 'Completed').length;
   }
-  
+
   applyFilters() {
     this.filteredTasks = this.tasks.filter(task => {
       return (
@@ -122,12 +124,20 @@ export class TaskListComponent implements OnInit {
         (this.filterDueDate ? task.dueDate.toLocaleDateString() === new Date(this.filterDueDate).toLocaleDateString() : true)
       );
     });
-  
-    console.log('Filtered Tasks:', this.filteredTasks);
-    this.updateTaskSummary();
+
+    // Limit the number of visible tasks based on `visibleTaskCount`
+    this.displayedTasks = this.filteredTasks.slice(0, this.visibleTaskCount);
   }
-  
-  
+
+  loadMoreTasks() {
+    if (this.showMore) {
+      this.visibleTaskCount = this.filteredTasks.length; // Show all tasks
+    } else {
+      this.visibleTaskCount = 6; // Show only 6 tasks
+    }
+    this.showMore = !this.showMore; // Toggle between Show More and Show Less
+    this.applyFilters(); // Reapply the filters with updated task count
+  }
 
   goToTaskDetail(task: Task) {
     this.router.navigate(['/task-detail', task.taskTitle]);
