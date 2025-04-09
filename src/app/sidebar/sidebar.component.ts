@@ -1,14 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  styleUrls: ['./sidebar.component.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterModule, MatListModule, MatIconModule, MatButtonModule]
 })
 export class SidebarComponent {
-  isCollapsed = false; // Define the property to toggle sidebar visibility
+  @Input() isCollapsed: boolean = false;
+  @Output() toggleSidebar = new EventEmitter<void>();
 
-  toggleSidebar() {
-    this.isCollapsed = !this.isCollapsed; // Toggle the sidebar
+  constructor() { }
+
+  onToggleSidebar(): void {
+    console.log('SidebarComponent: onToggleSidebar called');
+    this.toggleSidebar.emit();
   }
+
+  
 }

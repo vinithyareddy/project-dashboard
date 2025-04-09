@@ -1,0 +1,114 @@
+<div class="tasks-container">
+  <h1>Tasks</h1>
+
+  <!-- Add/Edit Task Form (Conditionally Displayed) -->
+  <div class="task-form-container" *ngIf="isEditing">
+    <h2>{{ editingTaskId === null ? 'Add New Task' : 'Edit Task' }}</h2>
+    <form [formGroup]="taskForm" (ngSubmit)="saveTask()">
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Task Name</mat-label>
+        <input matInput formControlName="name" required>
+        <mat-error *ngIf="taskForm.get('name')?.hasError('required')">Task name is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Assignee</mat-label>
+        <input matInput formControlName="assignee" required>
+         <mat-error *ngIf="taskForm.get('assignee')?.hasError('required')">Assignee is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Due Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dueDate" required>
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+         <mat-error *ngIf="taskForm.get('dueDate')?.hasError('required')">Due date is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status" required>
+          <mat-option *ngFor="let status of taskStatuses" [value]="status">
+            {{ status }}
+          </mat-option>
+        </mat-select>
+         <mat-error *ngIf="taskForm.get('status')?.hasError('required')">Status is required</mat-error>
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="taskForm.invalid">Save Task</button>
+        <button mat-stroked-button type="button" (click)="cancelEdit()">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Task List & Filters -->
+  <div class="task-list-container" *ngIf="!isEditing">
+
+    <!-- Filter Controls -->
+    <div class="filter-controls bg-white">
+      <mat-form-field appearance="outline" class="filter-assignee">
+        <mat-select [(ngModel)]="selectedAssignee" (ngModelChange)="applyFilters()" placeholder="Choose Assignee" text-blue-500>
+          <mat-option [value]="null">All Assignees</mat-option>
+          <mat-option *ngFor="let assignee of assigneeList" [value]="assignee">
+            {{ assignee }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filter-date">
+        <input matInput 
+               [matDatepicker]="filterDatePicker" 
+               [(ngModel)]="selectedDate" 
+               (dateChange)="applyFilters()"
+               placeholder=" Choose date">
+        <mat-datepicker-toggle matIconSuffix [for]="filterDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #filterDatePicker></mat-datepicker>
+      </mat-form-field>
+
+       <button mat-flat-button color="primary" class="add-task-button" (click)="showAddTaskForm()">
+         <mat-icon>add</mat-icon> Add Task
+       </button>
+    </div>
+
+    <!-- Task List Display -->
+    <div class="task-list">
+      <!-- Iterate over filteredTasks with slicing for pagination -->
+      <div class="task-card" *ngFor="let task of (showAllTasks ? filteredTasks : filteredTasks.slice(0, 6))">
+        <div class="task-info">
+          <h3 class="task-name">{{ task.name }}</h3>
+          <p class="task-assignee">Assignee: {{ task.assignee }}</p>
+          <p class="task-due-date">Due: {{ task.dueDate | date:'mediumDate' }}</p>
+        </div>
+        <div class="task-status">
+          <span class="status-badge" [class]="task.status.toLowerCase().replace(' ', '-')">
+            {{ task.status }}
+          </span>
+        </div>
+        <div class="task-actions">
+          <button mat-icon-button color="primary" aria-label="Edit task" (click)="editTask(task)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" aria-label="Delete task" (click)="deleteTask(task.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Show More/Less Button -->
+      <div *ngIf="filteredTasks.length > 6" class="show-more-container">
+        <button mat-stroked-button (click)="toggleTasksDisplay()">
+          <mat-icon>{{ showAllTasks ? 'expand_less' : 'expand_more' }}</mat-icon>
+          {{ showAllTasks ? 'Show Less' : 'Show More' }}
+        </button>
+      </div>
+      
+      <!-- Update empty message check -->
+      <div *ngIf="filteredTasks.length === 0" class="no-tasks">
+        No tasks found matching the current filters. Try adjusting filters or adding a task!
+      </div>
+    </div>
+  </div>
+</div>

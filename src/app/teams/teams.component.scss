@@ -1,0 +1,410 @@
+.teams-container {
+  padding: 2rem;
+  color: #ffffff;
+  background-color: #0f1117; 
+  min-height: calc(100vh - 4rem);
+
+  h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+}
+
+.team-table {
+  background: #1a1d25;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #2a2d35;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr 60px;
+  padding: 1rem 1.5rem;
+  background: #1a1d25;
+  border-bottom: 1px solid #2a2d35;
+
+  .header-cell {
+    color: #a0aec0;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+}
+
+.table-body {
+  .table-row {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr 60px;
+    padding: 1rem 1.5rem;
+    align-items: center;
+    border-bottom: 1px solid #2a2d35;
+    transition: background-color 0.2s ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+  }
+}
+
+.name-cell {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .member-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .member-info {
+    .member-name {
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .member-role {
+      color: #a0aec0;
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+    }
+  }
+}
+
+.email-cell {
+  .email-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    .email {
+      color: #a0aec0;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.role-cell {
+  color: #a0aec0;
+  font-size: 0.9rem;
+}
+
+.actions-cell {
+  display: flex;
+  justify-content: flex-end;
+
+  .delete-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: #a0aec0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #ef4444;
+    }
+  }
+}
+
+// --- Team Form Styles --- 
+.team-form-container {
+  background-color: #1a1d25;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  border: 1px solid #2a2d35;
+
+  h2 { font-size: 1.4rem; margin-bottom: 1.5rem; font-weight: 500; }
+
+  form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  // Style Material components for dark theme
+  mat-form-field {
+    width: 100%;
+    .mat-mdc-text-field-wrapper { background-color: #2a2d35; border-radius: 8px; }
+    .mat-mdc-form-field-input-control, .mat-mdc-select-value, .mat-mdc-select-arrow, mat-label { color: #e0e0e0 !important; }
+    mat-hint { color: #a0aec0; }
+    .mdc-line-ripple::before, .mdc-line-ripple::after { border-bottom-color: rgba(255, 255, 255, 0.7) !important; }
+     mat-error { color: #f87171; }
+  }
+
+  .form-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
+    button { min-width: 100px; }
+  }
+}
+
+// --- Team List Styles --- 
+.team-list-container { }
+
+// --- Filter Styles --- 
+.filter-controls {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  padding: 1.5rem;
+  background-color: #1a1d25;
+  border-radius: 12px;
+  border: 1px solid #2a2d35;
+
+  mat-form-field {
+    flex: 1 1 200px; // Allow fields to grow/shrink
+    min-width: 200px;
+  }
+
+  // Style Material components for dark theme
+  mat-form-field {
+     .mat-mdc-text-field-wrapper { background-color: #2a2d35; border-radius: 8px; }
+     .mat-mdc-form-field-input-control, .mat-mdc-select-value, .mat-mdc-select-arrow, mat-label { color: #e0e0e0 !important; }
+     mat-hint { color: #a0aec0; }
+     .mdc-line-ripple::before, .mdc-line-ripple::after { border-bottom-color: rgba(255, 255, 255, 0.7) !important; }
+     .mat-mdc-form-field-input-control { padding: 0.8em 0 !important; }
+     .mat-mdc-button.mat-mdc-icon-button { color: #a0aec0; }
+  }
+  
+  .add-member-button {
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+// --- Teams Grid --- 
+.teams-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); // Adjust minmax as needed
+  gap: 1.5rem;
+}
+
+.team-card {
+  background-color: #1a1d25;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid #2a2d35;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  position: relative;
+  transition: box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    .member-actions {
+      opacity: 1;
+    }
+  }
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.member-info {
+  flex-grow: 1;
+
+  h3.member-name {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0 0 0.25rem 0;
+    color: #ffffff;
+  }
+
+  p.member-role {
+    font-size: 0.85rem;
+    color: #a0aec0;
+    margin: 0 0 0.75rem 0;
+  }
+
+  // Styles for Material Chips
+  mat-chip-list {
+    .mat-mdc-chip {
+      background-color: #2a2d35;
+      color: #a0aec0;
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      min-height: 24px;
+    }
+    .mat-mdc-standard-chip {
+        --mdc-chip-label-text-color: #a0aec0;
+        --mdc-chip-container-shape: 4px; 
+    }
+  }
+}
+
+// --- Member Actions --- 
+.member-actions {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  gap: 0.2rem;
+  background-color: rgba(42, 45, 53, 0.8);
+  padding: 0.2rem;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+
+  button {
+    color: #a0aec0;
+    &:hover {
+      color: #ffffff;
+    }
+  }
+}
+
+.no-members {
+  text-align: center;
+  color: #a0aec0;
+  padding: 3rem;
+  background-color: #1a1d25;
+  border-radius: 12px;
+  border: 1px dashed #2a2d35;
+  grid-column: 1 / -1; // Span full grid if needed
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .team-form-container form,
+  .teams-grid {
+     grid-template-columns: 1fr;
+  }
+  .member-actions {
+    opacity: 1;
+    position: static;
+    background-color: transparent;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+    padding: 0;
+    margin-left: auto; // Push to end in flex layout
+  }
+  .team-card {
+    flex-direction: column; // Stack vertically on mobile
+    align-items: flex-start; // Align items left
+  }
+}
+
+.show-more-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  
+  button {
+    min-width: 140px;
+    padding: 10px 20px;
+    background-color: #2d3748;
+    color: #ffffff;
+    border: none;
+    border-radius: 30px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    
+    mat-icon {
+      font-size: 20px;
+      height: 20px;
+      width: 20px;
+      transition: transform 0.3s ease;
+      color: #4cc9f0;
+    }
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(76, 201, 240, 0.15), rgba(114, 9, 183, 0.15));
+      opacity: 1;
+      border-radius: 30px;
+    }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border-radius: 32px;
+      background: linear-gradient(45deg, #4cc9f0, #7209b7);
+      z-index: -1;
+      opacity: 0.3;
+      transition: opacity 0.3s ease;
+    }
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+      background-color: #3a3d45;
+      color: #ffffff;
+      
+      &::before {
+        opacity: 1;
+        background: linear-gradient(45deg, rgba(76, 201, 240, 0.25), rgba(114, 9, 183, 0.25));
+      }
+      
+      &::after {
+        opacity: 0.8;
+      }
+      
+      mat-icon {
+        transform: scale(1.2);
+        color: #ffffff;
+      }
+    }
+    
+    &:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+  }
+} 

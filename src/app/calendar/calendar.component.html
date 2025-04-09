@@ -1,0 +1,55 @@
+<div class="calendar-container">
+  <div class="calendar-header">
+    <h1>Calendar</h1>
+    <div class="month-navigation">
+      <div class="month-year">
+        {{ getMonthName() }} {{ currentYear }}
+      </div>
+      <div class="navigation-buttons">
+        <button (click)="previousMonth()" class="nav-button">
+          <span>←</span>
+        </button>
+        <button (click)="nextMonth()" class="nav-button">
+          <span>→</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="calendar-grid">
+    <div class="weekday-header">
+      <div class="weekday">Sun</div>
+      <div class="weekday">Mon</div>
+      <div class="weekday">Tue</div>
+      <div class="weekday">Wed</div>
+      <div class="weekday">Thu</div>
+      <div class="weekday">Fri</div>
+      <div class="weekday">Sat</div>
+    </div>
+
+    <div class="calendar-days">
+      <div class="week" *ngFor="let week of calendar">
+        <div class="day" *ngFor="let day of week" [class.empty]="!day">
+          <ng-container *ngIf="day">
+            <div class="date-number">{{ day.getDate() }}</div>
+            <div class="items-container">
+              <ng-container *ngIf="getTasksForDate(day).length > 0">
+                <div class="item-label">Tasks:</div>
+                <div class="task-item" *ngFor="let task of getTasksForDate(day)" [class]="task.status">
+                  {{ task.title }}
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="getProjectsForDate(day).length > 0">
+                <div class="item-label">Project Deadlines:</div>
+                <div class="project-deadline-item" *ngFor="let project of getProjectsForDate(day)">
+                  {{ project.name }}
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

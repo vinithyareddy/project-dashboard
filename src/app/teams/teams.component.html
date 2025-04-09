@@ -1,0 +1,101 @@
+<div class="teams-container">
+  <h1>Team Members</h1>
+
+  <!-- Add/Edit Team Member Form (Conditionally Displayed) -->
+  <div class="team-form-container" *ngIf="isEditing">
+    <h2>{{ editingMemberId === null ? 'Add New Member' : 'Edit Member' }}</h2>
+    <form [formGroup]="teamMemberForm" (ngSubmit)="saveMember()">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Member Name</mat-label>
+        <input matInput formControlName="name" required>
+        <mat-error *ngIf="teamMemberForm.get('name')?.hasError('required')">Name is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Role</mat-label>
+        <input matInput formControlName="role" required>
+        <mat-error *ngIf="teamMemberForm.get('role')?.hasError('required')">Role is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email">
+        <mat-error *ngIf="teamMemberForm.get('email')?.hasError('email')">Please enter a valid email address</mat-error>
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="teamMemberForm.invalid">Save Member</button>
+        <button mat-stroked-button type="button" (click)="cancelEdit()">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Team List & Filters -->
+  <div class="team-list-container" *ngIf="!isEditing">
+
+    <!-- Filter Controls -->
+    <div class="filter-controls">
+       <mat-form-field appearance="outline" class="filter-name">
+        <input matInput 
+               [(ngModel)]="filterName" 
+               (ngModelChange)="applyFilters()" 
+               placeholder="Enter name...">
+         <button mat-icon-button matSuffix *ngIf="filterName" (click)="clearNameFilter()" aria-label="Clear name filter">
+            <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filter-role">
+        <mat-select [(ngModel)]="selectedRole" (ngModelChange)="applyFilters()">
+          <mat-option *ngFor="let role of roleList" [value]="role">
+            {{ role }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" class="add-member-button" (click)="showAddMemberForm()">
+        <mat-icon>add</mat-icon> Add Member
+      </button>
+    </div>
+
+    <!-- Team Grid Display -->
+    <div class="teams-grid">
+      <!-- Iterate over filteredTeamMembers with slicing for pagination -->
+      <div class="team-card" *ngFor="let member of (showAllMembers ? filteredTeamMembers : filteredTeamMembers.slice(0, 6))">
+        <div class="avatar" [style.background-color]="member.avatarColor">
+          {{ member.name.charAt(0) }}
+        </div>
+        <div class="member-info">
+          <h3 class="member-name">{{ member.name }}</h3>
+          <p class="member-role">{{ member.role }}</p>
+          <mat-chip-list aria-label="Member emails">
+            <mat-chip *ngFor="let email of member.emails">{{ email }}</mat-chip>
+          </mat-chip-list>
+        </div>
+        <div class="member-actions">
+          <button mat-icon-button color="primary" aria-label="Edit member" (click)="editMember(member)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" aria-label="Delete member" (click)="deleteTeamMember(member.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Show More/Less Button -->
+    <div *ngIf="filteredTeamMembers.length > 6" class="show-more-container">
+      <button mat-stroked-button (click)="toggleMembersDisplay()">
+        <mat-icon>{{ showAllMembers ? 'expand_less' : 'expand_more' }}</mat-icon>
+        {{ showAllMembers ? 'Show Less' : 'Show More' }}
+      </button>
+    </div>
+
+    <!-- Message when no members match filter -->
+    <div *ngIf="filteredTeamMembers.length === 0" class="no-members">
+       No team members found matching the current filters. Try clearing filters or adding a member!
+    </div>
+
+  </div>
+</div> 

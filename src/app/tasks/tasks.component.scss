@@ -1,0 +1,537 @@
+.tasks-container {
+  padding: 2rem;
+  color: #ffffff;
+  background-color: #0f1117; 
+  min-height: calc(100vh - 4rem);
+
+  h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+}
+
+.tasks-table {
+  background: #1a1d25;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #2a2d35;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  padding: 1rem 1.5rem;
+  background: #1a1d25;
+  border-bottom: 1px solid #2a2d35;
+
+  .header-cell {
+    color: #a0aec0;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+}
+
+.table-body {
+  .table-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #2a2d35;
+    transition: background-color 0.2s ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+  }
+}
+
+.table-cell {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  font-size: 0.95rem;
+
+  &.task-cell {
+    font-weight: 500;
+  }
+
+  &.assignee-cell {
+    color: #a0aec0;
+  }
+
+  &.date-cell {
+    color: #a0aec0;
+  }
+}
+
+.status-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+
+  &.in-progress {
+    background: rgba(255, 145, 0, 0.1);
+    color: #ff9100;
+  }
+
+  &.completed {
+    background: rgba(46, 213, 115, 0.1);
+    color: #2ed573;
+  }
+
+  &.not-started {
+    background: rgba(255, 71, 87, 0.1);
+    color: #ff4757;
+  }
+}
+
+// --- Task Form Styles --- 
+.task-form-container {
+  background-color: #1a1d25;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  border: 1px solid #2a2d35;
+
+  h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+
+  form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); // Responsive columns
+    gap: 1.5rem;
+  }
+
+  // Style Angular Material components for dark theme
+  mat-form-field {
+    width: 100%;
+
+    .mat-mdc-text-field-wrapper {
+        background-color: #2a2d35; // Dark background for input
+        border-radius: 8px;
+    }
+
+    .mat-mdc-form-field-input-control,
+    .mat-mdc-select-value,
+    .mat-mdc-select-arrow,
+    mat-label {
+      color: #e0e0e0 !important; // Light text
+    }
+
+    mat-hint {
+       color: #a0aec0; 
+    }
+    
+    .mdc-line-ripple::before,
+    .mdc-line-ripple::after {
+      border-bottom-color: rgba(255, 255, 255, 0.7) !important; // Underline color
+    }
+
+     mat-error {
+       color: #f87171; // Error color
+     }
+  }
+
+  // Ensure datepicker popup is styled (may need global styles)
+  // .mat-datepicker-content { background-color: #2a2d35; color: #e0e0e0; }
+
+  .form-actions {
+    grid-column: 1 / -1; // Span full width
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
+
+    button {
+      min-width: 100px;
+    }
+  }
+}
+
+// --- Task List Styles --- 
+.task-list-container {
+  // Container for the list and add button
+}
+
+// --- Filter Styles --- 
+.filter-controls {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap; // Allow filters to wrap on smaller screens
+  padding: 1.5rem;
+  background-color: #1a1d25;
+  border-radius: 12px;
+  border: 1px solid #2a2d35;
+
+  mat-form-field {
+    flex: 1 1 200px; // Allow fields to grow and shrink, base size 200px
+    min-width: 200px;
+  }
+
+  // Style Angular Material components for dark theme
+  mat-form-field {
+    .mat-mdc-text-field-wrapper { 
+      background-color: #2a2d35; // Dark background for input
+      border-radius: 8px; 
+    }
+    
+    // Fix for mat-label display
+    .mdc-floating-label {
+      color: #d1d5db !important;
+      font-weight: 500 !important;
+    }
+    
+    // Improve visibility of text in select dropdown and input fields
+    .mat-mdc-form-field-input-control, 
+    .mat-mdc-select-value, 
+    .mat-mdc-select-value-text,
+    .mat-mdc-select-min-line {
+      color: #ffffff !important; // Bright white text for maximum visibility
+      font-weight: 500 !important; // Make text slightly bolder
+    }
+    
+    // Target specific classes for date input and placeholder
+    input.mat-mdc-input-element {
+      color: #ffffff !important;
+      &::placeholder {
+        color: #c5c9d1 !important;
+        opacity: 1 !important;
+      }
+    }
+    
+    // Target specific classes for selected text
+    .mdc-select__selected-text,
+    .mat-select-value-text {
+      color: #ffffff !important;
+      opacity: 1 !important;
+      font-weight: 500 !important;
+      text-shadow: 0 0 1px rgba(255, 255, 255, 0.3); // Subtle text shadow for better visibility
+    }
+    
+    // Make label and icon more visible
+    mat-label, 
+    .mat-mdc-select-arrow { 
+      color: #d1d5db !important; // Even brighter color for labels
+      font-weight: 500 !important; // Make label text slightly bolder
+    }
+    
+    // Date picker icon styling
+    .mat-datepicker-toggle {
+      color: #d1d5db !important; // Match label color
+      
+      .mat-datepicker-toggle-default-icon {
+        width: 24px !important;
+        height: 24px !important;
+      }
+    }
+    
+    // Improve hint text visibility
+    mat-hint { 
+      color: #c5c9d1 !important; 
+    }
+    
+    // Improve clear button visibility
+    .mat-mdc-icon-button .mat-icon {
+      color: #d1d5db !important;
+      font-size: 20px !important;
+    }
+    
+    .mdc-line-ripple::before,
+    .mdc-line-ripple::after { 
+      border-bottom-color: rgba(255, 255, 255, 0.8) !important; // Brighter underline color
+    }
+    
+    // Enhance the focused state
+    &.mat-focused {
+      .mat-mdc-select-arrow,
+      .mat-mdc-form-field-required-marker,
+      .mat-mdc-form-field-label {
+        color: #60a5fa !important; // Blue accent when focused
+      }
+      
+      .mdc-line-ripple::after {
+        border-bottom-color: #60a5fa !important; // Blue accent underline
+      }
+    }
+  }
+  
+  // Specific styling for the add button in the filter bar
+  .add-task-button {
+    flex-shrink: 0; // Prevent button from shrinking
+    margin-left: auto; // Push to the right if space allows
+    align-self: center; // Center vertically
+  }
+  
+  // Fix for filter-date specifically
+  .filter-date {
+    .mdc-floating-label--float-above {
+      display: block !important;
+      opacity: 1 !important;
+      color: #d1d5db !important;
+      transform: translateY(-130%) scale(0.75) !important;
+      background-color: transparent !important;
+      z-index: 1 !important;
+    }
+    
+    .mdc-floating-label {
+      transform: translateY(-130%) scale(0.85) !important;
+    }
+    
+    // Ensure placeholder text is visible when no date is selected
+    .mat-mdc-input-element::placeholder {
+      color: #c5c9d1 !important;
+      opacity: 1 !important;
+      padding-top: 16px !important;
+      z-index: 2 !important;
+    }
+    
+    // Add padding to input to push it down slightly
+    .mat-mdc-form-field-input-control {
+      padding-top: 16px !important;
+    }
+    
+    // Ensure the label doesn't get clipped
+    // .mat-mdc-form-field-infix {
+    //   // min-height: 36px !important; 
+    // }
+    
+    // Fix for different Material themes
+    .mat-mdc-text-field-wrapper {
+      .mdc-line-ripple {
+        bottom: 0 !important;
+      }
+    }
+    
+    // Fix for the input container and form field
+    .mat-mdc-form-field-flex {
+      display: flex !important;
+      align-items: center !important;
+      position: relative !important;
+      
+      .mat-mdc-form-field-infix {
+        padding-top: 12px !important;
+        padding-bottom: 12px !important;
+      }
+    }
+    
+    // Fix for calendar toggle
+    .mat-datepicker-toggle {
+      position: relative !important;
+      z-index: 3 !important;
+    }
+  }
+}
+
+// Remove old add-task-header if it exists
+.add-task-header {
+  // display: none; // Or remove rule
+}
+
+.task-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.task-card {
+  background-color: #1a1d25;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid #2a2d35;
+  display: grid;
+  grid-template-columns: 1fr auto auto; // Info | Status | Actions
+  gap: 1.5rem;
+  align-items: center;
+  transition: box-shadow 0.2s ease-in-out;
+
+  &:hover {
+     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.task-info {
+  h3.task-name {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0 0 0.5rem 0;
+    color: #ffffff;
+  }
+
+  p {
+    font-size: 0.85rem;
+    color: #a0aec0;
+    margin: 0.25rem 0 0 0;
+  }
+}
+
+.task-status {
+  text-align: center;
+  // Uses .status-badge defined previously
+}
+
+.task-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+// Show More/Less Button Container
+.show-more-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  
+  button {
+    min-width: 140px;
+    padding: 10px 20px;
+    background-color: #2d3748;
+    color: #ffffff;
+    border: none;
+    border-radius: 30px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    
+    mat-icon {
+      font-size: 20px;
+      height: 20px;
+      width: 20px;
+      transition: transform 0.3s ease;
+      color: #4cc9f0;
+    }
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(76, 201, 240, 0.15), rgba(114, 9, 183, 0.15));
+      opacity: 1;
+      border-radius: 30px;
+    }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border-radius: 32px;
+      background: linear-gradient(45deg, #4cc9f0, #7209b7);
+      z-index: -1;
+      opacity: 0.3;
+      transition: opacity 0.3s ease;
+    }
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+      background-color: #3a3d45;
+      color: #ffffff;
+      
+      &::before {
+        opacity: 1;
+        background: linear-gradient(45deg, rgba(76, 201, 240, 0.25), rgba(114, 9, 183, 0.25));
+      }
+      
+      &::after {
+        opacity: 0.8;
+      }
+      
+      mat-icon {
+        transform: scale(1.2);
+        color: #ffffff;
+      }
+    }
+    
+    &:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+// No tasks message
+.no-tasks {
+  text-align: center;
+  color: #a0aec0;
+  padding: 3rem;
+  background-color: #1a1d25;
+  border-radius: 12px;
+  border: 1px dashed #2a2d35;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .task-card {
+    grid-template-columns: 1fr; // Stack on mobile
+    gap: 1rem;
+    text-align: center;
+  }
+  .task-actions {
+     justify-content: center;
+  }
+  .task-form-container form {
+     grid-template-columns: 1fr; // Single column form on mobile
+  }
+}
+
+// Custom date filter styles - completely separated label from input
+.custom-date-filter {
+  display: flex;
+  flex-direction: column; // Stack label and input vertically
+  flex: 1 1 200px;
+  min-width: 200px;
+
+  .date-filter-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: 8px;
+  }
+
+  .date-input-container {
+    display: flex;
+    align-items: center; // Center items vertically
+    background-color: #2a2d35;
+    border-radius: 8px;
+    border: 1px solid #3a3e4e;
+    padding: 4px 12px;
+    transition: border-color 0.2s ease;
+
+    // Ensure the input takes full width
+    .date-input {
+      flex: 1; // Allow input to grow
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #ffffff;
+      font-size: 14px;
+      padding: 10px 0;
+
+      &::placeholder {
+        color: #c5c9d1;
+        opacity: 1;
+      }
+    }
+  }
+} 

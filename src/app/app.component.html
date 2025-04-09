@@ -1,9 +1,19 @@
-<ng-container *ngIf="showLayout">
-  <app-header></app-header> <div class="app-container">
-    <app-sidebar></app-sidebar> <div class="content">
-      <router-outlet></router-outlet> </div>
-  </div>
-</ng-container>
+<!-- Render WelcomeComponent directly if not showing main layout -->
+<router-outlet *ngIf="!showMainLayout"></router-outlet>
 
-<ng-container *ngIf="!showLayout">
-  <router-outlet></router-outlet> </ng-container>
+<!-- Render main app container ONLY when showing main layout -->
+<div class="app-container" *ngIf="showMainLayout">
+  <!-- Main Layout (Sidebar, Header, Content) -->
+  <button *ngIf="isSidebarCollapsed" mat-icon-button (click)="handleSidebarToggle()" class="menu-btn">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <app-sidebar [isCollapsed]="isSidebarCollapsed" (toggleSidebar)="handleSidebarToggle()">
+  </app-sidebar>
+  <div class="main-content" [class.collapsed]="isSidebarCollapsed">
+    <app-header></app-header>
+    <div class="content-area">
+      <router-outlet></router-outlet> <!-- Outlet for dashboard, tasks, etc. -->
+    </div>
+  </div>
+</div>
+

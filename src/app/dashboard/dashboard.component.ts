@@ -1,236 +1,298 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Chart, registerables } from 'chart.js/auto';
+import { CommonModule, DatePipe } from '@angular/common';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+
+Chart.register(...registerables);
+
+interface Task {
+  id: number;
+  title: string;
+  status: 'Not Started' | 'In Progress' | 'Completed';
+  dueDate: Date;
+  assignee: string;
+}
+
+interface Project {
+  id: number;
+  name: string;
+  description: string;
+  status: 'Not Started' | 'In Progress' | 'Completed';
+  dueDate: Date;
+  progress: number;
+}
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatProgressBarModule,
+    MatIconModule,
+    MatButtonModule
+  ],
+  providers: [DatePipe]
 })
-export class DashboardComponent implements OnInit {
-  teamMembers: string[] = ['John', 'Alice', 'Bob', 'Jones', 'James', 'Bobby', 'Betty', 'Veronica', 'Charles', 'Cheryl', 'Archie', 'Abhigail'];
-  // Data for Task Status
-  taskStatus = [
-    { name: 'Task 1', status: 'Completed', dueDate: new Date('2025-01-10') },
-    { name: 'Task 2', status: 'In Progress', dueDate: new Date('2025-04-12') },
-    { name: 'Task 3', status: 'Completed',  dueDate: new Date('2025-03-15') },
-    { name: 'Task 4', status: 'Completed',  dueDate: new Date('2025-02-11') },
-    { name: 'Task 5', status: 'Completed', dueDate: new Date('2025-01-18') },
-    { name: 'Task 6', status: 'Completed', dueDate: new Date('2025-02-21') },
-    { name: 'Task 7', status: 'In Progress', dueDate: new Date('2025-04-30') },
-    { name: 'Task 8', status: 'Completed', dueDate: new Date('2025-03-29') },
-    { name: 'Task 9', status: 'Completed', dueDate: new Date('2025-02-23') },
-    { name: 'Task 10', status: 'Completed', dueDate: new Date('2025-04-06') },
-    { name: 'Task 11', status: 'In Progress', dueDate: new Date('2025-04-17') },
-    { name: 'Task 12', status: 'Completed', dueDate: new Date('2025-03-25') },
-    { name: 'Task 13', status: 'Completed', dueDate: new Date('2025-03-30') },
-    { name: 'Task 14', status: 'In Progress', dueDate: new Date('2025-04-29') },
-    { name: 'Task 15', status: 'Completed', dueDate: new Date('2025-04-01') },
-    { name: 'Task 16', status: 'Completed', dueDate: new Date('2025-01-06') },
-    { name: 'Task 17', status: 'Completed', dueDate: new Date('2025-02-17') },
-    { name: 'Task 18', status: 'Completed', dueDate: new Date('2025-02-25') },
-    { name: 'Task 19', status: 'Completed', dueDate: new Date('2025-04-10') },
-    { name: 'Task 20', status: 'Completed', dueDate: new Date('2025-03-12') },
-    { name: 'Task 21', status: 'Completed', dueDate: new Date('2025-02-15') },
-    { name: 'Task 22', status: 'Completed', dueDate: new Date('2025-03-11') },
-    { name: 'Task 23', status: 'Completed', dueDate: new Date('2025-01-18') },
-    { name: 'Task 24', status: 'Completed', dueDate: new Date('2025-03-21') },
-    { name: 'Task 25', status: 'In Progress', dueDate: new Date('2025-04-17') },
-    { name: 'Task 26', status: 'Not Started', dueDate: new Date('2025-04-25') },
-    { name: 'Task 27', status: 'Completed', dueDate: new Date('2025-03-10') },
-    { name: 'Task 28', status: 'Completed', dueDate: new Date('2025-03-12') },
-    { name: 'Task 29', status: 'Completed', dueDate: new Date('2025-02-15') },
-    { name: 'Task 30', status: 'Completed', dueDate: new Date('2025-01-11') },
-    { name: 'Task 31', status: 'Not Started', dueDate: new Date('2025-04-18') },
-    { name: 'Task 32', status: 'Completed', dueDate: new Date('2025-03-21') },
-    { name: 'Task 33', status: 'Not Started', dueDate: new Date('2025-04-23') },
-    { name: 'Task 34', status: 'Completed', dueDate: new Date('2025-04-06') },
-    { name: 'Task 35', status: 'In Progress', dueDate: new Date('2025-04-17') },
-    { name: 'Task 36', status: 'Not Started', dueDate: new Date('2025-04-25') },
-    { name: 'Task 37', status: 'Completed', dueDate: new Date('2025-03-30') },
-    { name: 'Task 38', status: 'Not Started', dueDate: new Date('2025-04-29') },
-    { name: 'Task 39', status: 'Not Started', dueDate: new Date('2025-04-23') },
-    { name: 'Task 40', status: 'Completed', dueDate: new Date('2025-01-06') },
-    { name: 'Task 41', status: 'Completed', dueDate: new Date('2025-01-17') },
-    { name: 'Task 42', status: 'Completed', dueDate: new Date('2025-01-25') },
-    { name: 'Task 43', status: 'In Progress', dueDate: new Date('2025-04-10') },
-    { name: 'Task 44', status: 'Completed', dueDate: new Date('2025-02-10') },
-    { name: 'Task 45', status: 'Completed', dueDate: new Date('2025-03-12') },
-    { name: 'Task 46', status: 'Not Started', dueDate: new Date('2025-04-15') },
-    { name: 'Task 47', status: 'Completed', dueDate: new Date('2025-01-11') },
-    { name: 'Task 48', status: 'Completed', dueDate: new Date('2025-02-18') },
-    { name: 'Task 49', status: 'Completed', dueDate: new Date('2025-01-21') },
-    { name: 'Task 50', status: 'Not Started', dueDate: new Date('2025-04-30') },
-    { name: 'Task 51', status: 'Not Started', dueDate: new Date('2025-04-29') },
-    { name: 'Task 52', status: 'In Progress', dueDate: new Date('2025-04-23') },
-    { name: 'Task 53', status: 'Completed', dueDate: new Date('2025-03-06') },
-    { name: 'Task 54', status: 'Completed', dueDate: new Date('2025-03-17') },
-    { name: 'Task 55', status: 'Completed', dueDate: new Date('2025-02-25') },
-    { name: 'Task 56', status: 'Completed', dueDate: new Date('2025-01-10') },
-    { name: 'Task 57', status: 'Completed', dueDate: new Date('2025-03-12') },
-    { name: 'Task 58', status: 'Completed', dueDate: new Date('2025-02-15') },
-    { name: 'Task 59', status: 'In Progress', dueDate: new Date('2025-04-11') },
-    { name: 'Task 60', status: 'Completed', dueDate: new Date('2025-01-18') },
-    { name: 'Task 61', status: 'Not Started', dueDate: new Date('2025-04-21') },
+export class DashboardComponent implements OnInit, AfterViewInit {
+  @ViewChild('donutChart') donutChartRef!: ElementRef;
+  @ViewChild('performanceChart') performanceChartRef!: ElementRef;
+
+  donutChart!: Chart;
+  performanceChart!: Chart;
+
+  tasks: Task[] = [
+    { id: 1, title: 'Review Design Mockups', status: 'Completed', dueDate: new Date(2025, 2, 10), assignee: 'Alice' },
+    { id: 2, title: 'Develop API Endpoint', status: 'Completed', dueDate: new Date(2025, 2, 18), assignee: 'Bob' },
+    { id: 3, title: 'Write Unit Tests', status: 'Completed', dueDate: new Date(2025, 2, 22), assignee: 'Charlie' },
+    { id: 4, title: 'Deploy to Staging', status: 'Completed', dueDate: new Date(2025, 3, 5), assignee: 'Betty' },
+    { id: 5, title: 'Client Demo Prep', status: 'In Progress', dueDate: new Date(2025, 3, 12), assignee: 'Bobby' },
+    { id: 6, title: 'Fix Login Bug', status: 'Completed', dueDate: new Date(2025, 2, 5), assignee: 'Charles' },
+    { id: 7, title: 'Update Documentation', status: 'Not Started', dueDate: new Date(2025, 3, 20), assignee: 'James' },
+    { id: 8, title: 'Performance Testing', status: 'Not Started', dueDate: new Date(2025, 3, 25), assignee: 'John' },
+    { id: 9, title: 'Widget Development', status: 'In Progress', dueDate: new Date(2025, 3, 21), assignee: 'Veronica' },
+    { id: 10, title: 'World Map Designing', status: 'Completed', dueDate: new Date(2025, 1, 20), assignee: 'Cheryl' },
+    { id: 11, title: 'Back End Development', status: 'Completed', dueDate: new Date(2025, 1, 10), assignee: 'Archie' },
+    { id: 12, title: 'Software setup', status: 'Completed', dueDate: new Date(2025, 1, 12), assignee: 'Charles' },
+    { id: 13, title: 'Toggle Button Design', status: 'Completed', dueDate: new Date(2025, 1, 5), assignee: 'Archie' },
+    { id: 14, title: 'Update Information', status: 'Completed', dueDate: new Date(2025, 1, 25), assignee: 'Alice' },
+    { id: 15, title: 'Add New Icons', status: 'Not Started', dueDate: new Date(2025, 3, 23), assignee: 'Bob' },
+    { id: 16, title: 'Add real time data', status: 'Completed', dueDate: new Date(2025, 0, 18), assignee: 'Bobby' },
+    { id: 17, title: 'Write API Documentation', status: 'Completed', dueDate: new Date(2025, 0, 15), assignee: 'Betty' },
+    { id: 18, title: 'Update Table Data', status: 'Completed', dueDate: new Date(2025, 0, 29), assignee: 'Cheryl' },
+    { id: 19, title: 'Update User Interface', status: 'Completed', dueDate: new Date(2025, 0, 31), assignee: 'Veronica' },
+    { id: 20, title: 'Update test cases', status: 'Completed', dueDate: new Date(2025, 0, 30), assignee: 'Cheryl' },
+    { id: 21, title: 'Add new features', status: 'Not Started', dueDate: new Date(2025, 3, 29), assignee: 'James' },
+    { id: 22, title: 'Develop UI Components', status: 'Completed', dueDate: new Date(2025, 2, 30), assignee: 'John' },
+    { id: 23, title: 'Fix Bugs', status: 'Completed', dueDate: new Date(2025, 1, 11), assignee: 'Alice' },
+    { id: 24, title: 'Review Code', status: 'Completed', dueDate: new Date(2025, 1, 19), assignee: 'Cheryl' },
+    { id: 25, title: 'Review documentation', status: 'Completed', dueDate: new Date(2025, 0, 28), assignee: 'Betty' },
+    { id: 26, title: 'Performance Testing', status: 'Completed', dueDate: new Date(2025, 0, 10), assignee: 'Veronica' },
+    { id: 27, title: 'Deploy to Production', status: 'Completed', dueDate: new Date(2025, 0, 13), assignee: 'Alice' },
+    { id: 28, title: 'Deploy to Staging ', status: 'Completed', dueDate: new Date(2025, 0, 17), assignee: 'Bob' },
+    { id: 29, title: 'Add new widgets', status: 'Completed', dueDate: new Date(2025, 1, 16), assignee: 'Bobby' },
+    { id: 30, title: 'Add information icons', status: 'In Progress', dueDate: new Date(2025, 3, 17), assignee: 'Betty' },
+    { id: 31, title: 'Deploy to qa', status: 'In Progress', dueDate: new Date(2025, 3, 13), assignee: 'Charlie' },
+    { id: 32, title: 'Complete the test cases', status: 'Completed', dueDate: new Date(2025, 3, 2), assignee: 'Charles' },
+    { id: 33, title: 'Update the dummy data', status: 'Completed', dueDate: new Date(2025, 3, 6), assignee: 'Alice' },
+    { id: 34, title: 'Review Design Mockups', status: 'Completed', dueDate: new Date(2025, 2, 13), assignee: 'James' },
+    { id: 35, title: 'Develop API Endpoint', status: 'Completed', dueDate: new Date(2025, 2, 15), assignee: 'Bob' },
+    { id: 36, title: 'Write Unit Tests', status: 'Completed', dueDate: new Date(2025, 2, 22), assignee: 'Charlie' },
+    { id: 37, title: 'Deploy to Staging', status: 'Completed', dueDate: new Date(2025, 3, 5), assignee: 'Alice' },
+    { id: 38, title: 'Client Demo Prep', status: 'In Progress', dueDate: new Date(2025, 3, 12), assignee: 'Bob' },
+    { id: 39, title: 'Fix Login Bug', status: 'Completed', dueDate: new Date(2025, 2, 5), assignee: 'Charlie' },
+    { id: 40, title: 'Update Documentation', status: 'Completed', dueDate: new Date(2025, 3, 9), assignee: 'Alice' },
+    { id: 41, title: 'Performance Testing', status: 'Not Started', dueDate: new Date(2025, 3, 27), assignee: 'Bob' },
+    { id: 42, title: 'Widget Development', status: 'Completed', dueDate: new Date(2025, 1, 12), assignee: 'John' },
+    { id: 43, title: 'World Map Designing', status: 'Completed', dueDate: new Date(2025, 1, 16), assignee: 'James' },
+    { id: 44, title: 'Back End Development', status: 'Completed', dueDate: new Date(2025, 1, 2), assignee: 'Abhigail' },
+    { id: 45, title: 'Software setup', status: 'Completed', dueDate: new Date(2025, 1, 4), assignee: 'Abhigail' },
+    { id: 46, title: 'Toggle Button Design', status: 'Completed', dueDate: new Date(2025, 0, 22), assignee: 'Alice' },
+    { id: 47, title: 'Update Information', status: 'Completed', dueDate: new Date(2025, 0, 12), assignee: 'ABhigail' },
+    { id: 48, title: 'Add New Icons', status: 'Completed', dueDate: new Date(2025, 0, 24), assignee: 'Cheryl' },
+    { id: 49, title: 'Add real time data', status: 'Completed', dueDate: new Date(2025, 0, 23), assignee: 'Cheryl' },
+    { id: 50, title: 'Write API Documentation', status: 'Completed', dueDate: new Date(2025, 1, 26), assignee: 'Charlie' },
+    { id: 51, title: 'Update Table Data', status: 'Completed', dueDate: new Date(2025, 1, 27), assignee: 'Abhigail' },
+    { id: 52, title: 'Update User Interface', status: 'Completed', dueDate: new Date(2025, 1, 14), assignee: 'Bob' },
+    { id: 53, title: 'Update test cases', status: 'Completed', dueDate: new Date(2025, 1, 16), assignee: 'Charlie' },
+    { id: 54, title: 'Add new features', status: 'Completed', dueDate: new Date(2025, 1, 17), assignee: 'Abhigail' },
+    { id: 55, title: 'Develop UI Components', status: 'Completed', dueDate: new Date(2025, 1, 11), assignee: 'Alice' },
+    { id: 56, title: 'Fix Bugs', status: 'Completed', dueDate: new Date(2025, 2, 11), assignee: 'Betty' },
+    { id: 57, title: 'Review Code', status: 'Completed', dueDate: new Date(2025, 2, 15), assignee: 'Betty' },
+    { id: 58, title: 'Review documentation', status: 'Completed', dueDate: new Date(2025, 2, 21), assignee: 'Veronica' },
+    { id: 59, title: 'Performance Testing', status: 'Completed', dueDate: new Date(2025, 2, 6), assignee: 'Archie' },
+    { id: 60, title: 'Deploy to Production', status: 'Completed', dueDate: new Date(2025, 2, 7), assignee: 'Alice' },
+    { id: 61, title: 'Deploy to Staging ', status: 'Completed', dueDate: new Date(2025, 2, 26), assignee: 'Alice' },
   ];
 
-  // Dynamic Task Summary Variables
+  projects: Project[] = [
+    { id: 101, name: 'Website Redesign', description: 'Update company website', status: 'In Progress', dueDate: new Date(2025, 5, 30), progress: 0 },
+    { id: 102, name: 'Mobile App Launch', description: 'iOS and Android app', status: 'Not Started', dueDate: new Date(2025, 6, 15), progress: 0 },
+    { id: 103, name: 'Internal HR Portal', description: 'New portal for HR', status: 'Completed', dueDate: new Date(2025, 3, 1), progress: 0 },
+    { id: 104, name: 'Q3 Marketing Campaign', description: 'Social media campaign', status: 'Not Started', dueDate: new Date(2025, 7, 1), progress: 0 },
+  ];
+
   totalTasks: number = 0;
   tasksCompleted: number = 0;
+  tasksInProgress: number = 0;
+  tasksNotStarted: number = 0;
   overdueTasks: number = 0;
 
-  // Task Completion Percentage
-  progress: number = 0;
+  totalProjects: number = 0;
+  projectsCompleted: number = 0;
+  projectsInProgress: number = 0;
+  projectsNotStarted: number = 0;
 
-  // Task Status Filtered Data
-  filteredTasks = [...this.taskStatus];
-  selectedStatus = 'All';
+  overallProgress: number = 0;
 
-  // Team Performance Data
-  teamData = [
-    { member: 'John', tasksAssigned: 6, tasksCompleted: 5 },
-    { member: 'Alice', tasksAssigned: 5, tasksCompleted: 4 },
-    { member: 'Bob', tasksAssigned: 5, tasksCompleted: 4 },
-    { member: 'Jones', tasksAssigned: 5, tasksCompleted: 4 },
-    { member: 'James', tasksAssigned: 5, tasksCompleted: 4 },
-    { member: 'Bobby', tasksAssigned: 5, tasksCompleted: 4 },
-    { member: 'Betty', tasksAssigned: 4, tasksCompleted: 2 },
-    { member: 'Veronica', tasksAssigned: 4, tasksCompleted: 1 },
-    { member: 'Charles', tasksAssigned: 5, tasksCompleted: 2 },
-    { member: 'Cheryl', tasksAssigned: 5, tasksCompleted: 5 },
-    { member: 'Archie', tasksAssigned: 6, tasksCompleted: 3 },
-    { member: 'Abhigail', tasksAssigned: 6, tasksCompleted: 4 }
-  ];
+  upcomingDeadlines: { name: string; deadline: Date; type: 'Task' | 'Project' }[] = [];
 
-  // Filtered Team Data
-  filteredTeamData = [...this.teamData];
-  selectedTeamMember = 'All';
+  donutChartData: number[] = [];
+  donutChartLabels: string[] = ['Completed', 'In Progress', 'Not Started'];
 
-  // Upcoming Deadlines
-  upcomingDeadlines = [
-    { name: 'Task 2', deadline: '2025-04-11' },
-        { name: 'Task 7', deadline: '2025-04-29' },
-        { name: 'Task 11', deadline: '2025-04-16' },
-        { name: 'Task 14', deadline: '2025-04-28' },
-        { name: 'Task 25', deadline: '2025-04-16' },
-        { name: 'Task 26', deadline: '2025-04-24' },
-        { name: 'Task 31', deadline: '2025-04-17' },
-        { name: 'Task 33', deadline: '2025-04-22' },
-        { name: 'Task 35', deadline: '2025-04-16' },
-        { name: 'Task 36', deadline: '2025-04-24' },
-        { name: 'Task 38', deadline: '2025-04-28' },
-        { name: 'Task 39', deadline: '2025-04-22' },
-        { name: 'Task 43', deadline: '2025-04-09' },
-        { name: 'Task 46', deadline: '2025-04-14' },
-        { name: 'Task 50', deadline: '2025-04-29' },
-        { name: 'Task 51', deadline: '2025-04-28' },
-        { name: 'Task 52', deadline: '2025-04-22' },
-        { name: 'Task 59', deadline: '2025-04-10' },
-        { name: 'Task 61', deadline: '2025-04-20' },
-  ];
+  performanceChartData: number[] = [1, 3, 2, 5, 4, 6];
+  performanceChartLabels: string[] = ['Mar 1', 'Mar 8', 'Mar 15', 'Mar 22', 'Mar 29', 'Apr 5'];
 
-  // Filtered Deadlines
-  filteredDeadlines = [...this.upcomingDeadlines];
-  selectedDeadline = 'All';
+  currentProjectName: string = 'N/A';
+  currentProjectProgress: number = 0;
+  currentProjectDaysRemaining: number = 0;
 
-  // For Pagination
-  taskStatusLimit = 12;
-  teamPerformanceLimit = 6;
-  upcomingDeadlinesLimit = 6;
+  showAllProjects = false;
+  showAllTasks = false;
 
-  showMoreTaskStatus = true;
-  showMoreTeamPerformance = true;
-  showMoreUpcomingDeadlines = true;
-
-  // Columns for task status table
-  // Columns for task status table
-  displayedColumns: string[] = ['task', 'status'];
-
-  // Columns for team performance table
-  displayedColumnsTeam: string[] = ['member', 'tasksAssigned', 'tasksCompleted'];
-
-  // Columns for upcoming deadlines table
-  displayedColumnsDeadlines: string[] = ['task', 'deadline'];
-
-  constructor() {}
+  constructor(private datePipe: DatePipe) {}
 
   ngOnInit(): void {
-    this.calculateTaskSummary();
+    this.calculateAllSummaries();
+    this.prepareUpcomingDeadlines();
+    this.prepareChartData();
+    this.prepareProjectOverview();
   }
 
-  // Calculate task summary dynamically based on task data
-  calculateTaskSummary() {
-    this.totalTasks = this.taskStatus.length;
-    this.tasksCompleted = this.taskStatus.filter(task => task.status === 'Completed').length;
-    const currentDate = new Date();
-    this.overdueTasks = this.taskStatus.filter(task => task.dueDate < currentDate && task.status !== 'Completed').length;
-    this.progress = (this.tasksCompleted / this.totalTasks) * 100;
+  ngAfterViewInit() {
+    this.initializeDonutChart();
+    this.initializePerformanceChart();
   }
 
-  // Load More functionality for Task Status Table
-  loadMoreTaskStatus() {
-    this.taskStatusLimit += 12;
-    if (this.taskStatusLimit >= this.taskStatus.length) {
-      this.showMoreTaskStatus = false;
+  calculateAllSummaries(): void {
+    const now = new Date();
+
+    this.totalTasks = this.tasks.length;
+    this.tasksCompleted = this.tasks.filter(t => t.status === 'Completed').length;
+    this.tasksInProgress = this.tasks.filter(t => t.status === 'In Progress').length;
+    this.tasksNotStarted = this.tasks.filter(t => t.status === 'Not Started').length;
+    this.overdueTasks = this.tasks.filter(t => t.status !== 'Completed' && t.dueDate < now).length;
+    this.overallProgress = this.totalTasks > 0 ? Math.round((this.tasksCompleted / this.totalTasks) * 100) : 0;
+
+    this.totalProjects = this.projects.length;
+    this.projectsCompleted = this.projects.filter(p => p.status === 'Completed').length;
+    this.projectsInProgress = this.projects.filter(p => p.status === 'In Progress').length;
+    this.projectsNotStarted = this.projects.filter(p => p.status === 'Not Started').length;
+  }
+
+  prepareUpcomingDeadlines(): void {
+    const taskDeadlines = this.tasks
+      .map(t => ({ 
+        name: t.title, 
+        deadline: t.dueDate, 
+        type: 'Task' as const 
+      }))
+      .filter(d => d.deadline >= new Date())
+      .sort((a, b) => a.deadline.getTime() - b.deadline.getTime());
+    
+    this.upcomingDeadlines = taskDeadlines;
+  }
+
+  prepareChartData(): void {
+    this.donutChartData = [
+      this.tasksCompleted,
+      this.tasksInProgress,
+      this.tasksNotStarted
+    ];
+    this.performanceChartLabels = ['Mar 1', 'Mar 8', 'Mar 15', 'Mar 22', 'Mar 29', 'Apr 5'];
+    this.performanceChartData = [1, 3, 2, 5, 4, 6];
+  }
+
+  prepareProjectOverview(): void {
+    this.projects.forEach(project => {
+      if (project.status === 'Completed') {
+        project.progress = 100;
+      } else if (project.status === 'In Progress') {
+        project.progress = 50; // Example logic for in-progress
+      } else {
+        project.progress = 0;
+      }
+    });
+  }
+
+  private initializeDonutChart() {
+    if (!this.donutChartRef) return;
+    const canvas = this.donutChartRef.nativeElement;
+    const ctx = canvas.getContext('2d');
+
+    if (this.donutChart) {
+      this.donutChart.destroy();
     }
+
+    this.donutChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: this.donutChartLabels,
+        datasets: [{
+          data: this.donutChartData,
+          backgroundColor: [
+            '#4ade80',
+            '#60a5fa',
+            '#a78bfa'
+          ],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '75%',
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: true }
+        }
+      }
+    });
   }
 
-  // Load More functionality for Team Performance Table
-  loadMoreTeamPerformance() {
-    this.teamPerformanceLimit += 6;
-    if (this.teamPerformanceLimit >= this.teamData.length) {
-      this.showMoreTeamPerformance = false;
+  private initializePerformanceChart() {
+    if (!this.performanceChartRef) return;
+    const canvas = this.performanceChartRef.nativeElement;
+    const ctx = canvas.getContext('2d');
+
+    if (this.performanceChart) {
+      this.performanceChart.destroy();
     }
+
+    this.performanceChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: this.performanceChartLabels,
+        datasets: [{
+          label: 'Tasks Completed Weekly',
+          data: this.performanceChartData,
+          fill: false,
+          borderColor: '#60a5fa',
+          pointBackgroundColor: '#60a5fa',
+          pointBorderColor: '#60a5fa',
+          pointRadius: 4,
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: { color: '#a0aec0' },
+            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+          },
+          x: {
+            ticks: { color: '#a0aec0' },
+            grid: { display: false }
+          }
+        },
+        plugins: {
+          legend: { display: false }
+        }
+      }
+    });
   }
 
-  // Load More functionality for Upcoming Deadlines Table
-  loadMoreUpcomingDeadlines() {
-    this.upcomingDeadlinesLimit += 6;
-    if (this.upcomingDeadlinesLimit >= this.upcomingDeadlines.length) {
-      this.showMoreUpcomingDeadlines = false;
-    }
+  toggleProjects(): void {
+    this.showAllProjects = !this.showAllProjects;
   }
 
-  // Show Less functionality for Task Status Table
-  showLessTaskStatus() {
-    this.taskStatusLimit = 6;
-    this.showMoreTaskStatus = true;
-  }
-
-  // Show Less functionality for Team Performance Table
-  showLessTeamPerformance() {
-    this.teamPerformanceLimit = 6;
-    this.showMoreTeamPerformance = true;
-  }
-
-  // Show Less functionality for Upcoming Deadlines Table
-  showLessUpcomingDeadlines() {
-    this.upcomingDeadlinesLimit = 6;
-    this.showMoreUpcomingDeadlines = true;
-  }
-
-  // Filter tasks based on selected status
-  filterTasks(status: string): void {
-    if (status === 'All') {
-      this.filteredTasks = [...this.taskStatus];
-    } else {
-      this.filteredTasks = this.taskStatus.filter(task => task.status === status);
-    }
-  }
-
-  // Filter team performance by member
-  filterTeamMember(member: string): void {
-    if (member === 'All') {
-      this.filteredTeamData = [...this.teamData];
-    } else {
-      this.filteredTeamData = this.teamData.filter(team => team.member === member);
-    }
-  }
-
-  // Filter upcoming deadlines by date
-  filterDeadlines(date: string): void {
-    if (date === 'All') {
-      this.filteredDeadlines = [...this.upcomingDeadlines];
-    } else {
-      this.filteredDeadlines = this.upcomingDeadlines.filter(deadline => deadline.deadline === date);
-    }
+  toggleTasks(): void {
+    this.showAllTasks = !this.showAllTasks;
   }
 }

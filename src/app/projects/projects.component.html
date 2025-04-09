@@ -1,0 +1,98 @@
+<div class="projects-container">
+  <h1>Projects</h1>
+
+  <!-- Add/Edit Project Form (Conditionally Displayed) -->
+  <div class="project-form-container" *ngIf="isEditing">
+    <h2>{{ editingProjectId === null ? 'Add New Project' : 'Edit Project' }}</h2>
+    <form [formGroup]="projectForm" (ngSubmit)="saveProject()">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Project Name</mat-label>
+        <input matInput formControlName="name" required>
+        <mat-error *ngIf="projectForm.get('name')?.hasError('required')">Project name is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" rows="3"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Due Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dueDate" required>
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="projectForm.get('dueDate')?.hasError('required')">Due date is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status" required>
+          <mat-option *ngFor="let status of projectStatuses" [value]="status">
+            {{ status }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="projectForm.get('status')?.hasError('required')">Status is required</mat-error>
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="projectForm.invalid">Save Project</button>
+        <button mat-stroked-button type="button" (click)="cancelEdit()">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Project List & Filters -->
+  <div class="project-list-container" *ngIf="!isEditing">
+
+    <!-- Filter Controls -->
+    <div class="filter-controls">
+      <mat-form-field appearance="outline" class="filter-date">
+        <input matInput 
+               [matDatepicker]="filterDatePicker" 
+               [(ngModel)]="selectedDate" 
+               (dateChange)="applyFilters()"
+               placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="filterDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #filterDatePicker></mat-datepicker>
+        <button mat-icon-button matSuffix *ngIf="selectedDate" (click)="clearDateFilter()" aria-label="Clear date filter">
+            <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" class="add-project-button" (click)="showAddProjectForm()">
+        <mat-icon>add</mat-icon> Add Project
+      </button>
+    </div>
+
+    <!-- Project Grid Display -->
+    <div class="projects-grid" *ngIf="filteredProjects.length > 0">
+      <!-- Iterate over filteredProjects -->
+      <div class="project-card" *ngFor="let project of filteredProjects">
+        <div class="project-content">
+          <h2 class="project-title">{{ project.name }}</h2>
+          <p class="project-description">{{ project.description }}</p>
+          <p class="project-due-date">Due: {{ project.dueDate | date:'mediumDate' }}</p>
+        </div>
+        <div class="project-status" [class]="project.status.toLowerCase().replace(' ', '-')">
+          {{ project.status }}
+        </div>
+        <!-- Add Actions -->
+         <div class="project-actions">
+          <button mat-icon-button color="primary" aria-label="Edit project" (click)="editProject(project)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" aria-label="Delete project" (click)="deleteProject(project.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Message when no projects match filter -->
+    <div *ngIf="filteredProjects.length === 0" class="no-projects">
+       No projects found matching the current filter. Try clearing the filter or adding a project!
+    </div>
+  </div>
+</div> 
