@@ -2,13 +2,16 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { ThemeToggleComponent } from '../shared/theme-toggle/theme-toggle.component'; // Adjust the path
+
 
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatButtonModule]
+  imports: [CommonModule, MatButtonModule,     ThemeToggleComponent, // 👈 Add this!
+  ]
 })
 export class WelcomeComponent {
 

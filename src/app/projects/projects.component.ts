@@ -9,6 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { ThemeToggleComponent } from '../shared/theme-toggle/theme-toggle.component';
+
 
 interface Project {
   id: number;
@@ -33,7 +35,8 @@ interface Project {
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSelectModule
+    MatSelectModule,
+    ThemeToggleComponent, //
   ],
   providers: [DatePipe]
 })

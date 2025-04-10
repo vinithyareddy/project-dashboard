@@ -9,6 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips'; // For emails
 import { DatePipe } from '@angular/common';
+import { ThemeToggleComponent } from '../shared/theme-toggle/theme-toggle.component'; // Adjust the path
+
 
 
 interface TeamMember {
@@ -33,7 +35,8 @@ interface TeamMember {
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatChipsModule // Add
+    MatChipsModule, // Add
+    ThemeToggleComponent, //
   ],
   providers: [DatePipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA] // Add CUSTOM_ELEMENTS_SCHEMA

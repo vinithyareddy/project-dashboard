@@ -9,6 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { ThemeToggleComponent } from '../shared/theme-toggle/theme-toggle.component'; // Adjust the path
+
 
 interface Task {
   id: number;
@@ -33,7 +35,8 @@ interface Task {
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSelectModule
+    MatSelectModule,
+    ThemeToggleComponent, //
   ],
   providers: [DatePipe]
 })

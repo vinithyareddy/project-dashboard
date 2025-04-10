@@ -28,13 +28,20 @@
     // border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-.website-title {
+.website-title, .animate__animated animate__backInLeft{
     font-size: 4rem;
     font-weight: 700;
     color: #ffffff;
     margin: 0 0 1rem 0;
   
 }
+.theme-toggle-icon {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 9999;
+  }
+  
 
 .tagline {
     font-size: 1.5rem;
@@ -43,9 +50,28 @@
 }
 
 .get-started-button {
+    position: relative;
     padding: 1rem 2.5rem;
     font-size: 1.1rem;
-    font-weight: 500;
-    border-radius: 8px;
-}
+    color: white;
+    background: linear-gradient(135deg, #6b57ed, #4361ee);
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.4s ease-in-out;
+  }
+  
+  .get-started-button .rocket {
+    display: inline-block;
+    margin-left: 0.5rem;
+    transition: transform 0.6s ease-in-out;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .get-started-button:hover .rocket {
+    transform: translateY(-100%) rotate(45deg);
+  }
+  
   

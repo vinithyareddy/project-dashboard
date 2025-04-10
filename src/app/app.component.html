@@ -9,7 +9,7 @@
   </button>
   <app-sidebar [isCollapsed]="isSidebarCollapsed" (toggleSidebar)="handleSidebarToggle()">
   </app-sidebar>
-  <div class="main-content" [class.collapsed]="isSidebarCollapsed">
+  <div style="background-color: var(--bg-color);" class="main-content" [class.collapsed]="isSidebarCollapsed">
     <app-header></app-header>
     <div class="content-area">
       <router-outlet></router-outlet> <!-- Outlet for dashboard, tasks, etc. -->

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ThemeToggleComponent } from '../shared/theme-toggle/theme-toggle.component'; // Adjust the path
+
 
 interface Task {
   id: number;
@@ -22,7 +24,7 @@ interface Project {
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule,  ThemeToggleComponent,]
 })
 export class CalendarComponent implements OnInit {
   currentDate = new Date();

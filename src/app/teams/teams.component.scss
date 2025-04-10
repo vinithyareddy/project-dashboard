@@ -1,18 +1,30 @@
 .teams-container {
   padding: 2rem;
-  color: #ffffff;
-  background-color: #0f1117; 
+  color: var(--text-color);
+  background-color: var(--bg-color);
   min-height: calc(100vh - 4rem);
 
   h1 {
+    color: var(--text-color);
+  background-color: var(--bg-color);
     font-size: 1.8rem;
     font-weight: 600;
     margin-bottom: 2rem;
   }
 }
+.theme-toggle-icon {
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 9999;
+}
+
 
 .team-table {
-  background: #1a1d25;
+  color: var(--text-color);
+  background-color: var(--bg-color);
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid #2a2d35;
@@ -22,18 +34,24 @@
   display: grid;
   grid-template-columns: 2fr 2fr 1fr 60px;
   padding: 1rem 1.5rem;
-  background: #1a1d25;
+  color: var(--text-color);
+  background-color: var(--bg-color);
   border-bottom: 1px solid #2a2d35;
 
   .header-cell {
-    color: #a0aec0;
+    color: var(--text-color);
+    background-color: var(--bg-color);
     font-size: 0.9rem;
     font-weight: 500;
   }
 }
 
 .table-body {
+  color: var(--text-color);
+  background-color: var(--bg-color);
   .table-row {
+    color: var(--text-color);
+  background-color: var(--bg-color);
     display: grid;
     grid-template-columns: 2fr 2fr 1fr 60px;
     padding: 1rem 1.5rem;
@@ -52,6 +70,8 @@
 }
 
 .name-cell {
+  color: var(--text-color);
+  background-color: var(--bg-color);
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -63,9 +83,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #ffffff;
+    color: var(--text-color);
+    background-color: var(--bg-color);
 
     svg {
+      color: var(--text-color);
+  background-color: var(--bg-color);
       width: 24px;
       height: 24px;
     }
@@ -73,13 +96,15 @@
 
   .member-info {
     .member-name {
-      color: #ffffff;
+      color: var(--text-color);
+      background-color: var(--bg-color);
       font-size: 0.95rem;
       font-weight: 500;
     }
 
     .member-role {
-      color: #a0aec0;
+      color: var(--text-color);
+      background-color: var(--bg-color);
       font-size: 0.85rem;
       margin-top: 0.25rem;
     }
@@ -91,20 +116,26 @@
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+    color: var(--text-color);
+  background-color: var(--bg-color);
 
     .email {
-      color: #a0aec0;
+      color: var(--text-color);
+      background-color: var(--bg-color);
       font-size: 0.9rem;
     }
   }
 }
 
 .role-cell {
-  color: #a0aec0;
+  color: var(--text-color);
+  background-color: var(--bg-color);
   font-size: 0.9rem;
 }
 
 .actions-cell {
+  color: var(--text-color);
+  background-color: var(--bg-color);
   display: flex;
   justify-content: flex-end;
 
@@ -114,7 +145,8 @@
     border-radius: 6px;
     border: none;
     background: transparent;
-    color: #a0aec0;
+    color: var(--text-color);
+  background-color: var(--bg-color);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -130,7 +162,8 @@
 
 // --- Team Form Styles --- 
 .team-form-container {
-  background-color: #1a1d25;
+  color: var(--text-color);
+  background-color: var(--bg-color);
   padding: 2rem;
   border-radius: 12px;
   margin-bottom: 2rem;
@@ -139,6 +172,8 @@
   h2 { font-size: 1.4rem; margin-bottom: 1.5rem; font-weight: 500; }
 
   form {
+    color: var(--text-color);
+  background-color: var(--bg-color);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
@@ -146,6 +181,8 @@
 
   // Style Material components for dark theme
   mat-form-field {
+    color: var(--text-color);
+  background-color: var(--bg-color);
     width: 100%;
     .mat-mdc-text-field-wrapper { background-color: #2a2d35; border-radius: 8px; }
     .mat-mdc-form-field-input-control, .mat-mdc-select-value, .mat-mdc-select-arrow, mat-label { color: #e0e0e0 !important; }
@@ -155,6 +192,8 @@
   }
 
   .form-actions {
+    color: var(--text-color);
+  background-color: var(--bg-color);
     grid-column: 1 / -1;
     display: flex;
     gap: 1rem;
@@ -165,7 +204,10 @@
 }
 
 // --- Team List Styles --- 
-.team-list-container { }
+.team-list-container { 
+  color: var(--text-color);
+  background-color: var(--bg-color);
+}
 
 // --- Filter Styles --- 
 .filter-controls {
@@ -174,26 +216,37 @@
   margin-bottom: 2rem;
   flex-wrap: wrap;
   padding: 1.5rem;
-  background-color: #1a1d25;
+  color: var(--text-color);
+  background-color: var(--bg-color);
   border-radius: 12px;
   border: 1px solid #2a2d35;
 
   mat-form-field {
+    color: var(--text-color);
+  background-color: var(--bg-color);
     flex: 1 1 200px; // Allow fields to grow/shrink
     min-width: 200px;
   }
 
   // Style Material components for dark theme
   mat-form-field {
-     .mat-mdc-text-field-wrapper { background-color: #2a2d35; border-radius: 8px; }
-     .mat-mdc-form-field-input-control, .mat-mdc-select-value, .mat-mdc-select-arrow, mat-label { color: #e0e0e0 !important; }
-     mat-hint { color: #a0aec0; }
-     .mdc-line-ripple::before, .mdc-line-ripple::after { border-bottom-color: rgba(255, 255, 255, 0.7) !important; }
-     .mat-mdc-form-field-input-control { padding: 0.8em 0 !important; }
-     .mat-mdc-button.mat-mdc-icon-button { color: #a0aec0; }
+     .mat-mdc-text-field-wrapper { color: var(--text-color);
+      background-color: var(--bg-color); border-radius: 8px; }
+     .mat-mdc-form-field-input-control, .mat-mdc-select-value, .mat-mdc-select-arrow, mat-label { color: var(--text-color);
+      background-color: var(--bg-color);}
+     mat-hint {color: var(--text-color);
+      background-color: var(--bg-color);}
+     .mdc-line-ripple::before, .mdc-line-ripple::after {color: var(--text-color);
+      background-color: var(--bg-color); border-bottom-color: rgba(255, 255, 255, 0.7) !important; }
+     .mat-mdc-form-field-input-control { color: var(--text-color);
+      background-color: var(--bg-color);padding: 0.8em 0 !important; }
+     .mat-mdc-button.mat-mdc-icon-button {color: var(--text-color);
+      background-color: var(--bg-color);}
   }
   
   .add-member-button {
+    color: var(--text-color);
+  background-color: var(--bg-color);
     flex-shrink: 0;
     margin-left: auto;
     align-self: center;
@@ -202,13 +255,16 @@
 
 // --- Teams Grid --- 
 .teams-grid {
+  color: var(--text-color);
+  background-color: var(--bg-color);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); // Adjust minmax as needed
   gap: 1.5rem;
 }
 
 .team-card {
-  background-color: #1a1d25;
+  color: var(--text-color);
+  background-color: var(--bg-color);
   border-radius: 12px;
   padding: 1.5rem;
   border: 1px solid #2a2d35;
@@ -235,36 +291,43 @@
   justify-content: center;
   font-size: 1.5rem;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--text-color);
+  background-color: var(--bg-color);
   flex-shrink: 0;
 }
 
 .member-info {
   flex-grow: 1;
+  color: var(--text-color);
+  background-color: var(--bg-color);
 
   h3.member-name {
     font-size: 1.1rem;
     font-weight: 500;
     margin: 0 0 0.25rem 0;
-    color: #ffffff;
+    color: var(--text-color);
+  background-color: var(--bg-color);
   }
 
   p.member-role {
     font-size: 0.85rem;
-    color: #a0aec0;
+    color: var(--text-color);
+    background-color: var(--bg-color);
     margin: 0 0 0.75rem 0;
   }
 
   // Styles for Material Chips
   mat-chip-list {
     .mat-mdc-chip {
-      background-color: #2a2d35;
-      color: #a0aec0;
+      color: var(--text-color);
+      background-color: var(--bg-color);
       font-size: 0.75rem;
       padding: 4px 8px;
       min-height: 24px;
     }
     .mat-mdc-standard-chip {
+      color: var(--text-color);
+  background-color: var(--bg-color);
         --mdc-chip-label-text-color: #a0aec0;
         --mdc-chip-container-shape: 4px; 
     }
@@ -278,14 +341,16 @@
   right: 0.5rem;
   display: flex;
   gap: 0.2rem;
-  background-color: rgba(42, 45, 53, 0.8);
+  color: var(--text-color);
+  background-color: var(--bg-color);
   padding: 0.2rem;
   border-radius: 8px;
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
 
   button {
-    color: #a0aec0;
+    color: var(--text-color);
+    background-color: var(--bg-color);
     &:hover {
       color: #ffffff;
     }
@@ -294,9 +359,9 @@
 
 .no-members {
   text-align: center;
-  color: #a0aec0;
+  color: var(--text-color);
+  background-color: var(--bg-color);
   padding: 3rem;
-  background-color: #1a1d25;
   border-radius: 12px;
   border: 1px dashed #2a2d35;
   grid-column: 1 / -1; // Span full grid if needed
@@ -306,9 +371,13 @@
 @media (max-width: 768px) {
   .team-form-container form,
   .teams-grid {
+    color: var(--text-color);
+  background-color: var(--bg-color);
      grid-template-columns: 1fr;
   }
   .member-actions {
+    color: var(--text-color);
+  background-color: var(--bg-color);
     opacity: 1;
     position: static;
     background-color: transparent;
@@ -318,12 +387,16 @@
     margin-left: auto; // Push to end in flex layout
   }
   .team-card {
+    color: var(--text-color);
+  background-color: var(--bg-color);
     flex-direction: column; // Stack vertically on mobile
     align-items: flex-start; // Align items left
   }
 }
 
 .show-more-container {
+  color: var(--text-color);
+  background-color: var(--bg-color);
   display: flex;
   justify-content: center;
   margin-top: 2rem;
@@ -332,8 +405,8 @@
   button {
     min-width: 140px;
     padding: 10px 20px;
-    background-color: #2d3748;
-    color: #ffffff;
+    color: var(--text-color);
+    background-color: var(--bg-color);
     border: none;
     border-radius: 30px;
     font-weight: 500;
@@ -352,10 +425,13 @@
       height: 20px;
       width: 20px;
       transition: transform 0.3s ease;
-      color: #4cc9f0;
+      color: var(--text-color);
+      background-color: var(--bg-color);
     }
     
     &::before {
+      color: var(--text-color);
+  background-color: var(--bg-color);
       content: '';
       position: absolute;
       top: 0;
@@ -379,30 +455,39 @@
       z-index: -1;
       opacity: 0.3;
       transition: opacity 0.3s ease;
+      color: var(--text-color);
+  background-color: var(--bg-color);
     }
     
     &:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-      background-color: #3a3d45;
-      color: #ffffff;
+      color: var(--text-color);
+      background-color: var(--bg-color);
       
       &::before {
+        color: var(--text-color);
+  background-color: var(--bg-color);
         opacity: 1;
         background: linear-gradient(45deg, rgba(76, 201, 240, 0.25), rgba(114, 9, 183, 0.25));
       }
       
       &::after {
+        color: var(--text-color);
+  background-color: var(--bg-color);
         opacity: 0.8;
       }
       
       mat-icon {
         transform: scale(1.2);
-        color: #ffffff;
+        color: var(--text-color);
+        background-color: var(--bg-color);
       }
     }
     
     &:active {
+      color: var(--text-color);
+  background-color: var(--bg-color);
       transform: translateY(1px);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }

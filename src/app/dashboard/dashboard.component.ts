@@ -4,6 +4,8 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { ThemeToggleComponent } from '../shared/theme-toggle/theme-toggle.component'; // Adjust the path
+
 
 Chart.register(...registerables);
 
@@ -33,7 +35,9 @@ interface Project {
     CommonModule,
     MatProgressBarModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    ThemeToggleComponent, // 👈 Add this!
+
   ],
   providers: [DatePipe]
 })

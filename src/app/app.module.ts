@@ -36,6 +36,7 @@ import { MatListModule } from '@angular/material/list';  // For mat-nav-list
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CalendarComponent } from './calendar/calendar.component';
+import { ThemeToggleComponent } from './shared/theme-toggle/theme-toggle.component';
 
 
 @NgModule({
@@ -46,6 +47,8 @@ import { CalendarComponent } from './calendar/calendar.component';
     // TeamMemberComponent, // Removed
     // GanttChartComponent, // Removed
     // HeaderComponent, // Removed
+  
+    ThemeToggleComponent
   ],
   imports: [
     BrowserModule,

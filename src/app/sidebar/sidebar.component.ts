@@ -4,13 +4,15 @@ import { RouterModule } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { ThemeToggleComponent } from '../shared/theme-toggle/theme-toggle.component'; // Adjust the path
+
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule, MatListModule, MatIconModule, MatButtonModule]
+  imports: [CommonModule, RouterModule, MatListModule, MatIconModule, MatButtonModule, ThemeToggleComponent]
 })
 export class SidebarComponent {
   @Input() isCollapsed: boolean = false;

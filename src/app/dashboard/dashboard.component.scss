@@ -4,20 +4,31 @@
   grid-template-columns: 1fr 2fr; // Adjust column ratio as needed (e.g., 1fr 3fr)
   gap: 2rem;
   padding: 2rem;
-  background-color: #0f1117; // Dark background from image
-  color: #e0e0e0; // Light default text color
+  color: var(--text-color);
+      background-color: var(--bg-color);// Light default text color
   font-family: 'Inter', sans-serif; // Assuming Inter font
   min-height: 100vh;
 }
+.theme-toggle-icon {
+  color: var(--text-color);
+      background-color: var(--bg-color);
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 9999;
+}
+
 
 .left-column, .right-column {
+  color: var(--text-color);
+      background-color: var(--bg-color);
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
-.dashboard-card {
-  background-color: #1a1d25; // Card background from image
+.dashboard-card {color: var(--text-color);
+  background-color: var(--bg-color);
   border-radius: 12px; // Rounded corners
   padding: 1.5rem;
   border: 1px solid #2a2d35; // Subtle border
@@ -26,14 +37,16 @@
   h2 {
     font-size: 1.1rem;
     font-weight: 600;
-    color: #ffffff; // White title
+    color: var(--text-color);
+    background-color: var(--bg-color);
     margin: 0 0 1.5rem 0; // Title margin
   }
 
   h3 {
     font-size: 1rem;
     font-weight: 500;
-    color: #e0e0e0;
+    color: var(--text-color);
+    background-color: var(--bg-color);
     margin: 0 0 0.5rem 0;
   }
 }
@@ -41,35 +54,33 @@
 /* Task Status Card */
 .task-status-card-original {
   .donut-chart-container {
+    color: var(--text-color);
+      background-color: var(--bg-color);
     position: relative;
     width: 180px; // Adjust size as needed
-    height: 180px;
+    height: 200px;
     margin: 1rem auto; 
-  
-    // .donut-center-text { // Optional center text
-    //   position: absolute;
-    //   top: 50%;
-    //   left: 50%;
-    //   transform: translate(-50%, -50%);
-    //   font-size: 1.8rem;
-    //   font-weight: 600;
-    //   color: #ffffff;
-    // }
   }
 
   .status-legend-original {
+    color: var(--text-color);
+      background-color: var(--bg-color);
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
 
     .status-item {
+      color: var(--text-color);
+      background-color: var(--bg-color);
       display: flex;
       align-items: center;
       gap: 0.8rem; // Gap between dot and text
       font-size: 0.9rem;
 
       .status-dot {
+        color: var(--text-color);
+      background-color: var(--bg-color);
         width: 10px;
         height: 10px;
         border-radius: 50%;
@@ -81,12 +92,14 @@
       }
 
       .status-text {
-        color: #a0aec0; // Greyish text
+        color: var(--text-color);
+        background-color: var(--bg-color);
         flex-grow: 1; // Push count to the right
       }
 
       .status-count {
-        color: #ffffff; // White count
+        color: var(--text-color);
+        background-color: var(--bg-color);
         font-weight: 500;
       }
     }
@@ -96,11 +109,15 @@
 /* Task Summary Card */
 .task-summary-card-original {
   .summary-list {
+    color: var(--text-color);
+      background-color: var(--bg-color);
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
 
     .summary-item {
+      color: var(--text-color);
+      background-color: var(--bg-color);
       display: flex;
       justify-content: space-between;
       font-size: 0.9rem;
@@ -108,14 +125,18 @@
       border-bottom: 1px solid #2a2d35;
 
       &:last-child {
+        color: var(--text-color);
+      background-color: var(--bg-color);
         border-bottom: none;
       }
 
       span:first-child {
-        color: #a0aec0; // Label color
+        color: var(--text-color);
+        background-color: var(--bg-color);
       }
       span:last-child {
-        color: #ffffff; // Value color
+        color: var(--text-color);
+        background-color: var(--bg-color);
         font-weight: 500;
         &.overdue {
           color: #f87171; // Red color for overdue count
@@ -129,7 +150,8 @@
 .placeholder-card-original {
   // Add specific styles if needed, otherwise inherits .dashboard-card
   p {
-    color: #a0aec0;
+    color: var(--text-color);
+      background-color: var(--bg-color);
     margin: 0.5rem 0 0 0;
     font-size: 0.9rem;
   }
@@ -140,8 +162,8 @@
   .progress-bar-original {
     width: 100%;
     height: 8px;
-    background-color: #2a2d35; // Dark track
     border-radius: 4px;
+    background-color: #2a2d35; // Dark track
     overflow: hidden;
     margin: 1rem 0;
 
@@ -154,16 +176,20 @@
   }
 
   .progress-info {
+    color: var(--text-color);
+      background-color: var(--bg-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 0.9rem;
 
     .days-remaining {
-      color: #a0aec0;
+      color: var(--text-color);
+      background-color: var(--bg-color);
     }
     .progress-percentage {
-      color: #ffffff;
+      color: var(--text-color);
+      background-color: var(--bg-color);
       font-weight: 500;
     }
   }
@@ -172,6 +198,8 @@
 /* Team Performance Card */
 .team-performance-card-original {
   .performance-chart-container {
+    color: var(--text-color);
+      background-color: var(--bg-color);
     height: 200px; // Adjust height as needed
     margin-top: 1rem;
    
@@ -181,11 +209,15 @@
 /* Upcoming Deadlines Card */
 .upcoming-deadlines-card-original {
   .deadline-list-original {
+    color: var(--text-color);
+      background-color: var(--bg-color);
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
 
     .deadline-item {
+      color: var(--text-color);
+      background-color: var(--bg-color);
       display: flex;
       justify-content: space-between;
       font-size: 0.9rem;
@@ -193,18 +225,23 @@
       border-bottom: 1px solid #2a2d35;
 
       &:last-child {
+        color: var(--text-color);
+      background-color: var(--bg-color);
         border-bottom: none;
       }
 
       .item-name {
-        color: #e0e0e0; // Lighter item name
+        color: var(--text-color);
+        background-color: var(--bg-color);
       }
       .due-date {
-        color: #a0aec0; // Greyish date
+        color: var(--text-color);
+        background-color: var(--bg-color);
       }
     }
     .no-items {
-       color: #6c757d;
+      color: var(--text-color);
+      background-color: var(--bg-color);
        font-style: italic;
        font-size: 0.9rem;
        padding: 1rem 0;
@@ -215,18 +252,26 @@
 /* Responsive Adjustments */
 @media (max-width: 1024px) { // Tablet breakpoint
   .dashboard-container-original {
+    color: var(--text-color);
+      background-color: var(--bg-color);
     grid-template-columns: 1fr; // Stack columns on smaller screens
   }
 }
 
 @media (max-width: 768px) { // Mobile breakpoint
   .dashboard-container-original {
+    color: var(--text-color);
+      background-color: var(--bg-color);
     padding: 1rem;
   }
   .dashboard-card {
+    color: var(--text-color);
+      background-color: var(--bg-color);
     padding: 1rem;
   }
   .task-status-card-original .donut-chart-container {
+    color: var(--text-color);
+      background-color: var(--bg-color);
     width: 150px;
     height: 150px;
   }
@@ -235,10 +280,14 @@
 /* Remove styles associated with the old table-based structure */
 
 .toggle-button {
+  color: var(--text-color);
+      background-color: var(--bg-color);
   display: none; /* Hide old button style */
 }
 
 .show-more-container {
+  color: var(--text-color);
+      background-color: var(--bg-color);
   display: flex;
   justify-content: center;
   margin-top: 1.5rem;
@@ -247,8 +296,8 @@
   button {
     min-width: 140px;
     padding: 10px 20px;
-    background-color: #2d3748;
-    color: #ffffff;
+    color: var(--text-color);
+      background-color: var(--bg-color);
     border: none;
     border-radius: 30px;
     font-weight: 500;
@@ -267,7 +316,8 @@
       height: 20px;
       width: 20px;
       transition: transform 0.3s ease;
-      color: #4cc9f0;
+      color: var(--text-color);
+      background-color: var(--bg-color);
     }
     
     &::before {
@@ -280,9 +330,13 @@
       background: linear-gradient(45deg, rgba(76, 201, 240, 0.15), rgba(114, 9, 183, 0.15));
       opacity: 1;
       border-radius: 30px;
+      color: var(--text-color);
+      background-color: var(--bg-color);
     }
     
     &::after {
+      color: var(--text-color);
+      background-color: var(--bg-color);
       content: '';
       position: absolute;
       top: -2px;
@@ -303,21 +357,28 @@
       color: #ffffff;
       
       &::before {
+        color: var(--text-color);
+      background-color: var(--bg-color);
         opacity: 1;
         background: linear-gradient(45deg, rgba(76, 201, 240, 0.25), rgba(114, 9, 183, 0.25));
       }
       
       &::after {
+        color: var(--text-color);
+      background-color: var(--bg-color);
         opacity: 0.8;
       }
       
       mat-icon {
         transform: scale(1.2);
-        color: #ffffff;
+        color: var(--text-color);
+        background-color: var(--bg-color);
       }
     }
     
     &:active {
+      color: var(--text-color);
+      background-color: var(--bg-color);
       transform: translateY(1px);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }
@@ -325,6 +386,8 @@
 }
 
 .progress-bar-original {
+  color: var(--text-color);
+      background-color: var(--bg-color);
   position: relative;
 }
 
