@@ -202,7 +202,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-mdc-select-panel,
 .mat-mdc-autocomplete-panel,
 .mat-mdc-menu-panel {
-  background-color: #252836 !important; // Dark background for dropdown
+  background-color: #a3a3a5 !important; // Dark background for dropdown
   border: 1px solid #3a3e4e !important; // Subtle border
   border-radius: 8px !important;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3) !important;
@@ -331,4 +331,84 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 // Ensure the dropdown arrow is visible
 .mat-mdc-select-arrow {
   fill: #d1d5db !important;
+}
+.snackbar-success {
+  background-color: #2e7d32; // dark green
+  color: #fff;
+  font-weight: 500;
+}
+
+.snackbar-error {
+  background-color: #c62828; // dark red
+  color: #fff;
+  font-weight: 500;
+}
+.snackbar-success {
+  background-color: #4caf50;
+  color: white;
+}
+.snackbar-error {
+  background-color: #f44336;
+  color: white;
+}
+::ng-deep .error-snackbar {
+  background-color: #e53935 !important;  // 🔴 Red for error
+  color: white;
+  font-weight: bold;
+}
+/* ✅ Global Snackbar Styling */
+.snackbar-success {
+  background-color: #1e7f34 !important;  /* Green background */
+  color: #ffffff !important;
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+.snackbar-error {
+  background-color: #b00020 !important;  /* Red background */
+  color: #ffffff !important;
+  font-weight: 500;
+  border-radius: 8px;
+}
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  opacity: 0.7;
+
+  .empty-icon {
+    max-width: 120px;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 16px;
+    color: #aaa;
+  }
+}
+/* Input text color should adapt to light or dark mode */
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode .mat-input-element {
+  color: #ffffff !important;
+  caret-color: #ffffff !important;
+}
+
+body.light-mode input,
+body.light-mode textarea,
+body.light-mode .mat-input-element {
+  color: #000000 !important;
+  caret-color: #000000 !important;
+}
+
+/* Placeholder color adjustment */
+input::placeholder,
+textarea::placeholder {
+  color: #999999 !important;
+}
+
+/* Fix for Angular Material label and select */
+.mat-form-field-label,
+.mat-select-value-text,
+.mat-select-placeholder {
+  color: inherit !important;
 }

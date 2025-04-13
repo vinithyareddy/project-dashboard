@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // ✅ ADD THIS
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-theme-toggle',
-  standalone: true, // ✅ since it's standalone
-  imports: [CommonModule], // ✅ INCLUDE THIS
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './theme-toggle.component.html',
   styleUrls: ['./theme-toggle.component.scss']
 })
@@ -12,9 +12,10 @@ export class ThemeToggleComponent implements OnInit {
   isDarkMode = false;
 
   ngOnInit(): void {
-    const saved = localStorage.getItem('theme') || 'light';
-    this.isDarkMode = saved === 'dark';
-    document.documentElement.setAttribute('data-theme', saved);
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    this.isDarkMode = savedTheme === 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    this.updateBodyClass(this.isDarkMode);
   }
 
   toggleTheme(): void {
@@ -22,5 +23,16 @@ export class ThemeToggleComponent implements OnInit {
     const theme = this.isDarkMode ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
+    this.updateBodyClass(this.isDarkMode);
+  }
+
+  private updateBodyClass(isDarkMode: boolean): void {
+    if (isDarkMode) {
+      document.body.classList.add('dark-mode');
+      document.body.classList.remove('light-mode');
+    } else {
+      document.body.classList.add('light-mode');
+      document.body.classList.remove('dark-mode');
+    }
   }
 }

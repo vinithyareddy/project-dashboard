@@ -1,5 +1,5 @@
 import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,25 +7,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatChipsModule } from '@angular/material/chips'; // For emails
-import { DatePipe } from '@angular/common';
-import { ThemeToggleComponent } from '../shared/theme-toggle/theme-toggle.component'; // Adjust the path
-
-
-
-interface TeamMember {
-  id: number; // Add ID
-  name: string;
-  role: string;
-  emails: string[];
-  avatarColor: string;
-}
+import { MatChipsModule } from '@angular/material/chips';
+import { ThemeToggleComponent } from '../shared/theme-toggle/theme-toggle.component';
+import { FirestoreService } from '../services/firestore.service';
+import { TeamMember } from '../models/team.model';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-teams',
   templateUrl: './teams.component.html',
   styleUrls: ['./teams.component.scss'],
-  standalone: true, // Make standalone
+  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -35,45 +27,29 @@ interface TeamMember {
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatChipsModule, // Add
-    ThemeToggleComponent, //
+    MatChipsModule,
+    ThemeToggleComponent,
   ],
   providers: [DatePipe],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA] // Add CUSTOM_ELEMENTS_SCHEMA
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TeamsComponent implements OnInit {
-  teamMembers: TeamMember[] = [
-    // Added IDs
-    { id: 1, name: 'Alice', role: 'Designer', emails: ['alice@company.org'], avatarColor: '#4361ee' },
-    { id: 2, name: 'Bob', role: 'Frontend Developer', emails: ['bob@company.org'], avatarColor: '#7209b7' },
-    { id: 3, name: 'Charlie', role: 'Team Lead', emails: ['charlie@company.org'], avatarColor: '#4cc9f0' },
-    { id: 4, name: 'Betty', role: 'Software Engineer', emails: ['betty@company.org'], avatarColor: '#6831ee' },
-    { id: 5, name: 'Cheryl', role: 'Full Stack Developer', emails: ['cheryl@company.org'], avatarColor: '#654454' },
-    { id: 6, name: 'Abhigail', role: 'Backend Developer', emails: ['abhigail@company.org'], avatarColor: '#544423' },
-    { id: 7, name: 'James', role: 'Backend Developer', emails: ['james@company.org'], avatarColor: '#124444' },
-    { id: 8, name: 'John', role: 'Full Stack Developer', emails: ['john@company.org'], avatarColor: '#654644' },
-    { id: 9, name: 'Veronica', role: 'Software Developer', emails: ['veronica@company.org'], avatarColor: '#326944' },
-    { id: 10, name: 'Archie', role: 'Designer', emails: ['archie@company.org'], avatarColor: '#023543' },
-    { id: 11, name: 'Bobby', role: 'Software Engineer', emails: ['bobby@company.org'], avatarColor: '#245478' },
-    { id: 12, name: 'Charles', role: 'Team Manager', emails: ['charles@company.org'], avatarColor: '#ef4336' }
-  ];
-
+  teamMembers: TeamMember[] = [];
   filteredTeamMembers: TeamMember[] = [];
   teamMemberForm!: FormGroup;
   isEditing = false;
-  editingMemberId: number | null = null;
-  nextId = 5;
-
-  // Filter properties
+  editingMemberId: string | null = null;
+  nextId = 1;
   roleList: string[] = [];
   filterName: string = '';
   selectedRole: string = 'All';
-
-  showAllProjects = false;
-  showAllTasks = false;
   showAllMembers = false;
 
-  constructor(private fb: FormBuilder, private datePipe: DatePipe) { }
+  constructor(
+    private fb: FormBuilder,
+    private datePipe: DatePipe,
+    private firestoreService: FirestoreService
+  ) {}
 
   ngOnInit() {
     this.teamMemberForm = this.fb.group({
@@ -82,9 +58,12 @@ export class TeamsComponent implements OnInit {
       email: ['', Validators.email],
       avatarColor: [this.getRandomColor()]
     });
-    this.updateRoleList();
-    this.applyFilters(); // Initial load
-    console.log('Teams component initialized');
+
+    this.firestoreService.getTeamMembers().pipe(take(1)).subscribe(members => {
+      this.teamMembers = members;
+      this.updateRoleList();
+      this.applyFilters();
+    });
   }
 
   updateRoleList(): void {
@@ -94,96 +73,75 @@ export class TeamsComponent implements OnInit {
 
   applyFilters(): void {
     let tempMembers = [...this.teamMembers];
-
-    // Filter by Name (case-insensitive)
     if (this.filterName) {
       const filterLower = this.filterName.toLowerCase();
-      tempMembers = tempMembers.filter(member => 
-        member.name.toLowerCase().includes(filterLower)
-      );
+      tempMembers = tempMembers.filter(member => member.name.toLowerCase().includes(filterLower));
     }
-
-    // Filter by Role
     if (this.selectedRole && this.selectedRole !== 'All') {
       tempMembers = tempMembers.filter(member => member.role === this.selectedRole);
     }
-
     this.filteredTeamMembers = tempMembers;
   }
 
   clearNameFilter(): void {
-      this.filterName = '';
-      this.applyFilters();
+    this.filterName = '';
+    this.applyFilters();
   }
 
-  // --- CRUD Methods ---
   showAddMemberForm(): void {
     this.isEditing = true;
     this.editingMemberId = null;
-    this.teamMemberForm.reset({ 
-      name: '',
-      role: '',
-      email: '',
-      avatarColor: this.getRandomColor() 
-    });
+    this.teamMemberForm.reset({ avatarColor: this.getRandomColor() });
   }
 
   editMember(member: TeamMember): void {
     this.isEditing = true;
-    this.editingMemberId = member.id;
+    this.editingMemberId = member.id || null;
     this.teamMemberForm.patchValue({
       name: member.name,
       role: member.role,
-      email: member.emails.length > 0 ? member.emails[0] : '', // Get first email if available
+      email: member.emails.length > 0 ? member.emails[0] : '',
       avatarColor: member.avatarColor
     });
   }
 
   saveMember(): void {
-    if (this.teamMemberForm.invalid) {
-      return;
-    }
+    if (this.teamMemberForm.invalid) return;
+
     const formValue = this.teamMemberForm.value;
-    // Create an array with the email if it exists
     const emails = formValue.email ? [formValue.email] : [];
+    const newMember: TeamMember = {
+      name: formValue.name,
+      role: formValue.role,
+      emails,
+      avatarColor: formValue.avatarColor
+    };
 
-    if (this.editingMemberId !== null) {
-      // Update
-      const index = this.teamMembers.findIndex(m => m.id === this.editingMemberId);
-      if (index > -1) {
-        this.teamMembers[index] = {
-          ...this.teamMembers[index], // Keep existing ID
-          name: formValue.name,
-          role: formValue.role,
-          avatarColor: formValue.avatarColor,
-          emails: emails
-        };
-      }
+    if (this.editingMemberId) {
+      this.firestoreService.updateTeamMember(this.editingMemberId, newMember).pipe(take(1)).subscribe(() => {
+        const index = this.teamMembers.findIndex(m => m.id === this.editingMemberId);
+        if (index > -1) this.teamMembers[index] = { ...this.teamMembers[index], ...newMember };
+        this.afterChange();
+      });
     } else {
-      // Add
-      const newMember: TeamMember = {
-        id: this.nextId++,
-        name: formValue.name,
-        role: formValue.role,
-        avatarColor: formValue.avatarColor,
-        emails: emails
-      };
-      this.teamMembers.push(newMember);
+      this.firestoreService.addTeamMember(newMember).pipe(take(1)).subscribe(docRef => {
+        this.teamMembers.push({ id: docRef.id, ...newMember });
+        this.afterChange();
+      });
     }
+  }
 
+  deleteTeamMember(memberId: string): void {
+    this.firestoreService.deleteTeamMember(memberId).pipe(take(1)).subscribe(() => {
+      this.teamMembers = this.teamMembers.filter(m => m.id !== memberId);
+      this.afterChange();
+    });
+  }
+
+  afterChange(): void {
     this.updateRoleList();
     this.applyFilters();
     this.cancelEdit();
-  }
-
-  // Updated delete method
-  deleteTeamMember(memberId: number): void { 
-    this.teamMembers = this.teamMembers.filter(m => m.id !== memberId);
-    if (this.editingMemberId === memberId) {
-      this.cancelEdit();
-    }
-    this.updateRoleList();
-    this.applyFilters();
   }
 
   cancelEdit(): void {
@@ -192,7 +150,6 @@ export class TeamsComponent implements OnInit {
     this.teamMemberForm.reset({ avatarColor: this.getRandomColor() });
   }
 
-  // Helper to get a random color for new members
   getRandomColor(): string {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -202,15 +159,7 @@ export class TeamsComponent implements OnInit {
     return color;
   }
 
-  toggleProjects(): void {
-    this.showAllProjects = !this.showAllProjects;
-  }
-  
-  toggleTasks(): void {
-    this.showAllTasks = !this.showAllTasks;
-  }
-  
   toggleMembersDisplay(): void {
     this.showAllMembers = !this.showAllMembers;
   }
-} 
+}

@@ -285,3 +285,19 @@
     padding: 0;
   }
 } 
+.filter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: center;
+
+  mat-form-field {
+    width: 230px;
+  }
+
+  .add-project-button {
+    height: 56px;
+    white-space: nowrap;
+  }
+}

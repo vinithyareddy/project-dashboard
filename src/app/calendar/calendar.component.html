@@ -39,7 +39,8 @@
               <ng-container *ngIf="getTasksForDate(day).length > 0">
                 <div class="item-label">Tasks:</div>
                 <div class="task-item" *ngFor="let task of getTasksForDate(day)" [class]="task.status">
-                  {{ task.title }}
+                  {{ task.name }}
+
                 </div>
               </ng-container>
 

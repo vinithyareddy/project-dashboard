@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,8 @@ import { MatIconModule } from '@angular/material/icon';
     RouterOutlet,
     SidebarComponent,
     HeaderComponent,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule // Add this
   ]
 })
 export class AppComponent implements OnInit {
@@ -30,8 +32,10 @@ export class AppComponent implements OnInit {
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-      this.showMainLayout = event.urlAfterRedirects !== '/';
+      const url = event.urlAfterRedirects;
+      this.showMainLayout = !(url === '/' || url.startsWith('/auth'));
     });
+    
   }
 
   toggleSidebar(): void {

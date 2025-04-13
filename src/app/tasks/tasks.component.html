@@ -82,7 +82,11 @@
         <div class="task-info">
           <h3 class="task-name">{{ task.name }}</h3>
           <p class="task-assignee">Assignee: {{ task.assignee }}</p>
-          <p class="task-due-date">Due: {{ task.dueDate | date:'mediumDate' }}</p>
+          <p class="task-due-date">
+            Due: {{ convertToDate(task.dueDate) | date: 'mediumDate' }}
+          </p>
+          
+                    
         </div>
         <div class="task-status">
           <span class="status-badge" [class]="task.status.toLowerCase().replace(' ', '-')">
@@ -93,7 +97,7 @@
           <button mat-icon-button color="primary" aria-label="Edit task" (click)="editTask(task)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color="warn" aria-label="Delete task" (click)="deleteTask(task.id)">
+          <button mat-icon-button color="warn" aria-label="Delete task" (click)="deleteTask(task.id!)">
             <mat-icon>delete</mat-icon>
           </button>
         </div>
@@ -114,3 +118,20 @@
     </div>
   </div>
 </div>
+<div *ngIf="tasks.length === 0" class="empty-state">
+  <img src="assets/empty-tasks.svg" alt="Empty" class="empty-icon" />
+  <p>No tasks available. Upload a file or add a task.</p>
+</div>
+
+<div *ngIf="tasks.length > 0">
+  <!-- Task table/cards -->
+</div>
+<div *ngIf="tasks.length === 0; else taskList" class="empty-state">
+  <img src="assets/empty-tasks.svg" alt="No tasks" width="200" />
+  <p>No tasks yet. Upload a file or add a new task.</p>
+</div>
+
+<ng-template #taskList>
+  <!-- Your existing task table -->
+</ng-template>
+

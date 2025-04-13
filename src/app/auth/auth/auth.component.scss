@@ -1,0 +1,72 @@
+.auth-container {
+  max-width: 400px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+
+  input.mat-input-element {
+    color: #333 !important;
+    caret-color: #000;
+  }
+
+  ::placeholder {
+    color: #999 !important;
+  }
+
+  mat-label {
+    color: #555;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .full-width {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .error-msg {
+    margin: 10px 0;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .error-msg.success {
+    color: #2ecc71;
+  }
+
+  .error-msg.error {
+    color: #e74c3c;
+  }
+
+  .password-field input {
+    letter-spacing: 1px;
+  }
+
+  .password-field mat-icon {
+    font-size: 20px;
+    color: #333;
+  }
+}
+::ng-deep input.mat-input-element {
+  color: #000 !important;         // Black text
+  caret-color: #000 !important;   // Black cursor
+  background-color: #fff !important; // Ensure white background
+}
+
+::ng-deep .mat-form-field-infix {
+  background-color: #fff !important; // Fix ghost/gray backgrounds
+}
+
+::ng-deep .mat-input-element::placeholder {
+  color: #999 !important; // Make placeholder slightly gray
+}
+.custom-input {
+  color: #000 !important;
+  caret-color: #000 !important;
+  background-color: #fff !important;
+}

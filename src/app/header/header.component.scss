@@ -1,22 +1,223 @@
-mat-toolbar {
-  display: flex;                       /* Use flexbox to manage child elements */
-  justify-content: center;             /* Center the title in the toolbar */
-  align-items: center;                 /* Vertically center the content */
-  position: relative;
 
+.upload-icon {
+  cursor: pointer;
+  margin-right: 1rem;
+  color: var(--accent-color);
 }
 
-button {
-  position: absolute;
-  left: 10px;                          /* Position the menu button to the left */
+.success-msg {
+  color: green;
+  font-size: 14px;
+  margin-left: 10px;
 }
 
-.title {
-  font-size: 20px;
-  font-weight: bold;
-  color: white;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);         /* Center the title */
-  text-align: center;
+.error-msg {
+  color: red;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+
+.header-toolbar {
+  position: fixed;
+  top: 0;
+  left:0;
+  right: 0;
+  z-index: 1000; // ensures it stays on top
+  color: #000;
+  height: 64px;
+  display: flex;
+  margin-right: 100px;
+  margin-bottom: 30px;
+
+  
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem; // Space between icons
+    margin-left: auto;
+  }
+
+  .mat-icon-button {
+    color: rgb(195, 25, 25); // or your theme color
+  
+  }
+
+  .user-info {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 0.5rem;
+    p {
+      margin: 0;
+      font-size: 14px;
+      color: #333333;
+    }
+  }
+
+  .mat-menu-panel {
+    background-color: #ffffff !important; // light background
+    color: #eae3e3 !important; // dark text for visibility
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    min-width: 250px;
+  }
+
+  .mat-menu-content {
+    padding: 0;
+  }
+}
+
+mat-icon {
+  font-size: 42px; // Default is 24px, so increase as needed
+  width: 42px;
+  height: 42px;
+  margin-right: 0.5rem;
+  color: #555 !important;
+}
+
+
+::ng-deep .mat-menu-panel {
+  background-color: #ffffff !important;  // White background
+  color: #1a1a1a !important;             // Dark text
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  min-width: 260px;
+}
+
+::ng-deep .user-info {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 0.5rem;
+  p {
+    margin: 0;
+    font-size: 14px;
+    color: #1a1a1a !important; // Force dark text
+  }
+}
+
+::ng-deep .mat-menu-item {
+  font-size: 14px;
+  color: #333333 !important; // Button text
+  mat-icon {
+    color: #666 !important; // Icon color
+    margin-right: 0.5rem;
+  }
+}
+.user-info-item {
+  display: flex;
+  align-items: center;
+  padding-left: 12px; // ensures everything aligns from same X point
+  margin-bottom: 6px;
+  gap: 8px;
+
+  mat-icon.user-icon {
+    font-size: 18px !important;
+    color: #666 !important;
+    min-width: 20px;
+    text-align: center;
+  }
+
+  span {
+    font-size: 13px;
+    color: #333;
+    line-height: 1.4;
+  }
+}
+
+
+.user-icon {
+  font-size: 18px !important;   // smaller icons
+  color: #666 !important;
+}
+::ng-deep .mat-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  padding: 6px 16px;
+  color: #333;
+
+  mat-icon.user-icon {
+    font-size: 18px !important;
+    min-width: 20px;
+    color: #555 !important;
+  }
+
+  span {
+    font-size: 13px;
+    line-height: 1.3;
+    color: #333;
+  }
+}
+::ng-deep .custom-dialog-container {
+  padding: 24px !important;
+  border-radius: 12px;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  .mat-dialog-container {
+    padding: 24px !important;
+  }
+}
+
+::ng-deep .change-password-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+  h2 {
+    font-size: 20px;
+    margin-bottom: 0.5rem;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+
+  .error-msg {
+    color: red;
+    font-size: 14px;
+  }
+
+  .success-msg {
+    color: green;
+    font-size: 14px;
+  }
+}
+::ng-deep .snackbar-success {
+  background-color: #1abc9c !important; /* green-teal */
+  color: #ffffff !important;
+  font-weight: 500;
+}
+
+::ng-deep .snackbar-error {
+  background-color: #e74c3c !important; /* red */
+  color: #ffffff !important;
+  font-weight: 500;
+}
+.upload-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 93%;
+  margin-top: 20px;
+
+  .upload-icon {
+    cursor: pointer;
+    color: var(--accent-color);
+    margin-left: 20%;
+  }
+
+  .upload-spinner {
+    margin-left: 4px;
+  }
 }

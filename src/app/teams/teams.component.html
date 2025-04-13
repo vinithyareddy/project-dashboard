@@ -77,7 +77,7 @@
           <button mat-icon-button color="primary" aria-label="Edit member" (click)="editMember(member)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color="warn" aria-label="Delete member" (click)="deleteTeamMember(member.id)">
+          <button mat-icon-button color="warn" aria-label="Delete member" (click)="deleteTeamMember(member.id!)">
             <mat-icon>delete</mat-icon>
           </button>
         </div>
@@ -98,4 +98,14 @@
     </div>
 
   </div>
+  
 </div> 
+<div *ngIf="teamMembers.length === 0" class="empty-state">
+  <img src="assets/empty-team.svg" alt="No team" class="empty-icon" />
+  <p>No team members found. Upload or add a team member.</p>
+</div>
+
+<div *ngIf="teamMembers.length > 0">
+  <!-- Team member cards or table -->
+</div>
+
