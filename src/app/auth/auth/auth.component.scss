@@ -1,72 +1,131 @@
+.auth-outer-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom right, #e9ecf5, #dcdff0); // soft background
+}
+
 .auth-container {
+  width: 100%;
   max-width: 400px;
-  margin: 4rem auto;
-  padding: 2rem;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-
-  input.mat-input-element {
-    color: #333 !important;
-    caret-color: #000;
-  }
-
-  ::placeholder {
-    color: #999 !important;
-  }
-
-  mat-label {
-    color: #555;
-  }
+  padding: 2.5rem;
+  background-color: #2c2f36; // dark card
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  color: #f4f4f4;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+  
 
   h2 {
-    text-align: center;
-    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: #ffffff;
   }
 
   .full-width {
     width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .custom-field,
+  .password-field {
+    .mat-form-field-outline {
+      color: #666;
+    }
+
+    .mat-form-field-wrapper {
+      padding: 0.5rem 0;
+    }
+
+    .mat-input-element {
+      color: #f4f4f4;
+    }
+
+    mat-icon {
+      color: #b0b0b0;
+    }
+  }
+
+  .primary-btn {
+    background-color: #5c6bf2;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 8px;
+    height: 40px;
+    margin-top: 10px;
+
+    &:hover {
+      background-color: #4a5de0;
+    }
+  }
+
+  .forgot-link {
+    text-align: right;
+    margin-top: -1rem;
+    margin-bottom: 1.5rem;
+
+    a {
+      font-size: 0.85rem;
+      color: #9aa6f2;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .switch-mode {
+    font-size: 0.9rem;
+    margin-top: 1.5rem;
+    color: #c9c9c9;
+
+    a {
+      color: #9aa6f2;
+      text-decoration: none;
+      margin-left: 6px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   .error-msg {
-    margin: 10px 0;
     font-weight: 500;
+    margin: 10px 0;
+    font-size: 0.85rem;
     text-align: center;
-  }
 
-  .error-msg.success {
-    color: #2ecc71;
-  }
+    &.success {
+      color: #4cd964;
+    }
 
-  .error-msg.error {
-    color: #e74c3c;
-  }
-
-  .password-field input {
-    letter-spacing: 1px;
-  }
-
-  .password-field mat-icon {
-    font-size: 20px;
-    color: #333;
+    &.error {
+      color: #ff4d4f;
+    }
   }
 }
-::ng-deep input.mat-input-element {
-  color: #000 !important;         // Black text
-  caret-color: #000 !important;   // Black cursor
-  background-color: #fff !important; // Ensure white background
-}
+// .error-msg {
+//   font-weight: 500;
+//   margin: 16px 0; // 👈 add some vertical spacing
+//   font-size: 0.85rem;
+//   text-align: center;
 
-::ng-deep .mat-form-field-infix {
-  background-color: #fff !important; // Fix ghost/gray backgrounds
-}
+//   &.success {
+//     color: #4cd964;
+//   }
 
-::ng-deep .mat-input-element::placeholder {
-  color: #999 !important; // Make placeholder slightly gray
-}
-.custom-input {
-  color: #000 !important;
-  caret-color: #000 !important;
-  background-color: #fff !important;
+//   &.error {
+//     color: #ff4d4f;
+//   }
+// }
+.error-msg {
+  color: red;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 1rem;
 }

@@ -1,4 +1,3 @@
-// auth.service.ts — updated with registerWithProfile method for name + phone
 import { Injectable, NgZone } from '@angular/core';
 import {
   Auth,
@@ -12,6 +11,10 @@ import {
   EmailAuthProvider,
   updatePassword,
 } from '@angular/fire/auth';
+import { sendPasswordResetEmail } from '@angular/fire/auth';
+import { inject } from '@angular/core';
+import { FirebaseApp } from '@angular/fire/app';
+import { getAuth } from 'firebase/auth';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -49,13 +52,12 @@ export class AuthService {
     return createUserWithEmailAndPassword(this.auth, email, password).then(async ({ user }) => {
       await updateProfile(user, {
         displayName: name,
-        photoURL: phone // Using photoURL to store phone temporarily
+        photoURL: phone // Temporarily using photoURL for phone
       });
       this.userSubject.next(user);
     });
   }
 
-  // ✅ Add this method to support registerWithProfile used in auth.component.ts
   registerWithProfile({ name, phone, email, password }: { name: string; phone: string; email: string; password: string }) {
     return this.register(email, password, name, phone);
   }
@@ -71,6 +73,12 @@ export class AuthService {
       return updatePassword(user, newPassword);
     });
   }
+
+  // ✅ Updated to use Firebase SDK directly to avoid mismatch with AngularFire types
+  sendPasswordResetEmail(email: string): Promise<void> {
+    return sendPasswordResetEmail(this.auth, email);
+  }
+  
 
   logout() {
     this.clearInactivityTimer();

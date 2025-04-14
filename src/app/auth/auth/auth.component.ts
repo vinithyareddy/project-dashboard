@@ -22,7 +22,7 @@ import { AuthService } from 'src/app/services/auth.service';
     MatIconModule,
     RouterModule
   ],
-  providers: [AuthService] // ✅ Add this line to fix injection error
+  providers: [AuthService]
 })
 export class AuthComponent implements OnInit {
   authForm: FormGroup;
@@ -40,7 +40,7 @@ export class AuthComponent implements OnInit {
       name: [''],
       phone: [''],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.minLength(6)]], // 👈 only required in login/register flow
       confirmPassword: ['']
     });
   }
@@ -56,6 +56,8 @@ export class AuthComponent implements OnInit {
   toggleMode() {
     this.isRegisterMode = !this.isRegisterMode;
     this.errorMsg = '';
+    this.authForm.get('password')?.reset();
+    this.authForm.get('confirmPassword')?.reset();
   }
 
   togglePasswordVisibility() {
@@ -66,41 +68,97 @@ export class AuthComponent implements OnInit {
     this.showConfirm = !this.showConfirm;
   }
 
-  async onSubmit() {
-    if (this.authForm.invalid) return;
+  onForgotPassword(event: Event) {
+    event.preventDefault();
+    const email = this.authForm.get('email')?.value;
+    console.log('📩 Forgot password triggered with email:', email); // <-- add this
+  
+    if (!email) {
+      this.errorMsg = '❌ Please enter your email to reset password';
+      return;
+    }
+  
+    this.authService.sendPasswordResetEmail(email)
+      .then(() => {
+        this.errorMsg = '✅ Password reset link sent to your email';
+      })
+      .catch((err) => {
+        const errorCode = err.code || '';
+        switch (errorCode) {
+          case 'auth/invalid-email':
+            this.errorMsg = '❌ Invalid email format';
+            break;
+          case 'auth/user-not-found':
+            this.errorMsg = '❌ Email not found';
+            break;
+          default:
+            this.errorMsg = '❌ Failed to send reset email';
+        }
+      });
+  }
+  
 
+  async onSubmit() {
     const { name, phone, email, password, confirmPassword } = this.authForm.value;
 
-    if (this.isRegisterMode && password !== confirmPassword) {
-      this.errorMsg = '❌ Passwords do not match';
+    if (!email) {
+      this.errorMsg = '❌ Email is required';
+      return;
+    }
+
+    // Register Flow
+    if (this.isRegisterMode) {
+      if (!password || password.length < 6) {
+        this.errorMsg = '❌ Password must be at least 6 characters';
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        this.errorMsg = '❌ Passwords do not match';
+        return;
+      }
+
+      try {
+        await this.authService.registerWithProfile({ name, phone, email, password });
+        this.errorMsg = '✅ Account has been created';
+        this.router.navigate(['/dashboard']);
+      } catch (err: any) {
+        this.handleFirebaseError(err);
+      }
+
+      return;
+    }
+
+    // Login Flow
+    if (!password) {
+      this.errorMsg = '❌ Password is required';
       return;
     }
 
     try {
-      if (this.isRegisterMode) {
-        await this.authService.registerWithProfile({ name, phone, email, password });
-        this.errorMsg = '✅ Account has been created';
-      } else {
-        await this.authService.login(email, password);
-      }
+      await this.authService.login(email, password);
       this.router.navigate(['/dashboard']);
     } catch (err: any) {
-      const errorCode = err.code || '';
-      switch (errorCode) {
-        case 'auth/invalid-login-credentials':
-        case 'auth/user-not-found':
-        case 'auth/wrong-password':
-          this.errorMsg = '❌ Invalid Credentials';
-          break;
-        case 'auth/email-already-in-use':
-          this.errorMsg = '❌ Email already in use';
-          break;
-        case 'auth/too-many-requests':
-          this.errorMsg = '❌ Too many attempts. Try again later.';
-          break;
-        default:
-          this.errorMsg = err.message || '❌ An unexpected error occurred';
-      }
+      this.handleFirebaseError(err);
+    }
+  }
+
+  private handleFirebaseError(err: any) {
+    const errorCode = err.code || '';
+    switch (errorCode) {
+      case 'auth/invalid-login-credentials':
+      case 'auth/user-not-found':
+      case 'auth/wrong-password':
+        this.errorMsg = '❌ Invalid Credentials';
+        break;
+      case 'auth/email-already-in-use':
+        this.errorMsg = '❌ Email already in use';
+        break;
+      case 'auth/too-many-requests':
+        this.errorMsg = '❌ Too many attempts. Try again later.';
+        break;
+      default:
+        this.errorMsg = err.message || '❌ An unexpected error occurred';
     }
   }
 }

@@ -12,27 +12,25 @@ export class ThemeToggleComponent implements OnInit {
   isDarkMode = false;
 
   ngOnInit(): void {
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    this.isDarkMode = savedTheme === 'dark';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    this.updateBodyClass(this.isDarkMode);
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const defaultTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+
+    this.isDarkMode = defaultTheme === 'dark';
+    this.applyTheme();
   }
 
   toggleTheme(): void {
     this.isDarkMode = !this.isDarkMode;
-    const theme = this.isDarkMode ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-    this.updateBodyClass(this.isDarkMode);
+    this.applyTheme();
   }
 
-  private updateBodyClass(isDarkMode: boolean): void {
-    if (isDarkMode) {
-      document.body.classList.add('dark-mode');
-      document.body.classList.remove('light-mode');
-    } else {
-      document.body.classList.add('light-mode');
-      document.body.classList.remove('dark-mode');
-    }
+  private applyTheme(): void {
+    const theme = this.isDarkMode ? 'dark' : 'light';
+
+    localStorage.setItem('theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+    document.body.classList.toggle('dark-mode', this.isDarkMode);
+    document.body.classList.toggle('light-mode', !this.isDarkMode);
   }
 }
