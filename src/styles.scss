@@ -1,444 +1,172 @@
 /* You can add global styles to this file, and also import other style files */
-:root {
-  --bg-color: #ffffff;
-  --text-color: #1a1a1a;
-  --card-bg: #f0f0f0;
-  --accent-color: #4361ee;
+
+body {
+  background-color: #ffffff;
+  color: #1a1a1a;
+  transition: all 0.3s ease;
 }
 
-[data-theme='dark'] {
-  --bg-color: #121212;
-  --text-color: #f5f5f5;
-  --card-bg: #1e1e1e;
-  --accent-color: #4cc9f0;
+html, body {
+  height: 100%;
 }
 
 body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  transition: all 0.3s ease;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-/* Global styles for Angular Material components in dark theme */
-
-// Improve visibility for select dropdown panel
+/* Angular Material select and input styling */
 .mat-mdc-select-panel {
-  background-color: #2d3748 !important; // Slightly lighter than input background
+  background-color: #f0f0f0 !important;
   border-radius: 8px !important;
   margin-top: 4px !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important; // Add subtle border
-  
-  .mat-mdc-option {
-    color: #ffffff !important; // Pure white text for maximum visibility
-    font-weight: 500 !important; // Make text slightly bolder
-    
-    &.mdc-list-item--selected {
-      background-color: rgba(76, 201, 240, 0.25) !important; // Brighter highlight for selected item
-      color: #ffffff !important;
-    }
-    
-    &:hover:not(.mdc-list-item--selected) {
-      background-color: rgba(255, 255, 255, 0.1) !important; // More visible hover state
-    }
-  }
+  border: 1px solid #ccc !important;
 }
 
-// Force select value to be white and visible
-.mat-mdc-select-value-text {
-  color: #ffffff !important;
-}
-
-// Make dropdown arrow more visible
-.mat-mdc-select-arrow svg {
-  fill: #d1d5db !important;
-  width: 14px !important;
-  height: 14px !important;
-}
-
-// Fix for "All" text in filters
-.mat-mdc-select-value {
-  color: #ffffff !important;
-}
-
-// Fix for label and floating label display
-.mdc-floating-label {
-  color: #d1d5db !important;
+.mat-mdc-option {
+  color: #1a1a1a !important;
   font-weight: 500 !important;
 }
 
-// Ensure floating labels don't overlap with placeholder text
+.mat-mdc-option.mdc-list-item--selected {
+  background-color: #e0e0e0 !important;
+  color: #000000 !important;
+}
+
+.mat-mdc-option:hover:not(.mdc-list-item--selected) {
+  background-color: #ddd !important;
+}
+
+.mat-mdc-select-value-text,
+.mat-mdc-select-value,
+.mat-mdc-select-arrow svg,
+.mdc-floating-label,
+.mat-mdc-input-element {
+  color: #1a1a1a !important;
+}
+
 .mdc-floating-label--float-above {
-  display: block !important;
-  opacity: 1 !important;
   transform: translateY(-106%) scale(0.75) !important;
   background-color: transparent !important;
-  height: auto !important;
-  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-// When there's a value in the date input
-.mdc-text-field--filled.mdc-text-field--no-label .mdc-floating-label,
-.mdc-text-field--filled .mdc-floating-label {
-  display: block !important;
-  position: absolute !important;
-  top: 50% !important;
-  left: 16px !important;
-  transform-origin: left top !important;
-  line-height: 1.15 !important;
-  pointer-events: none !important;
-}
-
-// Fix for input placeholders
-.mat-mdc-input-element::placeholder {
-  color: #c5c9d1 !important;
+::placeholder,
+input::placeholder,
+textarea::placeholder {
+  color: #999999 !important;
   opacity: 1 !important;
-  position: relative !important;
-  z-index: 1 !important;
 }
 
-// Fix label overlap for date fields
-.mat-datepicker-input {
-  position: relative !important;
-  z-index: 2 !important;
-}
-
-// Custom fix for Material Design Components floating label
-.mat-mdc-form-field-infix {
-  position: relative !important;
-  z-index:  1 !important;
-  
-  &:has(input[aria-haspopup="dialog"]) {
-    // Special case for date picker
-    .mdc-floating-label--float-above {
-      transform: translateY(-130%) scale(0.75) !important;
-      background-color: transparent !important;
-    }
-  }
-}
-
-// Override label position
-.mat-mdc-form-field .mdc-floating-label {
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-}
-
-// Specific fix for filter date fields
-.filter-date .mat-mdc-input-element {
-  padding-top: 5px !important;
-  padding-bottom: 5px !important;
-}
-
-// Ensure text input is visible
-.mat-mdc-input-element {
-  color: #ffffff !important;
-}
-
-// Datepicker popup styling
-.mat-calendar {
-  background-color: #2d3748 !important;
-  color: #ffffff !important;
-  
-  .mat-calendar-table-header,
-  .mat-calendar-body-label {
-    color: #ffffff !important;
-    font-weight: 500 !important;
-  }
-  
-  .mat-calendar-body-cell-content {
-    color: #ffffff !important; // Pure white for dates
-  }
-  
-  .mat-calendar-body-selected {
-    background-color: #60a5fa !important; // Highlight selected date
-    color: #ffffff !important;
-  }
-  
-  .mat-calendar-arrow {
-    border-top-color: #ffffff !important; // White arrow
-  }
-  
-  .mat-calendar-body-today:not(.mat-calendar-body-selected) {
-    border-color: #60a5fa !important; // Highlight today's date
-  }
-  
-  .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
-    background-color: rgba(255, 255, 255, 0.2) !important; // More visible hover effect
-  }
-  
-  .mat-calendar-table-header th {
-    color: #ffffff !important;
-  }
-}
-
-// Date picker toggle button
 .mat-datepicker-toggle .mat-icon-button {
-  color: #d1d5db !important;
+  color: #555 !important;
 }
 
-// General input placeholder color
-::placeholder {
-  color: #c5c9d1 !important;
-  opacity: 0.9 !important;
+.mat-calendar {
+  background-color: #ffffff !important;
+  color: #000000 !important;
 }
 
-// Fix for any calendar related elements
+.mat-calendar-body-cell-content,
+.mat-calendar-body-label,
+.mat-calendar-table-header,
 .mat-calendar-controls .mat-button-wrapper {
-  color: #ffffff !important;
+  color: #000000 !important;
 }
-/* Style the placeholder text for mat-select */
-.mat-mdc-select-placeholder {
-  color: #d1d5db !important; /* Light gray color for placeholder text */
-  font-size: 14px !important; /* Adjust font size if needed */
-  opacity: 1 !important; /* Ensure the placeholder is fully visible */
-}
-// Input text in material fields
-.mat-mdc-input-element {
+
+.mat-calendar-body-selected {
+  background-color: #60a5fa !important;
   color: #ffffff !important;
 }
 
-// Override Material styles for dropdown panels
-.mat-mdc-select-panel,
-.mat-mdc-autocomplete-panel,
-.mat-mdc-menu-panel {
-  background-color: #a3a3a5 !important; // Dark background for dropdown
-  border: 1px solid #3a3e4e !important; // Subtle border
-  border-radius: 8px !important;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3) !important;
-  padding: 8px 0 !important;
-  
-  // Style dropdown options
-  .mat-mdc-option {
-    min-height: 40px !important;
-    line-height: 40px !important;
-    padding: 0 16px !important;
-    
-    // Selected option should be clearly visible
-    &.mdc-list-item--selected {
-      background-color: #3a4058 !important; // Darker background when selected
-      
-      .mdc-list-item__primary-text {
-        color: #ffffff !important; // White text for selected option
-        font-weight: 500 !important; // Make selected text bold
-      }
-      
-      // Checkmark for selected item
-      .mat-pseudo-checkbox-checked::after {
-        border-color: #60a5fa !important; // Blue checkmark for selected item
-      }
-    }
-    
-    // Hover state
-    &:hover:not(.mdc-list-item--disabled) {
-      background-color: #353a4d !important; // Slightly lighter on hover
-      
-      .mdc-list-item__primary-text {
-        color: #ffffff !important;
-      }
-    }
-    
-    // Option text
-    .mdc-list-item__primary-text {
-      color: #e3e5e8 !important; // Light text for all options
-      font-size: 14px !important;
-    }
-    
-    // Checkbox in multi-select
-    .mat-pseudo-checkbox {
-      border-color: #565b6c !important;
-      
-      &.mat-pseudo-checkbox-checked {
-        background-color: #3f51b5 !important; // Primary color checkbox
-      }
-    }
-    
-
-    
-    // Disabled options
-    &.mdc-list-item--disabled {
-      opacity: 0.5 !important;
-      
-      .mdc-list-item__primary-text {
-        color: #a0a5b1 !important; // Subdued text color for disabled options
-      }
-    }
-  }
+.mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  border-color: #60a5fa !important;
 }
 
-// Fix for "All" option and any option that might not be visible
-.mat-mdc-option .mdc-list-item__primary-text {
-  color: #e3e5e8 !important; // Light gray for unselected options
-  opacity: 1 !important;
+.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+  background-color: #e3e3e3 !important;
 }
-// 🛠️ Adjust vertical spacing in mat-form-field to prevent overlapping
+
 .mat-mdc-form-field-infix {
-  padding-top: 1rem !important;  // <-- gives enough space for floating label
+  padding-top: 1rem !important;
 }
 
 .mdc-floating-label--float-above {
-  transform: translateY(-130%) scale(0.75) !important;  // push it higher when floating
+  transform: translateY(-130%) scale(0.75) !important;
 }
 
 .filter-controls {
   display: flex;
   gap: 1.5rem;
   margin-bottom: 2rem;
-  flex-wrap: wrap; // Allow filters to wrap on smaller screens
+  flex-wrap: wrap;
   padding: 1.5rem;
-  background-color: #1a1d25;
+  background-color: #f9f9f9;
   border-radius: 12px;
-  border: 1px solid #2a2d35;
-
-  mat-form-field {
-    flex: 1 1 200px; // Allow fields to grow and shrink, base size 200px
-    min-width: 200px;
-
-    .filter-label {
-      font-size: 14px;
-      font-weight: 500;
-      color: #ffffff;
-      margin-bottom: 10px; // Space between label and input
-    }
-
-    .mat-mdc-form-field-input-control {
-      padding-top: 12px; // Add padding to the top of the input
-    }
-  }
+  border: 1px solid #ccc;
 }
 
-// Fix for overlapping floating label in mat-form-field
-.mat-mdc-form-field {
-  .mdc-floating-label {
-    transform: translateY(-130%) scale(0.75) !important; // Push the floating label higher
-    color: #d1d5db !important; // Ensure the floating label is visible
-  }
-
-  .mdc-floating-label--float-above {
-    transform: translateY(-130%) scale(0.75) !important; // Ensure the floating label stays above when floating
-  }
-
-  .mat-mdc-select-value {
-    color: #ffffff !important; // Ensure the selected value is visible
-  }
+.filter-controls mat-form-field {
+  flex: 1 1 200px;
+  min-width: 200px;
 }
 
-// Adjust padding for mat-select to prevent overlap
-.mat-mdc-select {
-  width: 80%;
-  padding-top: 1.5rem !important; // Add padding to avoid overlap with the floating label
-}
-
-// Ensure the dropdown arrow is visible
-.mat-mdc-select-arrow {
-  fill: #d1d5db !important;
-}
-.snackbar-success {
-  background-color: #2e7d32; // dark green
-  color: #fff;
+.filter-controls .filter-label {
+  font-size: 14px;
   font-weight: 500;
+  color: #1a1a1a;
+  margin-bottom: 10px;
 }
 
-.snackbar-error {
-  background-color: #c62828; // dark red
-  color: #fff;
-  font-weight: 500;
-}
 .snackbar-success {
-  background-color: #4caf50;
-  color: white;
-}
-.snackbar-error {
-  background-color: #f44336;
-  color: white;
-}
-::ng-deep .error-snackbar {
-  background-color: #e53935 !important;  // 🔴 Red for error
-  color: white;
-  font-weight: bold;
-}
-/* ✅ Global Snackbar Styling */
-.snackbar-success {
-  background-color: #1e7f34 !important;  /* Green background */
-  color: #ffffff !important;
+  background-color: #4caf50 !important;
+  color: white !important;
   font-weight: 500;
   border-radius: 8px;
 }
 
 .snackbar-error {
-  background-color: #b00020 !important;  /* Red background */
-  color: #ffffff !important;
+  background-color: #f44336 !important;
+  color: white !important;
   font-weight: 500;
   border-radius: 8px;
 }
+
 .empty-state {
   text-align: center;
   padding: 2rem;
   opacity: 0.7;
-
-  .empty-icon {
-    max-width: 120px;
-    margin-bottom: 1rem;
-  }
-
-  p {
-    font-size: 16px;
-    color: #aaa;
-  }
-}
-/* Input text color should adapt to light or dark mode */
-body.dark-mode input,
-body.dark-mode textarea,
-body.dark-mode .mat-input-element {
-  color: #ffffff !important;
-  caret-color: #ffffff !important;
 }
 
-body.light-mode input,
-body.light-mode textarea,
-body.light-mode .mat-input-element {
-  color: #000000 !important;
-  caret-color: #000000 !important;
+.empty-state .empty-icon {
+  max-width: 120px;
+  margin-bottom: 1rem;
 }
 
-/* Placeholder color adjustment */
-input::placeholder,
-textarea::placeholder {
-  color: #999999 !important;
+.empty-state p {
+  font-size: 16px;
+  color: #aaa;
 }
 
-/* Fix for Angular Material label and select */
-.mat-form-field-label,
-.mat-select-value-text,
-.mat-select-placeholder {
-  color: inherit !important;
-}
-/* ✅ Force custom dialog size globally */
-/* ✅ Fix for checkbox label visibility */
-.mat-checkbox-layout {
-  color: #ffffff !important;
-}
-
-.mat-checkbox-label {
-  color: #ffffff !important;
-  font-weight: 400;
-}
-
-.mat-checkbox-frame {
-  border-color: #ffffff !important;
+.mat-checkbox-layout,
+.mat-checkbox-label,
+.mat-checkbox-frame,
+.mat-checkbox-checked .mat-checkbox-background,
+.mat-checkbox-checkmark-path,
+.mat-checkbox-layout .mat-checkbox-label,
+.mat-mdc-checkbox .mdc-form-field {
+  color: #1a1a1a !important;
 }
 
 .mat-checkbox-checked .mat-checkbox-background {
-  background-color: #ffffff !important;
+  background-color: #1a1a1a !important;
 }
 
 .mat-checkbox-checkmark-path {
-  stroke: #2c2f36 !important;
+  stroke: #ffffff !important;
 }
-/* ✅ Make 'Remember Me' text white */
-.mat-checkbox-layout .mat-checkbox-label {
-  color: #ffffff !important;
-}
-.mat-mdc-checkbox .mdc-form-field {
-  color: #ffffff;
+
+::ng-deep .error-snackbar {
+  background-color: #e53935 !important;
+  color: white !important;
+  font-weight: bold;
 }

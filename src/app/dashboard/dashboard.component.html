@@ -1,4 +1,3 @@
-<app-theme-toggle class="theme-toggle-icon"></app-theme-toggle>
 
 <div class="dashboard-container-original">
 
@@ -6,25 +5,25 @@
   <div class="left-column">
     <!-- Task Status Card -->
     <div class="dashboard-card task-status-card-original">
-      <h2>Task Status</h2>
+      <h2>Project Status</h2>
       <div class="donut-chart-container">
-        <canvas #donutChart></canvas>
+        <canvas #donutChart style="width:100%; height:200px;"></canvas>
       </div>
       <div class="status-legend-original">
         <div class="status-item">
           <span class="status-dot completed"></span>
           <span class="status-text">Completed</span>
-          <span class="status-count">{{ tasksCompleted }}</span>
+          <span class="status-count">{{ projectsCompleted }}</span> <!-- ✅ Use project variables -->
         </div>
         <div class="status-item">
           <span class="status-dot in-progress"></span>
           <span class="status-text">In Progress</span>
-          <span class="status-count">{{ tasksInProgress }}</span>
+          <span class="status-count">{{ projectsInProgress }}</span>
         </div>
         <div class="status-item">
           <span class="status-dot not-started"></span>
           <span class="status-text">Not Started</span>
-          <span class="status-count">{{ tasksNotStarted }}</span>
+          <span class="status-count">{{ projectsNotStarted }}</span>
         </div>
       </div>
     </div>
@@ -56,34 +55,54 @@
   <!-- Right Column -->
   <div class="right-column">
     <!-- Project Overview Card -->
-    <div class="dashboard-card project-overview-card-original">
-      <h2>Project Overview</h2>
-      <div *ngFor="let project of (showAllProjects ? projects : projects.slice(0, 2))">
-        <h3>{{ project.name }}</h3>
-        <div class="progress-bar-original">
-          <div class="progress-fill" [style.width.%]="project.progress"></div>
+    <div class="project-overview-card">
+      <h2 class="overview-title">Project Overview</h2>
+      <div class="overview-grid">
+        
+        <div class="overview-item">
+          <div class="icon-circle blue-icon">
+            <mat-icon>assignment</mat-icon>
+          </div>
+          <div class="overview-text">
+            <p>Total Projects</p>
+            <h3>{{ totalProjects }}</h3>
+          </div>
         </div>
-        <div class="progress-percentage-line">{{ project.progress }}%</div>
-
-        <div class="progress-info">
-          <span *ngIf="showAllProjects" class="days-remaining">{{ project.dueDate | date:'MMM d, yyyy' }}</span>
+    
+        <div class="overview-item">
+          <div class="icon-circle orange-icon">
+            <mat-icon>hourglass_empty</mat-icon>
+          </div>
+          <div class="overview-text">
+            <p>In Progress</p>
+            <h3>{{ projectsInProgress }}</h3>
+          </div>
         </div>
-      </div>
-      <div class="show-more-container">
-        <button mat-stroked-button (click)="toggleProjects()">
-          <mat-icon>{{ showAllProjects ? 'expand_less' : 'expand_more' }}</mat-icon>
-          {{ showAllProjects ? 'Show Less' : 'Show More' }}
-        </button>
+    
+        <div class="overview-item">
+          <div class="icon-circle gray-icon">
+            <mat-icon>pause_circle</mat-icon>
+          </div>
+          <div class="overview-text">
+            <p>Not Started</p>
+            <h3>{{ projectsNotStarted }}</h3>
+          </div>
+        </div>
+    
+        <div class="overview-item">
+          <div class="icon-circle green-icon">
+            <mat-icon>check_circle</mat-icon>
+          </div>
+          <div class="overview-text">
+            <p>Completed</p>
+            <h3>{{ projectsCompleted }}</h3>
+          </div>
+        </div>
+    
       </div>
     </div>
-
-    <!-- Team Performance Card -->
-    <div class="dashboard-card team-performance-card-original">
-      <h2>Team Performance</h2>
-      <div class="performance-chart-container">
-        <canvas #performanceChart></canvas>
-      </div>
-    </div>
+    
+    
 
     <!-- Upcoming Deadlines Card -->
     <div class="dashboard-card upcoming-deadlines-card-original">

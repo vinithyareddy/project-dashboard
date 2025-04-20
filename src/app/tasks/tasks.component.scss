@@ -1,8 +1,6 @@
 .tasks-container {
   padding: 2rem;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  min-height: calc(100vh - 4rem);
+    min-height: calc(100vh - 4rem);
 
   h1 {
     font-size: 1.8rem;
@@ -20,24 +18,14 @@
 }
 
 
-.theme-toggle-icon {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 9999;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-}
-
 
 .tasks-table {
   background: #1a1d25;
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid #2a2d35;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-}
+
+  }
 
 .table-header {
   display: grid;
@@ -45,15 +33,13 @@
   padding: 1rem 1.5rem;
   background: #1a1d25;
   border-bottom: 1px solid #2a2d35;
-  color: var(--text-color);
-  background-color: var(--bg-color);
 
+  
   .header-cell {
     font-size: 0.9rem;
     font-weight: 500;
-    color: var(--text-color);
-    background-color: var(--bg-color);
-  }
+  
+      }
 }
 
 .table-body {
@@ -63,9 +49,8 @@
     padding: 1rem 1.5rem;
     border-bottom: 1px solid #2a2d35;
     transition: background-color 0.2s ease;
-    color: var(--text-color);
-    background-color: var(--bg-color);
-
+  
+    
     &:last-child {
       border-bottom: none;
     }
@@ -81,9 +66,8 @@
   align-items: center;
   color: #ffffff;
   font-size: 0.95rem;
-  color: var(--text-color);
-  background-color: var(--bg-color);
 
+  
   &.task-cell {
     font-weight: 500;
   }
@@ -102,9 +86,8 @@
   border-radius: 8px;
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--text-color);
-  background-color: var(--bg-color);
 
+  
   &.in-progress {
     background: rgba(255, 145, 0, 0.1);
     color: #ff9100;
@@ -123,14 +106,13 @@
 
 // --- Task Form Styles --- 
 .task-form-container {
-  background-color: #1a1d25;
+  background-color: #ffffff;
   padding: 2rem;
   border-radius: 12px;
   margin-bottom: 2rem;
   border: 1px solid #2a2d35;
-  color: var(--text-color);
-  background-color: var(--bg-color);
 
+  
   h2 {
     font-size: 1.4rem;
     margin-bottom: 1.5rem;
@@ -148,41 +130,31 @@
     width: 100%;
 
     .mat-mdc-text-field-wrapper {
-        background-color: #2a2d35; // Dark background for input
+        background-color: #000000; // Dark background for input
         border-radius: 8px;
-        color: var(--text-color);
-        background-color: var(--bg-color);
-    }
+      
+            }
 
     .mat-mdc-form-field-input-control,
     .mat-mdc-select-value,
     .mat-mdc-select-arrow,
     mat-label {
-      color: #e0e0e0 !important; // Light text
-      color: var(--text-color);
-      background-color: var(--bg-color);
-    }
+      color: #000000 !important; // Light text
+    
+          }
 
     mat-hint {
-       color: #a0aec0; 
-       color: var(--text-color);
-       background-color: var(--bg-color);
-    }
+       color: #000000; 
+     
+           }
     
     .mdc-line-ripple::before,
     .mdc-line-ripple::after {
       border-bottom-color: rgba(255, 255, 255, 0.7) !important; // Underline color
-      color: var(--text-color);
-      background-color: var(--bg-color);
-    }
-
-     mat-error {
-      color: var(--text-color);
-      background-color: var(--bg-color);     }
+    
+          }
   }
 
-  // Ensure datepicker popup is styled (may need global styles)
-  // .mat-datepicker-content { background-color: #2a2d35; color: #e0e0e0; }
 
   .form-actions {
     grid-column: 1 / -1; // Span full width
@@ -190,60 +162,47 @@
     gap: 1rem;
     justify-content: flex-end;
     margin-top: 1rem;
-    color: var(--text-color);
-    background-color: var(--bg-color);
-
+  
+    
     button {
       min-width: 100px;
-      color: var(--text-color);
-      background-color: var(--bg-color);
-    }
+    
+          }
   }
 }
 
-// --- Task List Styles --- 
-.task-list-container {
-  // Container for the list and add button
-  color: var(--text-color);
-  background-color: var(--bg-color);
-}
 
 // --- Filter Styles --- 
 
 .filter-controls {
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  display: flex;
+
+    display: flex;
   gap: 1.5rem;
   margin-bottom: 2rem;
   flex-wrap: wrap; // Allow filters to wrap on smaller screens
   padding: 1.5rem;
-  background-color: #1a1d25;
+  background-color: #ffffff;
   border-radius: 12px;
   border: 1px solid #2a2d35;
 
   mat-form-field {
-    color: var(--text-color);
-    background-color: var(--bg-color);
-    flex: 1 1 200px; // Allow fields to grow and shrink, base size 200px
+  
+        flex: 1 1 200px; // Allow fields to grow and shrink, base size 200px
     min-width: 200px;
   }
 
   // Style Angular Material components for dark theme
   mat-form-field {
-    color: var(--text-color);
-    background-color: var(--bg-color);
-    .mat-mdc-text-field-wrapper { 
-      color: var(--text-color);
-  background-color: var(--bg-color);
-      border-radius: 8px; 
+  
+        .mat-mdc-text-field-wrapper { 
+    
+        border-radius: 8px; 
     }
     
     // Fix for mat-label display
     .mdc-floating-label {
-      color: var(--text-color);
-      background-color: var(--bg-color);
-      font-weight: 500 !important;
+    
+            font-weight: 500 !important;
     }
     
     // Improve visibility of text in select dropdown and input fields
@@ -251,28 +210,24 @@
     .mat-mdc-select-value, 
     .mat-mdc-select-value-text,
     .mat-mdc-select-min-line {
-      color: var(--text-color);
-      background-color: var(--bg-color);
-      font-weight: 500 !important; // Make text slightly bolder
+    
+            font-weight: 500 !important; // Make text slightly bolder
     }
     
     // Target specific classes for date input and placeholder
     input.mat-mdc-input-element {
-      color: var(--text-color);
-      background-color: var(--bg-color);
-      &::placeholder {
-        color: var(--text-color);
-        background-color: var(--bg-color);
-        opacity: 1 !important;
+    
+            &::placeholder {
+      
+                opacity: 1 !important;
       }
     }
     
     // Target specific classes for selected text
     .mdc-select__selected-text,
     .mat-select-value-text {
-      color: var(--text-color);
-      background-color: var(--bg-color);
-      opacity: 1 !important;
+    
+            opacity: 1 !important;
       font-weight: 500 !important;
       text-shadow: 0 0 1px rgba(255, 255, 255, 0.3); // Subtle text shadow for better visibility
     }
@@ -280,39 +235,36 @@
     // Make label and icon more visible
     mat-label, 
     .mat-mdc-select-arrow { 
-      color: var(--text-color);
-      background-color: var(--bg-color);
-            font-weight: 500 !important; // Make label text slightly bolder
+    
+                  font-weight: 500 !important; // Make label text slightly bolder
     }
     
     // Date picker icon styling
     .mat-datepicker-toggle {
-      color: var(--text-color);
+    
       background-color: var(--bg-color);      
       .mat-datepicker-toggle-default-icon {
-        color: var(--text-color);
-        background-color: var(--bg-color);
-        width: 24px !important;
+      
+                width: 24px !important;
         height: 24px !important;
       }
     }
     
     // Improve hint text visibility
     mat-hint { 
-      color: var(--text-color);
+    
       background-color: var(--bg-color);    }
     
     // Improve clear button visibility
     .mat-mdc-icon-button .mat-icon {
-      color: var(--text-color);
+    
       background-color: var(--bg-color);      font-size: 20px !important;
     }
     
     .mdc-line-ripple::before,
     .mdc-line-ripple::after { 
-      color: var(--text-color);
-      background-color: var(--bg-color);
-      border-bottom-color: rgba(255, 255, 255, 0.8) !important; // Brighter underline color
+    
+            border-bottom-color: rgba(255, 255, 255, 0.8) !important; // Brighter underline color
     }
     
     // Enhance the focused state
@@ -320,22 +272,20 @@
       .mat-mdc-select-arrow,
       .mat-mdc-form-field-required-marker,
       .mat-mdc-form-field-label {
-        color: var(--text-color);
+      
         background-color: var(--bg-color);      }
       
       .mdc-line-ripple::after {
-        color: var(--text-color);
-        background-color: var(--bg-color);
-        border-bottom-color: #60a5fa !important; // Blue accent underline
+      
+                border-bottom-color: #60a5fa !important; // Blue accent underline
       }
     }
   }
   
   // Specific styling for the add button in the filter bar
   .add-task-button {
-    color: var(--text-color);
-    background-color: var(--bg-color);
-    flex-shrink: 0; // Prevent button from shrinking
+  
+        flex-shrink: 0; // Prevent button from shrinking
     margin-left: auto; // Push to the right if space allows
     align-self: center; // Center vertically
   }
@@ -345,33 +295,29 @@
     .mdc-floating-label--float-above {
       display: block !important;
       opacity: 1 !important;
-      color: var(--text-color);
-      background-color: var(--bg-color);
-      transform: translateY(-130%) scale(0.75) !important;
+    
+            transform: translateY(-130%) scale(0.75) !important;
       background-color: transparent !important;
       z-index: 1 !important;
     }
     
     .mdc-floating-label {
-      color: var(--text-color);
-      background-color: var(--bg-color);
-      transform: translateY(-130%) scale(0.85) !important;
+    
+            transform: translateY(-130%) scale(0.85) !important;
     }
     
     // Ensure placeholder text is visible when no date is selected
     .mat-mdc-input-element::placeholder {
-      color: var(--text-color);
-  background-color: var(--bg-color);
-      opacity: 1 !important;
+    
+        opacity: 1 !important;
       padding-top: 16px !important;
       z-index: 2 !important;
     }
     
     // Add padding to input to push it down slightly
     .mat-mdc-form-field-input-control {
-      color: var(--text-color);
-      background-color: var(--bg-color);
-      padding-top: 16px !important;
+    
+            padding-top: 16px !important;
     }
     
     // Ensure the label doesn't get clipped
@@ -382,56 +328,46 @@
     // Fix for different Material themes
     .mat-mdc-text-field-wrapper {
       .mdc-line-ripple {
-        color: var(--text-color);
-        background-color: var(--bg-color);
-        bottom: 0 !important;
+      
+                bottom: 0 !important;
       }
     }
     
     // Fix for the input container and form field
     .mat-mdc-form-field-flex {
-      color: var(--text-color);
-      background-color: var(--bg-color);
-      display: flex !important;
+    
+            display: flex !important;
       align-items: center !important;
       position: relative !important;
       
       .mat-mdc-form-field-infix {
-        color: var(--text-color);
-        background-color: var(--bg-color);
-        padding-top: 12px !important;
+      
+                padding-top: 12px !important;
         padding-bottom: 12px !important;
       }
     }
     
     // Fix for calendar toggle
     .mat-datepicker-toggle {
-      color: var(--text-color);
-      background-color: var(--bg-color);
-      position: relative !important;
+    
+            position: relative !important;
       z-index: 3 !important;
     }
   }
 }
 
-// Remove old add-task-header if it exists
-.add-task-header {
-  // display: none; // Or remove rule
-  color: var(--text-color);
-  background-color: var(--bg-color);
-}
+
+
 
 .task-list {
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  display: grid;
+
+    display: grid;
   gap: 1.5rem;
 }
 
 .task-card {
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  border-radius: 12px;
+
+    border-radius: 12px;
   padding: 1.5rem;
   border: 1px solid #2a2d35;
   display: grid;
@@ -450,9 +386,8 @@
     font-size: 1.1rem;
     font-weight: 500;
     margin: 0 0 0.5rem 0;
-    color: var(--text-color);
-    background-color: var(--bg-color);
-  }
+  
+      }
 
   p {
     font-size: 0.85rem;
@@ -462,24 +397,21 @@
 }
 
 .task-status {
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  text-align: center;
+
+    text-align: center;
   // Uses .status-badge defined previously
 }
 
 .task-actions {
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  display: flex;
+
+    display: flex;
   gap: 0.5rem;
 }
 
 // Show More/Less Button Container
 .show-more-container {
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  display: flex;
+
+    display: flex;
   justify-content: center;
   margin-top: 2rem;
   margin-bottom: 1.5rem;
@@ -566,9 +498,8 @@
 
 // No tasks message
 .no-tasks {
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  text-align: center;
+
+    text-align: center;
   color: #a0aec0;
   padding: 3rem;
   background-color: #1a1d25;
@@ -579,37 +510,32 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .task-card {
-    color: var(--text-color);
-    background-color: var(--bg-color);
-    grid-template-columns: 1fr; // Stack on mobile
+  
+        grid-template-columns: 1fr; // Stack on mobile
     gap: 1rem;
     text-align: center;
   }
   .task-actions {
-    color: var(--text-color);
-    background-color: var(--bg-color);
-     justify-content: center;
+  
+         justify-content: center;
   }
   .task-form-container form {
-    color: var(--text-color);
-    background-color: var(--bg-color);
-     grid-template-columns: 1fr; // Single column form on mobile
+  
+         grid-template-columns: 1fr; // Single column form on mobile
   }
 }
 
 // Custom date filter styles - completely separated label from input
 .custom-date-filter {
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  display: flex;
+
+    display: flex;
   flex-direction: column; // Stack label and input vertically
   flex: 1 1 200px;
   min-width: 200px;
 
   .date-filter-label {
-    color: var(--text-color);
-    background-color: var(--bg-color);
-    font-size: 14px;
+  
+        font-size: 14px;
     font-weight: 500;
 
     margin-bottom: 8px;
@@ -618,9 +544,8 @@
   .date-input-container {
     display: flex;
     align-items: center; // Center items vertically
-    color: var(--text-color);
-    background-color: var(--bg-color);
-    border-radius: 8px;
+  
+        border-radius: 8px;
     border: 1px solid #3a3e4e;
     padding: 4px 12px;
     transition: border-color 0.2s ease;
@@ -631,9 +556,8 @@
       background: transparent;
       border: none;
       outline: none;
-      color: var(--text-color);
-      background-color: var(--bg-color);
-      font-size: 14px;
+    
+            font-size: 14px;
       padding: 10px 0;
 
       &::placeholder {
@@ -643,3 +567,25 @@
     }
   }
 } 
+::ng-deep .mat-mdc-select-panel {
+  background-color: #ffffff !important; // Make it solid white (or use #f9fafb for soft white)
+  color: #1a1a1a !important;
+  border-radius: 8px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2); // Optional shadow
+  z-index: 1001 !important; // Make sure it floats on top
+}
+
+::ng-deep .mat-mdc-option {
+  background-color: #ffffff !important; // Each option solid white
+  color: #1a1a1a !important;
+  font-weight: 500;
+
+  &:hover {
+    background-color: #f3f4f6 !important; // Light hover effect
+  }
+}
+
+::ng-deep .mat-mdc-option.mat-active {
+  background-color: #e0e7ff !important;
+  color: #1e3a8a !important;
+}

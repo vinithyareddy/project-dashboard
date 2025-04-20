@@ -9,7 +9,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-import { ThemeToggleComponent } from '../shared/theme-toggle/theme-toggle.component';
 import { DatePipe } from '@angular/common';
 import { FirestoreService } from '../services/firestore.service';
 import { Task } from '../models/task.model';
@@ -32,9 +31,8 @@ import { RefreshService } from 'src/app/services/refresh.service';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSelectModule,
-    ThemeToggleComponent,
-  ],
+    MatSelectModule
+    ],
   providers: [DatePipe]
 })
 export class TasksComponent implements OnInit {

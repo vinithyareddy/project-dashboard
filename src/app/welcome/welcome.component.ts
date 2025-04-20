@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { ThemeToggleComponent } from '../shared/theme-toggle/theme-toggle.component'; // Adjust the path
 import { RouterModule } from '@angular/router'; 
 
 
@@ -11,7 +10,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatButtonModule, RouterModule,  ThemeToggleComponent, // 👈 Add this!
+  imports: [CommonModule, MatButtonModule, RouterModule // 👈 Add this!
   ]
 })
 export class WelcomeComponent {

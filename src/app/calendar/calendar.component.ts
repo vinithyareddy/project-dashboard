@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThemeToggleComponent } from '../shared/theme-toggle/theme-toggle.component';
 import { FirestoreService } from '../services/firestore.service';
 import { Task } from '../models/task.model';
 import { Project } from '../models/project.model';
@@ -13,7 +12,7 @@ import { RefreshService } from 'src/app/services/refresh.service';
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
   standalone: true,
-  imports: [CommonModule, ThemeToggleComponent]
+  imports: [CommonModule]
 })
 export class CalendarComponent implements OnInit {
   currentDate = new Date();

@@ -9,11 +9,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-import { ThemeToggleComponent } from '../shared/theme-toggle/theme-toggle.component';
 import { FirestoreService } from '../services/firestore.service';
 import { Project } from '../models/project.model';
 import { take } from 'rxjs';
-import { RefreshService } from 'src/app/services/refresh.service';
+import { MatSliderModule } from '@angular/material/slider';
+
 
 @Component({
   selector: 'app-projects',
@@ -30,9 +30,7 @@ import { RefreshService } from 'src/app/services/refresh.service';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSelectModule,
-    ThemeToggleComponent
-  ],
+    MatSelectModule,  MatSliderModule   ],
   providers: [DatePipe]
 })
 export class ProjectsComponent implements OnInit {
@@ -45,18 +43,22 @@ export class ProjectsComponent implements OnInit {
   selectedDate: Date | null = null;
   showAllProjects = false;
 
-  // 🔍 Filtering states
+  // Filter dropdown lists
+  projectNameList: string[] = [];
+  assigneeList: string[] = [];
+  uniqueDueDates: string[] = [];
+
+  // Filter values
   filterProjectName: string = '';
   filterAssignee: string = '';
   filterStatus: string = '';
   filterDate: Date | null = null;
-  assigneeList: string[] = [];
+  filterDateString: string = '';
 
   constructor(
     private fb: FormBuilder,
     private datePipe: DatePipe,
-    private firestoreService: FirestoreService,
-    private refreshService: RefreshService
+    private firestoreService: FirestoreService
   ) {}
 
   ngOnInit(): void {
@@ -64,24 +66,28 @@ export class ProjectsComponent implements OnInit {
       name: ['', Validators.required],
       assignee: [''],
       dueDate: [null, Validators.required],
-      status: ['Not Started', Validators.required]
+      status: ['Not Started', Validators.required],
+      progress: [0] // ✅ This must be added!
     });
+    
   
-    this.loadData();
-  
-    // ✅ This ensures new data shows after upload
-    this.refreshService.refresh$.subscribe(() => {
-      this.loadData();
+    this.firestoreService.getProjects().pipe(take(1)).subscribe(projects => {
+      this.projects = projects.map(project => ({
+        ...project,
+        dueDate: project.dueDate instanceof Date
+          ? project.dueDate
+          : (project.dueDate && typeof project.dueDate === 'object' && 'toDate' in project.dueDate ? (project.dueDate as any).toDate() : null)
+      }));
+      this.afterChange(); // ✅ keep this if you're using it
     });
   }
-  
   
 
   applyFilters(): void {
     let temp = [...this.projects];
 
     if (this.filterProjectName) {
-      temp = temp.filter(p => p.name.toLowerCase().includes(this.filterProjectName.toLowerCase()));
+      temp = temp.filter(p => p.name === this.filterProjectName);
     }
 
     if (this.filterAssignee) {
@@ -103,8 +109,18 @@ export class ProjectsComponent implements OnInit {
     this.filteredProjects = temp.sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime());
   }
 
-  clearDateFilter(): void {
+  onDateFilterChange(value: string): void {
+    this.filterDateString = value;
+    this.filterDate = value ? new Date(value) : null;
+    this.applyFilters();
+  }
+
+  resetFilters(): void {
+    this.filterProjectName = '';
+    this.filterAssignee = '';
+    this.filterStatus = '';
     this.filterDate = null;
+    this.filterDateString = '';
     this.applyFilters();
   }
 
@@ -119,7 +135,7 @@ export class ProjectsComponent implements OnInit {
     this.editingProjectId = project.id || null;
     this.projectForm.patchValue({
       name: project.name,
-      description: project.description,
+      assignee: project.assignee,
       dueDate: project.dueDate,
       status: project.status
     });
@@ -153,6 +169,8 @@ export class ProjectsComponent implements OnInit {
 
   afterChange(): void {
     this.assigneeList = [...new Set(this.projects.map(p => p.assignee).filter((a): a is string => !!a))];
+    this.projectNameList = [...new Set(this.projects.map(p => p.name).filter((n): n is string => !!n))];
+    this.uniqueDueDates = [...new Set(this.projects.map(p => this.datePipe.transform(p.dueDate, 'MMM d, y')).filter((d): d is string => !!d))];
     this.applyFilters();
     this.cancelEdit();
   }
@@ -166,19 +184,9 @@ export class ProjectsComponent implements OnInit {
   toggleProjects(): void {
     this.showAllProjects = !this.showAllProjects;
   }
-  loadData(): void {
-    this.firestoreService.getProjects().pipe(take(1)).subscribe(projects => {
-      this.projects = projects.map(project => ({
-        ...project,
-        dueDate: project.dueDate instanceof Date
-          ? project.dueDate
-          : (project.dueDate && typeof project.dueDate === 'object' && 'toDate' in project.dueDate
-            ? (project.dueDate as any).toDate()
-            : null)
-      }));
-      this.applyFilters();
-    });
+  onSliderChange(event: any): void {
+    const value = event.value;
+    this.projectForm.get('progress')?.setValue(value);
   }
-  
   
 }

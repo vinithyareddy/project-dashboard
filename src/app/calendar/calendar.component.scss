@@ -1,34 +1,21 @@
 .calendar-container {
   padding: 2rem;
-  color: #ffffff;
-  background: #1a1d25;
+  color: #000000;
+  background: #ffffff;
   border-radius: 12px;
   min-height: calc(100vh - 4rem);
-  color: var(--text-color);
-  background-color: var(--bg-color);
+ 
 }
 
-.theme-toggle-icon {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 9999;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-}
-
-.calendar-header {color: var(--text-color);
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  background-color: var(--bg-color);
+.calendar-header {
+   
   margin-bottom: 2rem;
 
   h1 {
     font-size: 2.5rem;
     font-weight: 500;
     margin-bottom: 1.5rem;
-    color: var(--text-color);
-  background-color: var(--bg-color);
+   
   }
 }
 
@@ -37,26 +24,22 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
-  color: var(--text-color);
-  background-color: var(--bg-color);
+ 
 }
 
 .month-year {
-  color: var(--text-color);
-  background-color: var(--bg-color);
+ 
   font-size: 1.5rem;
   font-weight: 500;
 }
 
 .navigation-buttons {
-  color: var(--text-color);
-  background-color: var(--bg-color);
+ 
   display: flex;
   gap: 0.5rem;
 
   .nav-button {
-    color: var(--text-color);
-  background-color: var(--bg-color);
+   
    
     border: none;
 
@@ -76,23 +59,20 @@
 }
 
 .calendar-grid {
-  color: var(--text-color);
-  background-color: var(--bg-color);
+ 
   border-radius: 12px;
   overflow: hidden;
 }
 
 .weekday-header {
-  color: var(--text-color);
-  background-color: var(--bg-color);
+ 
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   background: #2a2d35;
   padding: 0.4rem;
 
   .weekday {
-    color: var(--text-color);
-  background-color: var(--bg-color);
+   
     text-align: center;
     color: #a0aec0;
     font-weight: 500;
@@ -101,72 +81,62 @@
 }
 
 .calendar-days {
-  color: var(--text-color);
-  background-color: var(--bg-color);
+ 
   .week {
-    color: var(--text-color);
-  background-color: var(--bg-color);
+   
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     border-bottom: 1px solid #2a2d35;
 
     &:last-child {
-      color: var(--text-color);
-  background-color: var(--bg-color);
+     
       border-bottom: none;
     }
   }
 
   .day {
-    color: var(--text-color);
-  background-color: var(--bg-color);
+   
     min-height: 120px;
     padding: 0.5rem;
     border-right: 1px solid #2a2d35;
     position: relative;
 
     &:last-child {
-      color: var(--text-color);
-  background-color: var(--bg-color);
+     
       border-right: none;
     }
 
     &.empty {
-      color: var(--text-color);
-  background-color: var(--bg-color);
+     
       background: rgba(0, 0, 0, 0.2);
     }
   }
 }
 
 .date-number {
-  color: var(--text-color);
-  background-color: var(--bg-color);
+ 
   font-size: 1.1rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
 }
 
 .items-container {
-  color: var(--text-color);
-  background-color: var(--bg-color);
+ 
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
 .item-label {
-  color: var(--text-color);
-  background-color: var(--bg-color);
+ 
   font-size: 0.75rem;
-  color: #a0aec0;
+  color: #000000;
   margin-top: 0.5rem;
   font-weight: 500;
 }
 
 .task-item {
-  color: var(--text-color);
-  background-color: var(--bg-color);
+ 
   font-size: 0.8rem;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
@@ -191,13 +161,12 @@
 }
 
 .project-deadline-item {
-  color: var(--text-color);
-  background-color: var(--bg-color);
+ 
   font-size: 0.8rem;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   background: rgba(150, 150, 150, 0.1);
-  color: #e0e0e0;
+  color: #000000;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -205,36 +174,31 @@
 }
 
 .no-items {
-  color: var(--text-color);
-  background-color: var(--bg-color);
+ 
   font-size: 0.75rem;
-  color: #6c757d;
+  color: #000000;
   font-style: italic;
 }
 
 @media (max-width: 768px) {
   
   .calendar-container {
-    color: var(--text-color);
-  background-color: var(--bg-color);
+   
     padding: 1rem;
   }
 
   .calendar-header h1 {
-    color: var(--text-color);
-  background-color: var(--bg-color);
+   
     font-size: 2rem;
   }
 
   .day {
-    color: var(--text-color);
-  background-color: var(--bg-color);
+   
     min-height: 100px;
   }
 
   .task-item {
-    color: var(--text-color);
-  background-color: var(--bg-color);
+   
     font-size: 0.75rem;
   }
 }

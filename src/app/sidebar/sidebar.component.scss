@@ -1,10 +1,10 @@
 /* General Sidebar Styles */
 .sidebar {
+  background-color: #ffffff;
   width: 250px;
   height: 100vh;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  border-right: 1px solid #2a2d35;
+
+    border-right: 1px solid #030303;
   padding: 2rem 1.5rem;
   display: flex;
   flex-direction: column;
@@ -24,17 +24,15 @@
   top: 1rem;
   right: 1rem;
   z-index: 9999;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-}
+
+  }
 
 .nav-menu {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-}
+
+  }
 
 .nav-item {
   display: flex;
@@ -42,21 +40,14 @@
   gap: 1rem;
   padding: 0.75rem 1rem;
   border-radius: 8px;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  text-decoration: none;
+
+    text-decoration: none;
   transition: all 0.2s ease;
 
   &:hover {
     background: rgba(255, 255, 255, 0.05);
-    color: var(--text-color);
-    background-color: var(--bg-color);
-  }
-
-  &.active {
-    color: var(--text-color);
-  background-color: var(--bg-color);
-  }
+  
+      }
 
   .nav-icon {
     display: flex;
@@ -65,16 +56,15 @@
     width: 24px;
     height: 24px;
     opacity: 0.8;
-    color: var(--text-color);
-    background-color: var(--bg-color);
-  }
+  
+      }
 
   .nav-text {
     font-size: 1rem;
     font-weight: 500;
-    color: var(--text-color);
-    background-color: var(--bg-color);
-  }
+    color: black;
+  
+      }
 }
 
 .user-profile {
@@ -84,9 +74,8 @@
   gap: 1rem;
   padding: 1rem;
   border-radius: 8px;
-  color: var(--text-color);
-  background-color: var(--bg-color);
 
+  
   .avatar {
     width: 40px;
     height: 40px;
@@ -95,18 +84,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-color);
+  
     background-color: var(--bg-color);  }
 
   .user-info {
     .user-name {
-      color: var(--text-color);
+    
       background-color: var(--bg-color);      font-size: 0.95rem;
       font-weight: 500;
     }
 
     .user-email {
-      color: var(--text-color);
+    
       background-color: var(--bg-color);      font-size: 0.85rem;
       margin-top: 0.25rem;
     }
@@ -120,13 +109,11 @@
   margin-top: -16px;
   z-index: 10;
   display: flex;
-  color: var(--text-color);
-  background-color: var(--bg-color);
 
+  
   button {
-    color: var(--text-color);
-    background-color: var(--bg-color);
-    border: 1px solid #3a3d45;
+  
+        border: 1px solid #3a3d45;
     border-radius: 50%;
     width: 42px;
     height: 42px;
@@ -145,9 +132,8 @@
       color: inherit;
       opacity: 1 !important;
       visibility: visible !important;
-      color: var(--text-color);
-      background-color: var(--bg-color);
-    }
+    
+          }
 
     &:hover {
       background-color: #4361ee;
@@ -157,37 +143,31 @@
 }
 
 .sidebar.collapsed {
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  width: 80px;
+
+    width: 80px;
   transform: translateX(-100%);
   .toggle-button-container {
-    color: var(--text-color);
-    background-color: var(--bg-color);
-    button {
-      color: var(--text-color);
-      background-color: var(--bg-color);
-      transform: rotate(180deg); 
+  
+        button {
+    
+            transform: rotate(180deg); 
       margin-bottom: 20px;
     }
   }
   .nav-text {
     display: none;
-    color: var(--text-color);
-    background-color: var(--bg-color);
-  }
+  
+      }
 
   .user-profile {
     display: none;
-    color: var(--text-color);
-    background-color: var(--bg-color);
-  }
+  
+      }
 }
 
 mat-toolbar {
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  display: flex;
+
+    display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
@@ -199,104 +179,159 @@ mat-toolbar {
   top: 10px;
   padding: 0;
   margin: 0;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-}
+
+  }
 
 .title {
   font-size: 18px;
   font-weight: bold;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  display: inline-block;
+
+    display: inline-block;
   margin-left: 10px;
 }
 
 .menu {
   padding: 10px 0;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-}
+
+  }
 
 mat-nav-list {
   padding: 0;
   margin-top: 20px;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-}
+
+  }
 
 mat-list-item {
   padding-left: 16px;
   font-size: 14px;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  font-weight: 500;
+
+    font-weight: 500;
   transition: background-color 0.3s ease;
   border-left: 3px solid transparent;
 }
 
 mat-list-item:hover {
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  border-left: 3px solid #1976d2;
+
+    border-left: 3px solid #1976d2;
 }
 
 mat-list-item.active-link {
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  font-weight: bold;
+
+    font-weight: bold;
 }
 
 mat-icon {
   font-size: 24px;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  transition: transform 0.3s ease;
+
+    transition: transform 0.3s ease;
   margin-bottom: 20px;
 }
 
 /* Collapsed Sidebar */
 .sidebar.collapsed mat-list-item {
   text-align: center;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-}
+
+  }
 
 .sidebar.collapsed mat-list-item.active-link {
   color: white;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-}
+
+  }
 
 .sidebar.collapsed mat-list-item:hover {
   background-color: #1976d2;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-}
+
+  }
 
 /* For the menu button */
 .sidebar.collapsed .menu-btn {
   margin-left: auto;
   margin-right: 10px;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-}
+
+  }
 
 .mat-list-item:hover {
   background-color: #eeeeee;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-}
+
+  }
 
 .sidebar {
   width: 250px;
   transition: transform 0.3s ease;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-}
+
+  }
 
 .hidden {
   transform: translateX(-250px);
-  color: var(--text-color);
-  background-color: var(--bg-color);
+
+  }
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.3s ease;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+
+  .nav-icon {
+    margin-right: 1rem;
+
+    mat-icon {
+      font-size: 24px;
+      color: #333;
+      margin-top: 20px;
+    }
+  }
+
+  .nav-text {
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+}
+
+.user-info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+
+  mat-icon.user-icon {
+    font-size: 18px !important;
+    color: #555 !important;
+  }
+
+  span {
+    font-size: 13px;
+    color: #333;
+  }
+}
+
+.user-icon {
+  font-size: 18px !important;
+  color: #666 !important;
+}
+.nav-item.active {
+  background: linear-gradient(135deg, #3b82f6, #6366f1); // Stylish gradient
+  color: #ffffff;
+
+  .nav-icon svg path,
+  mat-icon {
+    fill: #ffffff !important; // Change SVG path fill
+    color: #ffffff !important; // For mat-icon
+  }
+
+  .nav-text {
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.4); // subtle glow
 }

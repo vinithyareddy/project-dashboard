@@ -3,7 +3,7 @@ import { filter } from 'rxjs/operators';
 import { Router, NavigationEnd, Event as RouterEvent, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { HeaderComponent } from './header/header.component';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
@@ -16,7 +16,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     CommonModule,
     RouterOutlet,
     SidebarComponent,
-    HeaderComponent,
     MatIconModule,
     MatSnackBarModule // Add this
   ]

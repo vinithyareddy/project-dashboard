@@ -1,4 +1,3 @@
-<app-theme-toggle class="theme-toggle-icon"></app-theme-toggle>
 
 <div class="tasks-container">
   <h1>Tasks</h1>
@@ -50,7 +49,7 @@
   <div class="task-list-container" *ngIf="!isEditing">
 
     <!-- Filter Controls -->
-    <div class="filter-controls bg-white" style="color: var(--text-color); background-color: var(--bg-color);">
+    <div class="filter-controls bg-white">
       <mat-form-field appearance="outline" class="filter-assignee">
         <mat-select [(ngModel)]="selectedAssignee" (ngModelChange)="applyFilters()" placeholder="Choose Assignee" text-blue-500>
           <mat-option [value]="null">All Assignees</mat-option>

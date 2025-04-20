@@ -1,4 +1,4 @@
-<app-theme-toggle class="theme-toggle-icon"></app-theme-toggle><div class="teams-container">
+<div class="page-container">
   <h1>Team Members</h1>
 
   <!-- Add/Edit Team Member Form (Conditionally Displayed) -->
@@ -45,6 +45,7 @@
             <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
+         
 
       <mat-form-field appearance="outline" class="filter-role">
         <mat-select [(ngModel)]="selectedRole" (ngModelChange)="applyFilters()">
@@ -99,7 +100,7 @@
 
   </div>
   
-</div> 
+
 <div *ngIf="teamMembers.length === 0" class="empty-state">
   <img src="assets/empty-team.svg" alt="No team" class="empty-icon" />
   <p>No team members found. Upload or add a team member.</p>
@@ -109,3 +110,6 @@
   <!-- Team member cards or table -->
 </div>
 
+
+</div>
+  

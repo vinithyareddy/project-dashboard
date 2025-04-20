@@ -8,7 +8,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
-import { ThemeToggleComponent } from '../shared/theme-toggle/theme-toggle.component';
 import { FirestoreService } from '../services/firestore.service';
 import { TeamMember } from '../models/team.model';
 import { take } from 'rxjs';
@@ -29,7 +28,7 @@ import { RefreshService } from 'src/app/services/refresh.service';
     MatInputModule,
     MatSelectModule,
     MatChipsModule,
-    ThemeToggleComponent,
+   
   ],
   providers: [DatePipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -45,6 +44,7 @@ export class TeamsComponent implements OnInit {
   filterName: string = '';
   selectedRole: string = 'All';
   showAllMembers = false;
+  
 
   constructor(
     private fb: FormBuilder,

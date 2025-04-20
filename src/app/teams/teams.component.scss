@@ -1,31 +1,22 @@
+.page-container{
+margin-left: 30px;
+}
 .teams-container {
-  padding: 2rem;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  min-height: calc(100vh - 4rem);
+  padding: 4rem;
+
+    min-height: calc(100vh - 4rem);
 
   h1 {
-    color: var(--text-color);
-  background-color: var(--bg-color);
-    font-size: 1.8rem;
+  
+      font-size: 1.8rem;
     font-weight: 600;
     margin-bottom: 2rem;
   }
 }
-.theme-toggle-icon {
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 9999;
-}
-
 
 .team-table {
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  border-radius: 12px;
+
+    border-radius: 12px;
   overflow: hidden;
   border: 1px solid #2a2d35;
 }
@@ -34,25 +25,21 @@
   display: grid;
   grid-template-columns: 2fr 2fr 1fr 60px;
   padding: 1rem 1.5rem;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  border-bottom: 1px solid #2a2d35;
+
+    border-bottom: 1px solid #2a2d35;
 
   .header-cell {
-    color: var(--text-color);
-    background-color: var(--bg-color);
-    font-size: 0.9rem;
+  
+        font-size: 0.9rem;
     font-weight: 500;
   }
 }
 
 .table-body {
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  .table-row {
-    color: var(--text-color);
-  background-color: var(--bg-color);
-    display: grid;
+
+    .table-row {
+  
+      display: grid;
     grid-template-columns: 2fr 2fr 1fr 60px;
     padding: 1rem 1.5rem;
     align-items: center;
@@ -70,9 +57,8 @@
 }
 
 .name-cell {
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  display: flex;
+
+    display: flex;
   align-items: center;
   gap: 1rem;
 
@@ -83,29 +69,25 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-color);
-    background-color: var(--bg-color);
-
+  
+    
     svg {
-      color: var(--text-color);
-  background-color: var(--bg-color);
-      width: 24px;
+    
+        width: 24px;
       height: 24px;
     }
   }
 
   .member-info {
     .member-name {
-      color: var(--text-color);
-      background-color: var(--bg-color);
-      font-size: 0.95rem;
+    
+            font-size: 0.95rem;
       font-weight: 500;
     }
 
     .member-role {
-      color: var(--text-color);
-      background-color: var(--bg-color);
-      font-size: 0.85rem;
+    
+            font-size: 0.85rem;
       margin-top: 0.25rem;
     }
   }
@@ -116,27 +98,23 @@
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    color: var(--text-color);
-  background-color: var(--bg-color);
-
+  
+  
     .email {
-      color: var(--text-color);
-      background-color: var(--bg-color);
-      font-size: 0.9rem;
+    
+            font-size: 0.9rem;
     }
   }
 }
 
 .role-cell {
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  font-size: 0.9rem;
+
+    font-size: 0.9rem;
 }
 
 .actions-cell {
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  display: flex;
+
+    display: flex;
   justify-content: flex-end;
 
   .delete-btn {
@@ -145,9 +123,8 @@
     border-radius: 6px;
     border: none;
     background: transparent;
-    color: var(--text-color);
-  background-color: var(--bg-color);
-    cursor: pointer;
+  
+      cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -162,9 +139,8 @@
 
 // --- Team Form Styles --- 
 .team-form-container {
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  padding: 2rem;
+
+    padding: 2rem;
   border-radius: 12px;
   margin-bottom: 2rem;
   border: 1px solid #2a2d35;
@@ -172,29 +148,26 @@
   h2 { font-size: 1.4rem; margin-bottom: 1.5rem; font-weight: 500; }
 
   form {
-    color: var(--text-color);
-  background-color: var(--bg-color);
-    display: grid;
+  
+      display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
   }
 
   // Style Material components for dark theme
   mat-form-field {
-    color: var(--text-color);
-  background-color: var(--bg-color);
-    width: 100%;
+  
+      width: 100%;
     .mat-mdc-text-field-wrapper { background-color: #2a2d35; border-radius: 8px; }
-    .mat-mdc-form-field-input-control, .mat-mdc-select-value, .mat-mdc-select-arrow, mat-label { color: #e0e0e0 !important; }
-    mat-hint { color: #a0aec0; }
+    .mat-mdc-form-field-input-control, .mat-mdc-select-value, .mat-mdc-select-arrow, mat-label { color: #030303 !important; }
+    mat-hint { color: #000000; }
     .mdc-line-ripple::before, .mdc-line-ripple::after { border-bottom-color: rgba(255, 255, 255, 0.7) !important; }
      mat-error { color: #f87171; }
   }
 
   .form-actions {
-    color: var(--text-color);
-  background-color: var(--bg-color);
-    grid-column: 1 / -1;
+  
+      grid-column: 1 / -1;
     display: flex;
     gap: 1rem;
     justify-content: flex-end;
@@ -203,11 +176,8 @@
   }
 }
 
-// --- Team List Styles --- 
-.team-list-container { 
-  color: var(--text-color);
-  background-color: var(--bg-color);
-}
+
+
 
 // --- Filter Styles --- 
 .filter-controls {
@@ -216,38 +186,28 @@
   margin-bottom: 2rem;
   flex-wrap: wrap;
   padding: 1.5rem;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  border-radius: 12px;
+
+    border-radius: 12px;
   border: 1px solid #2a2d35;
 
   mat-form-field {
-    color: var(--text-color);
-  background-color: var(--bg-color);
-    flex: 1 1 200px; // Allow fields to grow/shrink
+  
+      flex: 1 1 200px; // Allow fields to grow/shrink
     min-width: 200px;
   }
 
   // Style Material components for dark theme
   mat-form-field {
-     .mat-mdc-text-field-wrapper { color: var(--text-color);
-      background-color: var(--bg-color); border-radius: 8px; }
-     .mat-mdc-form-field-input-control, .mat-mdc-select-value, .mat-mdc-select-arrow, mat-label { color: var(--text-color);
-      background-color: var(--bg-color);}
-     mat-hint {color: var(--text-color);
-      background-color: var(--bg-color);}
-     .mdc-line-ripple::before, .mdc-line-ripple::after {color: var(--text-color);
-      background-color: var(--bg-color); border-bottom-color: rgba(255, 255, 255, 0.7) !important; }
-     .mat-mdc-form-field-input-control { color: var(--text-color);
-      background-color: var(--bg-color);padding: 0.8em 0 !important; }
-     .mat-mdc-button.mat-mdc-icon-button {color: var(--text-color);
-      background-color: var(--bg-color);}
+     .mat-mdc-text-field-wrapper { border-radius: 8px; }
+    
+     .mdc-line-ripple::before, .mdc-line-ripple::after { border-bottom-color: rgba(255, 255, 255, 0.7) !important; }
+     .mat-mdc-form-field-input-control {padding: 0.8em 0 !important; }
+   
   }
   
   .add-member-button {
-    color: var(--text-color);
-  background-color: var(--bg-color);
-    flex-shrink: 0;
+  
+      flex-shrink: 0;
     margin-left: auto;
     align-self: center;
   }
@@ -255,17 +215,15 @@
 
 // --- Teams Grid --- 
 .teams-grid {
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  display: grid;
+
+    display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); // Adjust minmax as needed
   gap: 1.5rem;
 }
 
 .team-card {
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  border-radius: 12px;
+
+    border-radius: 12px;
   padding: 1.5rem;
   border: 1px solid #2a2d35;
   display: flex;
@@ -291,44 +249,38 @@
   justify-content: center;
   font-size: 1.5rem;
   font-weight: 600;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  flex-shrink: 0;
+
+    flex-shrink: 0;
 }
 
 .member-info {
   flex-grow: 1;
-  color: var(--text-color);
-  background-color: var(--bg-color);
 
+  
   h3.member-name {
     font-size: 1.1rem;
     font-weight: 500;
     margin: 0 0 0.25rem 0;
-    color: var(--text-color);
-  background-color: var(--bg-color);
-  }
+  
+    }
 
   p.member-role {
     font-size: 0.85rem;
-    color: var(--text-color);
-    background-color: var(--bg-color);
-    margin: 0 0 0.75rem 0;
+  
+        margin: 0 0 0.75rem 0;
   }
 
   // Styles for Material Chips
   mat-chip-list {
     .mat-mdc-chip {
-      color: var(--text-color);
-      background-color: var(--bg-color);
-      font-size: 0.75rem;
+    
+            font-size: 0.75rem;
       padding: 4px 8px;
       min-height: 24px;
     }
     .mat-mdc-standard-chip {
-      color: var(--text-color);
-  background-color: var(--bg-color);
-        --mdc-chip-label-text-color: #a0aec0;
+    
+          --mdc-chip-label-text-color: #a0aec0;
         --mdc-chip-container-shape: 4px; 
     }
   }
@@ -341,17 +293,15 @@
   right: 0.5rem;
   display: flex;
   gap: 0.2rem;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  padding: 0.2rem;
+
+    padding: 0.2rem;
   border-radius: 8px;
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
 
   button {
-    color: var(--text-color);
-    background-color: var(--bg-color);
-    &:hover {
+  
+        &:hover {
       color: #ffffff;
     }
   }
@@ -359,9 +309,8 @@
 
 .no-members {
   text-align: center;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  padding: 3rem;
+
+    padding: 3rem;
   border-radius: 12px;
   border: 1px dashed #2a2d35;
   grid-column: 1 / -1; // Span full grid if needed
@@ -371,14 +320,12 @@
 @media (max-width: 768px) {
   .team-form-container form,
   .teams-grid {
-    color: var(--text-color);
-  background-color: var(--bg-color);
-     grid-template-columns: 1fr;
+  
+       grid-template-columns: 1fr;
   }
   .member-actions {
-    color: var(--text-color);
-  background-color: var(--bg-color);
-    opacity: 1;
+  
+      opacity: 1;
     position: static;
     background-color: transparent;
     justify-content: flex-end;
@@ -387,17 +334,15 @@
     margin-left: auto; // Push to end in flex layout
   }
   .team-card {
-    color: var(--text-color);
-  background-color: var(--bg-color);
-    flex-direction: column; // Stack vertically on mobile
+  
+      flex-direction: column; // Stack vertically on mobile
     align-items: flex-start; // Align items left
   }
 }
 
 .show-more-container {
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  display: flex;
+
+    display: flex;
   justify-content: center;
   margin-top: 2rem;
   margin-bottom: 1.5rem;
@@ -405,9 +350,8 @@
   button {
     min-width: 140px;
     padding: 10px 20px;
-    color: var(--text-color);
-    background-color: var(--bg-color);
-    border: none;
+  
+        border: none;
     border-radius: 30px;
     font-weight: 500;
     letter-spacing: 0.5px;
@@ -425,14 +369,12 @@
       height: 20px;
       width: 20px;
       transition: transform 0.3s ease;
-      color: var(--text-color);
-      background-color: var(--bg-color);
-    }
+    
+          }
     
     &::before {
-      color: var(--text-color);
-  background-color: var(--bg-color);
-      content: '';
+    
+        content: '';
       position: absolute;
       top: 0;
       left: 0;
@@ -455,40 +397,34 @@
       z-index: -1;
       opacity: 0.3;
       transition: opacity 0.3s ease;
-      color: var(--text-color);
-  background-color: var(--bg-color);
-    }
+    
+      }
     
     &:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-      color: var(--text-color);
-      background-color: var(--bg-color);
-      
+    
+            
       &::before {
-        color: var(--text-color);
-  background-color: var(--bg-color);
-        opacity: 1;
+      
+          opacity: 1;
         background: linear-gradient(45deg, rgba(76, 201, 240, 0.25), rgba(114, 9, 183, 0.25));
       }
       
       &::after {
-        color: var(--text-color);
-  background-color: var(--bg-color);
-        opacity: 0.8;
+      
+          opacity: 0.8;
       }
       
       mat-icon {
         transform: scale(1.2);
-        color: var(--text-color);
-        background-color: var(--bg-color);
-      }
+      
+              }
     }
     
     &:active {
-      color: var(--text-color);
-  background-color: var(--bg-color);
-      transform: translateY(1px);
+    
+        transform: translateY(1px);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }
   }
