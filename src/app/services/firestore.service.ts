@@ -8,144 +8,133 @@ import {
   doc,
   getDocs,
   CollectionReference,
-  DocumentData
+  DocumentData,
+  setDoc,
+  collectionData
 } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
 import { Task } from '../models/task.model';
 import { Project } from '../models/project.model';
-import { TeamMember } from '../models/team.model'; // ✅ Make sure this file exists!
-import { from, Observable, of, switchMap } from 'rxjs';
-import { Timestamp } from '@angular/fire/firestore'; // 👈 ensure this is imported
-
+import { TeamMember } from '../models/team.model';
+import { from, Observable, of, switchMap, take, map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class FirestoreService {
   constructor(private firestore: Firestore, private authService: AuthService) {}
 
-  private getCollectionPath(type: 'tasks' | 'projects' | 'teams'): Observable<string> {
+  private getUserPath(type: 'projects' | 'tasks' | 'teams'): Observable<string> {
     return this.authService.getUser().pipe(
-      switchMap((user: any) => {
-        if (user?.uid) {
-          return of(`users/${user.uid}/${type}`);
-        }
-        return of('');
+      switchMap((user: any) => of(`users/${user?.uid}/${type}`))
+    );
+  }
+
+  // ----------------- PROJECTS -----------------
+
+  addProject(project: Project): Observable<any> {
+    return this.getUserPath('projects').pipe(
+      switchMap((path) => {
+        const docRef = doc(collection(this.firestore, path));
+        return from(setDoc(docRef, project)).pipe(map(() => ({ id: docRef.id })));
       })
     );
   }
 
-  // --------------------- TASKS ---------------------
-  addTask(task: Task): Observable<any> {
-    return this.getCollectionPath('tasks').pipe(
-      switchMap((path) => from(addDoc(collection(this.firestore, path), task)))
+  updateProject(id: string, updates: Partial<Project>): Observable<any> {
+    return this.getUserPath('projects').pipe(
+      switchMap((path) => from(updateDoc(doc(this.firestore, `${path}/${id}`), updates)))
     );
   }
 
-  updateTask(taskId: string, updates: Partial<Task>): Observable<any> {
-    return this.getCollectionPath('tasks').pipe(
-      switchMap((path) => from(updateDoc(doc(this.firestore, `${path}/${taskId}`), updates)))
-    );
-  }
-
-  deleteTask(taskId: string): Observable<any> {
-    return this.getCollectionPath('tasks').pipe(
-      switchMap((path) => from(deleteDoc(doc(this.firestore, `${path}/${taskId}`))))
-    );
-  }
-
-  getTasks(): Observable<Task[]> {
-    return this.getCollectionPath('tasks').pipe(
-      switchMap((path) =>
-        from(getDocs(collection(this.firestore, path))).pipe(
-          switchMap(snapshot => {
-            const tasks: Task[] = snapshot.docs.map(docSnap => {
-              const data: any = docSnap.data();
-              return {
-                id: docSnap.id,
-                ...data,
-                dueDate: data['dueDate']?.toDate?.() || data['dueDate']
-              } as Task;
-            });
-            return of(tasks);
-          })
-        )
-      )
-    );
-  }
-  
-  
-  
-  // --------------------- PROJECTS ---------------------
-  addProject(project: Project): Observable<any> {
-    return this.getCollectionPath('projects').pipe(
-      switchMap((path) => from(addDoc(collection(this.firestore, path), project)))
-    );
-  }
-
-  updateProject(projectId: string, updates: Partial<Project>): Observable<any> {
-    return this.getCollectionPath('projects').pipe(
-      switchMap((path) => from(updateDoc(doc(this.firestore, `${path}/${projectId}`), updates)))
-    );
-  }
-
-  deleteProject(projectId: string): Observable<any> {
-    return this.getCollectionPath('projects').pipe(
-      switchMap((path) => from(deleteDoc(doc(this.firestore, `${path}/${projectId}`))))
+  deleteProject(id: string): Observable<any> {
+    return this.getUserPath('projects').pipe(
+      switchMap((path) => from(deleteDoc(doc(this.firestore, `${path}/${id}`))))
     );
   }
 
   getProjects(): Observable<Project[]> {
-    return this.getCollectionPath('projects').pipe(
+    return this.getUserPath('projects').pipe(
       switchMap((path) =>
         from(getDocs(collection(this.firestore, path))).pipe(
-          switchMap(snapshot => {
-            const projects: Project[] = snapshot.docs.map(docSnap => {
-              const data: any = docSnap.data();
-              return {
-                id: docSnap.id,
-                ...data,
-                dueDate: data['dueDate']?.toDate?.() || data['dueDate']
-              } as Project;
-            });
-            return of(projects);
-          })
+          map(snapshot =>
+            snapshot.docs.map(docSnap => ({
+              id: docSnap.id,
+              ...docSnap.data(),
+              dueDate: (docSnap.data()['dueDate'] as any)?.toDate?.() || docSnap.data()['dueDate']
+            }) as Project)
+          )
         )
       )
     );
   }
-  
-  // --------------------- TEAMS ---------------------
+
+  // ----------------- TASKS -----------------
+
+  addTask(task: Task): Observable<any> {
+    return this.getUserPath('tasks').pipe(
+      switchMap((path) => from(addDoc(collection(this.firestore, path), task)))
+    );
+  }
+
+  updateTask(id: string, updates: Partial<Task>): Observable<any> {
+    return this.getUserPath('tasks').pipe(
+      switchMap((path) => from(updateDoc(doc(this.firestore, `${path}/${id}`), updates)))
+    );
+  }
+
+  deleteTask(id: string): Observable<any> {
+    return this.getUserPath('tasks').pipe(
+      switchMap((path) => from(deleteDoc(doc(this.firestore, `${path}/${id}`))))
+    );
+  }
+
+  getTasks(): Observable<Task[]> {
+    return this.getUserPath('tasks').pipe(
+      switchMap((path) =>
+        from(getDocs(collection(this.firestore, path))).pipe(
+          map(snapshot =>
+            snapshot.docs.map(docSnap => ({
+              id: docSnap.id,
+              ...docSnap.data(),
+              dueDate: (docSnap.data()['dueDate'] as any)?.toDate?.() || docSnap.data()['dueDate']
+            }) as Task)
+          )
+        )
+      )
+    );
+  }
+
+  // ----------------- TEAMS -----------------
+
   addTeamMember(member: TeamMember): Observable<any> {
-    return this.getCollectionPath('teams').pipe(
+    return this.getUserPath('teams').pipe(
       switchMap((path) => from(addDoc(collection(this.firestore, path), member)))
     );
   }
 
-  updateTeamMember(memberId: string, updates: Partial<TeamMember>): Observable<any> {
-    return this.getCollectionPath('teams').pipe(
-      switchMap((path) => from(updateDoc(doc(this.firestore, `${path}/${memberId}`), updates)))
+  updateTeamMember(id: string, updates: Partial<TeamMember>): Observable<any> {
+    return this.getUserPath('teams').pipe(
+      switchMap((path) => from(updateDoc(doc(this.firestore, `${path}/${id}`), updates)))
     );
   }
 
-  deleteTeamMember(memberId: string): Observable<any> {
-    return this.getCollectionPath('teams').pipe(
-      switchMap((path) => from(deleteDoc(doc(this.firestore, `${path}/${memberId}`))))
+  deleteTeamMember(id: string): Observable<any> {
+    return this.getUserPath('teams').pipe(
+      switchMap((path) => from(deleteDoc(doc(this.firestore, `${path}/${id}`))))
     );
   }
 
   getTeamMembers(): Observable<TeamMember[]> {
-    return this.getCollectionPath('teams').pipe(
+    return this.getUserPath('teams').pipe(
       switchMap((path) =>
         from(getDocs(collection(this.firestore, path))).pipe(
-          switchMap(snapshot => {
-            const members: TeamMember[] = snapshot.docs.map(docSnap => ({
+          map(snapshot =>
+            snapshot.docs.map(docSnap => ({
               id: docSnap.id,
               ...docSnap.data()
-            }) as TeamMember);
-            return of(members);
-          })
+            }) as TeamMember)
+          )
         )
       )
     );
   }
-  
 }
