@@ -6,57 +6,29 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AuthService } from 'src/app/services/auth.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-change-password-dialog',
+  templateUrl: '../change-password-dialog/change-password-dialog.component.html',
+  styleUrls: ["../change-password-dialog/change-password-dialog.component.scss"],
   standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
   ],
-  template: `
-    <h2>Change Password</h2>
-    <form [formGroup]="passwordForm" (ngSubmit)="onSubmit()">
-      <mat-form-field class="full-width" appearance="outline">
-        <mat-label>Current Password</mat-label>
-        <input matInput type="password" formControlName="currentPassword" required />
-      </mat-form-field>
-
-      <mat-form-field class="full-width" appearance="outline">
-        <mat-label>New Password</mat-label>
-        <input matInput type="password" formControlName="newPassword" required />
-      </mat-form-field>
-
-      <mat-form-field class="full-width" appearance="outline">
-        <mat-label>Re-enter New Password</mat-label>
-        <input matInput type="password" formControlName="confirmPassword" required />
-      </mat-form-field>
-
-      <div *ngIf="message" [ngClass]="{ 'error-msg': isError, 'success-msg': !isError }">
-        {{ message }}
-      </div>
-
-      <div class="actions">
-        <button mat-flat-button color="primary" type="submit" [disabled]="passwordForm.invalid">Update</button>
-        <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
-      </div>
-    </form>
-  `,
-  styles: [`
-    h2 { margin-top: 0; }
-    .full-width { width: 100%; margin-bottom: 1rem; }
-    .actions { display: flex; justify-content: space-between; }
-    .error-msg { color: red; margin-top: 10px; }
-    .success-msg { color: green; margin-top: 10px; }
-  `]
 })
 export class ChangePasswordDialogComponent {
   passwordForm: FormGroup;
   message = '';
   isError = false;
+  showCurrentPassword = false;
+  showNewPassword = false;
+  showConfirmPassword = false;
 
   constructor(
     private fb: FormBuilder,
@@ -89,6 +61,18 @@ export class ChangePasswordDialogComponent {
     } catch (error: any) {
       this.message = `❌ ${error.message || 'Failed to update password'}`;
       this.isError = true;
+    }
+  }
+  close(): void {
+    this.dialogRef.close();
+  }
+  toggleVisibility(field: string) {
+    if (field === 'current') {
+      this.showCurrentPassword = !this.showCurrentPassword;
+    } else if (field === 'new') {
+      this.showNewPassword = !this.showNewPassword;
+    } else if (field === 'confirm') {
+      this.showConfirmPassword = !this.showConfirmPassword;
     }
   }
 }

@@ -10,12 +10,30 @@
   width: 100%;
   max-width: 400px;
   padding: 2.5rem;
-  background-color: #2c2f36; // dark card
+  background-color: #444546; // dark card
   border-radius: 14px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   color: #f4f4f4;
   font-family: 'Inter', sans-serif;
   text-align: center;
+  .remember-me {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5rem 0 1.5rem 0;
+  
+    a {
+      font-size: 0.85rem;
+      color: #ffffff !important;
+      text-decoration: none;
+  
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  
   
 
   h2 {
@@ -108,7 +126,40 @@
       color: #ff4d4f;
     }
   }
+  .remember-me {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5rem 0 1.5rem 0;
+
+    ::ng-deep .mat-checkbox-label {
+      color: #ffffff !important; // ✅ Force label text to white
+    }
+
+    ::ng-deep .mat-checkbox .mat-checkbox-frame {
+      border-color: #ffffff !important; // white checkbox border
+    }
+
+    ::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+      background-color: #ffffff !important; // white background when checked
+    }
+
+    ::ng-deep .mat-checkbox-checkmark-path {
+      stroke: #2c2f36 !important; // dark tick mark
+    }
+
+    a {
+      font-size: 0.85rem;
+      color: #ffffff !important;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }
+
 // .error-msg {
 //   font-weight: 500;
 //   margin: 16px 0; // 👈 add some vertical spacing
@@ -128,4 +179,65 @@
   font-size: 1rem;
   font-weight: bold;
   margin-top: 1rem;
+}
+
+/* Global override for mat-checkbox */
+.mat-checkbox {
+  color: #ffffff !important;
+}
+
+.mat-checkbox-label {
+  color: #ffffff !important;
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.mat-checkbox-frame {
+  border-color: #ffffff !important;
+}
+
+.mat-checkbox-background {
+  background-color: #ffffff !important;
+}
+
+.mat-checkbox-checkmark-path {
+  stroke: #2c2f36 !important;
+}
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+  border-color: #ffffff !important; // white outline
+}
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+  background-color: #ffffff !important; // white fill when checked
+}
+
+::ng-deep .mat-checkbox-checkmark-path {
+  stroke: #2c2f36 !important; // dark tick mark
+}
+
+::ng-deep .mat-checkbox-label {
+  color: #ffffff !important; // white "Remember Me" text
+}
+::ng-deep input.mat-input-element {
+  color: #ffffff !important;   // Ensure password shows in white
+  caret-color: #ffffff !important; // White cursor
+}
+::ng-deep .mat-checkbox-layout {
+  color: #ffffff !important; // ✅ forces text color white
+}
+
+::ng-deep .mat-checkbox-label {
+  color: #ffffff !important; // ✅ ensures label text is white
+}
+
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+  border-color: #ffffff !important;
+}
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+  background-color: #ffffff !important;
+}
+
+::ng-deep .mat-checkbox-checkmark-path {
+  stroke: #2c2f36 !important;
 }

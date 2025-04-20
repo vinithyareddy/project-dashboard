@@ -7,14 +7,19 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
+
 
 @Component({
   selector: 'app-auth',
   standalone: true,
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
+  
   imports: [
     CommonModule,
+    MatCheckboxModule, 
     ReactiveFormsModule,
     MatButtonModule,
     MatFormFieldModule,
@@ -23,6 +28,7 @@ import { AuthService } from 'src/app/services/auth.service';
     RouterModule
   ],
   providers: [AuthService]
+  
 })
 export class AuthComponent implements OnInit {
   authForm: FormGroup;
@@ -41,11 +47,19 @@ export class AuthComponent implements OnInit {
       phone: [''],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.minLength(6)]], // 👈 only required in login/register flow
-      confirmPassword: ['']
+      confirmPassword: [''],
+      rememberMe: [false] // 👈 add this line
+
     });
   }
 
   ngOnInit(): void {
+    const rememberedEmail = localStorage.getItem('rememberedEmail');
+    if (rememberedEmail) {
+      this.authForm.get('email')?.setValue(rememberedEmail);
+      this.authForm.get('rememberMe')?.setValue(true);
+    }
+  
     this.authService.getUser().subscribe(user => {
       if (user) {
         this.router.navigate(['/dashboard']);
@@ -137,6 +151,15 @@ export class AuthComponent implements OnInit {
 
     try {
       await this.authService.login(email, password);
+        // ✅ Remember Me Logic
+  const remember = this.authForm.get('rememberMe')?.value;
+  if (remember) {
+    localStorage.setItem('rememberedEmail', email);
+  } else {
+    localStorage.removeItem('rememberedEmail');
+  }
+
+
       this.router.navigate(['/dashboard']);
     } catch (err: any) {
       this.handleFirebaseError(err);

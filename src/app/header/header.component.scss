@@ -73,7 +73,7 @@ mat-icon {
   font-size: 42px; // Default is 24px, so increase as needed
   width: 42px;
   height: 42px;
-  margin-right: 0.5rem;
+  margin-left: -1rem;
   color: #555 !important;
 }
 
@@ -112,12 +112,15 @@ mat-icon {
   padding-left: 12px; // ensures everything aligns from same X point
   margin-bottom: 6px;
   gap: 8px;
-
+  
+//email icon and text in 
   mat-icon.user-icon {
     font-size: 18px !important;
     color: #666 !important;
     min-width: 20px;
     text-align: center;
+    margin-left: 7px;
+    margin-top: 5px;
   }
 
   span {
@@ -127,10 +130,11 @@ mat-icon {
   }
 }
 
-
+//for change password and logout option icons 
 .user-icon {
   font-size: 18px !important;   // smaller icons
   color: #666 !important;
+  margin-left: 10px;
 }
 ::ng-deep .mat-menu-item {
   display: flex;
@@ -152,47 +156,47 @@ mat-icon {
     color: #333;
   }
 }
-::ng-deep .custom-dialog-container {
-  padding: 24px !important;
-  border-radius: 12px;
-  box-sizing: border-box;
-  overflow: hidden;
+// ::ng-deep .custom-dialog-container {
+//   padding: 44px !important;
+//   border-radius: 12px;
+//   box-sizing: border-box;
+//   overflow: hidden;
 
-  .mat-dialog-container {
-    padding: 24px !important;
-  }
-}
+//   .mat-dialog-container {
+//     padding: 24px !important;
+//   }
+// }
 
-::ng-deep .change-password-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
+// ::ng-deep .change-password-container {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 1.2rem;
 
-  h2 {
-    font-size: 20px;
-    margin-bottom: 0.5rem;
-  }
+//   h2 {
+//     font-size: 20px;
+//     margin-bottom: 0.5rem;
+//   }
 
-  mat-form-field {
-    width: 100%;
-  }
+//   mat-form-field {
+//     width: 100%;
+//   }
 
-  .actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-  }
+//   .actions {
+//     display: flex;
+//     justify-content: flex-end;
+//     gap: 1rem;
+//   }
 
-  .error-msg {
-    color: red;
-    font-size: 14px;
-  }
+//   .error-msg {
+//     color: red;
+//     font-size: 14px;
+//   }
 
-  .success-msg {
-    color: green;
-    font-size: 14px;
-  }
-}
+//   .success-msg {
+//     color: green;
+//     font-size: 14px;
+//   }
+// }
 ::ng-deep .snackbar-success {
   background-color: #1abc9c !important; /* green-teal */
   color: #ffffff !important;

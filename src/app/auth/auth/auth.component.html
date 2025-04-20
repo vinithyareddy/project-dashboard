@@ -16,11 +16,20 @@
         <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
       </button>
     </mat-form-field>
+    <!-- Remember Me Checkbox -->
+<!-- <div class="remember-me">
+  <mat-checkbox formControlName="rememberMe">Remember Me</mat-checkbox>
+</div>
+
     <div class="forgot-link" *ngIf="!isRegisterMode">
       <a href="#" (click)="onForgotPassword($event)">Forgot password?</a>
+    </div> -->
+
+    <div class="remember-me">
+      <mat-checkbox formControlName="rememberMe">Remember Me</mat-checkbox>
+      <a href="#" (click)="onForgotPassword($event)">Forgot password?</a>
     </div>
-
-
+    
   
     <!-- Confirm Password Field (Only for Register) -->
     <ng-container *ngIf="isRegisterMode">

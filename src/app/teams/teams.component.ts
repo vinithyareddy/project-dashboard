@@ -12,6 +12,7 @@ import { ThemeToggleComponent } from '../shared/theme-toggle/theme-toggle.compon
 import { FirestoreService } from '../services/firestore.service';
 import { TeamMember } from '../models/team.model';
 import { take } from 'rxjs';
+import { RefreshService } from 'src/app/services/refresh.service';
 
 @Component({
   selector: 'app-teams',
@@ -48,17 +49,26 @@ export class TeamsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private datePipe: DatePipe,
-    private firestoreService: FirestoreService
+    private firestoreService: FirestoreService,
+    private refreshService: RefreshService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.teamMemberForm = this.fb.group({
       name: ['', Validators.required],
       role: ['', Validators.required],
-      email: ['', Validators.email],
+      email: [''],
       avatarColor: [this.getRandomColor()]
     });
 
+    this.loadData();
+
+    this.refreshService.refresh$.subscribe(() => {
+      this.loadData();
+    });
+  }
+
+  loadData(): void {
     this.firestoreService.getTeamMembers().pipe(take(1)).subscribe(members => {
       this.teamMembers = members;
       this.updateRoleList();

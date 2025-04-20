@@ -15,6 +15,7 @@ import { FirestoreService } from '../services/firestore.service';
 import { Task } from '../models/task.model';
 import { take } from 'rxjs';
 import { Timestamp } from '@angular/fire/firestore'; // ✅ Needed to detect Timestamp type
+import { RefreshService } from 'src/app/services/refresh.service';
 
 @Component({
   selector: 'app-tasks',
@@ -51,7 +52,8 @@ export class TasksComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private datePipe: DatePipe,
-    private firestoreService: FirestoreService
+    private firestoreService: FirestoreService,
+    private refreshService: RefreshService
   ) {}
 
   ngOnInit(): void {
@@ -62,7 +64,11 @@ export class TasksComponent implements OnInit {
       status: ['Not Started', Validators.required]
     });
 
-    this.loadTasks();
+    this.loadData();
+
+    this.refreshService.refresh$.subscribe(() => {
+      this.loadData();
+    });
   }
 
   loadTasks(): void {
@@ -171,5 +177,19 @@ export class TasksComponent implements OnInit {
       : (input && typeof input.toDate === 'function')
         ? input.toDate()
         : new Date(input);
+  }
+  loadData(): void {
+    this.firestoreService.getTasks().pipe(take(1)).subscribe(tasks => {
+      this.tasks = tasks.map(task => ({
+        ...task,
+        dueDate: task.dueDate instanceof Date
+          ? task.dueDate
+          : (task.dueDate && typeof task.dueDate === 'object' && 'toDate' in task.dueDate
+              ? (task.dueDate as any).toDate()
+              : new Date(task.dueDate))
+      }));
+      this.updateAssigneeList();
+      this.applyFilters();
+    });
   }
 }

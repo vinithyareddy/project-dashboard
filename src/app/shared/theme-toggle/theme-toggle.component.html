@@ -1,4 +1,12 @@
-<button class="theme-toggle-btn" (click)="toggleTheme()" title="Toggle Theme" aria-label="Toggle Theme">
+<!-- <button class="theme-toggle-btn" (click)="toggleTheme()" title="Toggle Theme" aria-label="Toggle Theme">
   <span *ngIf="isDarkMode">☀️</span>
   <span *ngIf="!isDarkMode">🌙</span>
-</button>
+</button> -->
+<!-- theme-toggle.component.html -->
+<label class="fancy-toggle">
+  <input type="checkbox" [checked]="isDarkMode" (change)="toggleTheme()" />
+  <span class="toggle-slider">
+    <span class="icon sun">☀️</span>
+    <span class="icon moon">🌙</span>
+  </span>
+</label>

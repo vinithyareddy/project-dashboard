@@ -325,6 +325,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 // Adjust padding for mat-select to prevent overlap
 .mat-mdc-select {
+  width: 80%;
   padding-top: 1.5rem !important; // Add padding to avoid overlap with the floating label
 }
 
@@ -411,4 +412,33 @@ textarea::placeholder {
 .mat-select-value-text,
 .mat-select-placeholder {
   color: inherit !important;
+}
+/* ✅ Force custom dialog size globally */
+/* ✅ Fix for checkbox label visibility */
+.mat-checkbox-layout {
+  color: #ffffff !important;
+}
+
+.mat-checkbox-label {
+  color: #ffffff !important;
+  font-weight: 400;
+}
+
+.mat-checkbox-frame {
+  border-color: #ffffff !important;
+}
+
+.mat-checkbox-checked .mat-checkbox-background {
+  background-color: #ffffff !important;
+}
+
+.mat-checkbox-checkmark-path {
+  stroke: #2c2f36 !important;
+}
+/* ✅ Make 'Remember Me' text white */
+.mat-checkbox-layout .mat-checkbox-label {
+  color: #ffffff !important;
+}
+.mat-mdc-checkbox .mdc-form-field {
+  color: #ffffff;
 }

@@ -18,6 +18,8 @@ import * as XLSX from 'xlsx';
 import { Project } from 'src/app/models/project.model';
 import { Task } from 'src/app/models/task.model';
 import { TeamMember } from 'src/app/models/team.model';
+import { RefreshService } from 'src/app/services/refresh.service';
+
 
 @Component({
   selector: 'app-header',
@@ -47,7 +49,9 @@ export class HeaderComponent {
     public authService: AuthService,
     private firestoreService: FirestoreService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private refreshService: RefreshService
+
   ) {
     this.user$ = authService.getUser();
   }
@@ -58,7 +62,7 @@ export class HeaderComponent {
 
   openChangePasswordDialog() {
     this.dialog.open(ChangePasswordDialogComponent, {
-      width: '600px',
+      width: '800px',
       maxWidth: '95vw',
       panelClass: 'custom-dialog-container',
       disableClose: false,
@@ -101,6 +105,8 @@ export class HeaderComponent {
           console.log('📊 Excel parsed');
         }
   
+        console.log('📖 Sheet Names:', workbook.SheetNames);
+  
         const [existingProjects, existingTasks, existingTeam] = await Promise.all([
           this.firestoreService.getProjects().toPromise().then(p => p || []),
           this.firestoreService.getTasks().toPromise().then(t => t || []),
@@ -109,110 +115,98 @@ export class HeaderComponent {
   
         workbook.SheetNames.forEach(sheetName => {
           const raw = XLSX.utils.sheet_to_json<any>(workbook.Sheets[sheetName], { header: 1 });
-          console.log(`🧾 Raw sheet "${sheetName}":`, raw);
-          if (!raw || raw.length < 2 || !raw[0] || raw[0].length === 0) {
-            console.warn(`⚠️ Sheet "${sheetName}" is empty or has no headers.`);
-            return;
-          }
-          
+          if (!raw || raw.length < 2 || !raw[0] || raw[0].length === 0) return;
   
           const headers = raw[0].map((h: any) =>
             h?.toString().trim().toLowerCase().replace(/[^a-z0-9_]/g, '')
           );
-                    const json = raw.slice(1).map((row: any[]) =>
+          const json = raw.slice(1).map((row: any[]) =>
             headers.reduce((obj: any, key: string, i: number) => {
               obj[key] = row[i];
               return obj;
             }, {})
           );
-          const lowerSheet = sheetName.toLowerCase();
   
-          console.log(`📋 Processed "${sheetName}"`, json);
+          const normalizedSheet = sheetName.trim().toLowerCase();
+          console.log(`📋 Processing "${normalizedSheet}"`, json);
   
-          if (lowerSheet.includes('project')) {
-            json.forEach((item: any) => {
-              if (!item.name || !item.duedate) return;
+          switch (normalizedSheet) {
+            case 'projects':
+              json.forEach((item: any) => {
+                if (!item.name || !item.duedate) return; // ✅ This is okay, we keep it as is
+                const project: Project = {
+                  name: item.name.trim(),
+                  assignee: item.assignee?.trim() || 'Unassigned', // ✅ fallback
+                  description: item.description || '',
+                  status: item.status || 'Not Started',
+                  dueDate: this.convertToDate(item.duedate)
+                };
+                
+                const isDuplicate = existingProjects.some(p =>
+                  p.name === project.name &&
+                  this.convertToDate(p.dueDate).getTime() === project.dueDate.getTime()
+                );
+                if (!isDuplicate) {
+                  this.firestoreService.addProject(project).subscribe({
+                    next: () => this.showSuccess(`✅ Project "${project.name}" added`),
+                    error: () => this.showError(`❌ Failed to upload project: ${project.name}`)
+                  });
+                }
+              });
+              break;
   
-              const project: Project = {
-                name: item.name.trim(),
-                assignee: item.assignee?.trim() || '',
-                description: item.description || '',
-                status: item.status || 'Not Started',
-                dueDate: this.convertToDate(item.duedate)
-              };
+            case 'tasks':
+              json.forEach((item: any) => {
+                if (!item.name || !item.duedate) return;
+                const task: Task = {
+                  name: this.capitalize(item.name.trim()),
+                  assignee: this.capitalize(item.assignee?.trim() || 'Unassigned'), // ✅ fallback
+                  dueDate: this.convertToDate(item.duedate),
+                  status: item.status || 'Not Started'
+                };
+                
+                const isDuplicate = existingTasks.some(t =>
+                  t.name === task.name &&
+                  t.assignee === task.assignee &&
+                  this.convertToDate(t.dueDate).getTime() === this.convertToDate(task.dueDate).getTime()
+                );
+                if (!isDuplicate) {
+                  this.firestoreService.addTask(task).subscribe({
+                    next: () => this.showSuccess(`✅ Task "${task.name}" added`),
+                    error: () => this.showError(`❌ Failed to upload task: ${task.name}`)
+                  });
+                }
+              });
+              break;
   
-              const isDuplicate = existingProjects.some(p =>
-                p.name === project.name &&
-                this.convertToDate(p.dueDate).getTime() === project.dueDate.getTime()
-              );
+            case 'team':
+              json.forEach((item: any) => {
+                if (!item.name || !item.role) return;
+                const member: TeamMember = {
+                  name: this.capitalize(item.name.trim()),
+                  role: this.capitalize(item.role.trim()),
+                  emails: item.email ? [item.email.trim().toLowerCase()] : [],
+                  avatarColor: this.getRandomColor()
+                };
+                const isDuplicate = existingTeam.some(m =>
+                  (m.name === member.name && m.role === member.role) ||
+                  (member.emails.length && m.emails.includes(member.emails[0]))
+                );
+                if (!isDuplicate) {
+                  this.firestoreService.addTeamMember(member).subscribe({
+                    next: () => this.showSuccess(`✅ Team Member "${member.name}" added`),
+                    error: () => this.showError(`❌ Failed to upload team member: ${member.name}`)
+                  });
+                }
+              });
+              break;
   
-              if (!isDuplicate) {
-                this.firestoreService.addProject(project).subscribe({
-                  next: () => this.showSuccess(`✅ Project "${project.name}" added`),
-                  error: () => this.showError(`❌ Failed to upload project: ${project.name}`)
-                });
-              } else {
-                this.showError(`❌ Duplicate project: ${project.name}`);
-              }
-            });
-          }
-  
-          if (lowerSheet.includes('task')) {
-            json.forEach((item: any) => {
-              if (!item.name || !item.duedate || !item.assignee) return;
-  
-              const task: Task = {
-                name: this.capitalize(item.name.trim()),
-                assignee: this.capitalize(item.assignee.trim()),
-                dueDate: this.convertToDate(item.duedate),
-                status: item.status || 'Not Started'
-              };
-  
-              const isDuplicate = existingTasks.some(t =>
-                t.name === task.name &&
-                t.assignee === task.assignee &&
-                this.convertToDate(t.dueDate).getTime() === this.convertToDate(task.dueDate).getTime()
-              );
-  
-              if (!isDuplicate) {
-                this.firestoreService.addTask(task).subscribe({
-                  next: () => this.showSuccess(`✅ Task "${task.name}" added`),
-                  error: () => this.showError(`❌ Failed to upload task: ${task.name}`)
-                });
-              } else {
-                this.showError(`❌ Duplicate task: ${task.name}`);
-              }
-            });
-          }
-  
-          if (lowerSheet.includes('team')) {
-            json.forEach((item: any) => {
-              if (!item.name || !item.role) return;
-  
-              const member: TeamMember = {
-                name: this.capitalize(item.name.trim()),
-                role: this.capitalize(item.role.trim()),
-                emails: item.email ? [item.email.trim().toLowerCase()] : [],
-                avatarColor: this.getRandomColor()
-              };
-  
-              const isDuplicate = existingTeam.some(m =>
-                (m.name === member.name && m.role === member.role) ||
-                (member.emails.length && m.emails.includes(member.emails[0]))
-              );
-  
-              if (!isDuplicate) {
-                this.firestoreService.addTeamMember(member).subscribe({
-                  next: () => this.showSuccess(`✅ Team Member "${member.name}" added`),
-                  error: () => this.showError(`❌ Failed to upload team member: ${member.name}`)
-                });
-              } else {
-                this.showError(`❌ Duplicate team member: ${member.name}`);
-              }
-            });
+            default:
+              console.warn(`⚠️ Unrecognized sheet: "${sheetName}"`);
           }
         });
   
+        this.refreshService.triggerRefresh(); // 🔁 Trigger UI update
         this.showSuccess('✅ File uploaded and processed successfully.');
       } catch (error) {
         console.error('❌ Parsing failed', error);
@@ -229,6 +223,7 @@ export class HeaderComponent {
   
     reader.readAsArrayBuffer(file);
   }
+  
   
 
   private convertToDate(value: any): Date {

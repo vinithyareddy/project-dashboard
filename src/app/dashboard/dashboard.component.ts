@@ -11,6 +11,8 @@ import { Project } from '../models/project.model';
 import { take } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { Timestamp } from '@angular/fire/firestore';
+import { RefreshService } from 'src/app/services/refresh.service'; // ✅ Add this if not present
+
 
 Chart.register(...registerables);
 
@@ -62,16 +64,26 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   showAllProjects = false;
   showAllTasks = false;
+  currentDate = new Date();
+  currentMonth = this.currentDate.getMonth();
+  currentYear = this.currentDate.getFullYear();
+  calendar: (Date | null)[][] = [];
 
-  constructor(private datePipe: DatePipe, private firestoreService: FirestoreService, private authService: AuthService) {}
-
-  ngOnInit(): void {
-    this.authService.getUser().subscribe(user => {
-      console.log('🔥 Firebase UID:', user?.uid);
-    });
-
-    this.fetchData();
-  }
+  constructor(private datePipe: DatePipe, private firestoreService: FirestoreService, private authService: AuthService,  private refreshService: RefreshService) {this.currentMonth = this.currentDate.getMonth();
+    this.currentYear = this.currentDate.getFullYear();}
+    ngOnInit(): void {
+      this.authService.getUser().subscribe(user => {
+        console.log('🔥 Firebase UID:', user?.uid);
+      });
+  
+      this.generateCalendar();
+      this.loadData();
+  
+      this.refreshService.refresh$.subscribe(() => {
+        this.loadData();
+      });
+    }
+  
 
   fetchData(): void {
     this.firestoreService.getTasks().pipe(take(1)).subscribe(tasks => {
@@ -205,4 +217,46 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   toggleTasks(): void {
     this.showAllTasks = !this.showAllTasks;
   }
+ 
+  generateCalendar() {
+    const firstDay = new Date(this.currentYear, this.currentMonth, 1);
+    const lastDay = new Date(this.currentYear, this.currentMonth + 1, 0);
+    const weeks: (Date | null)[][] = [];
+    let currentWeek: (Date | null)[] = [];
+    const startingDay = firstDay.getDay();
+
+    for (let i = 0; i < startingDay; i++) currentWeek.push(null);
+
+    for (let day = 1; day <= lastDay.getDate(); day++) {
+      if (currentWeek.length === 7) {
+        weeks.push(currentWeek);
+        currentWeek = [];
+      }
+      currentWeek.push(new Date(this.currentYear, this.currentMonth, day));
+    }
+
+    while (currentWeek.length < 7) currentWeek.push(null);
+    weeks.push(currentWeek);
+    this.calendar = weeks;
+  }
+  loadData(): void {
+    this.firestoreService.getTasks().pipe(take(1)).subscribe(tasks => {
+      this.tasks = tasks;
+      this.calculateAllSummaries();
+      this.prepareUpcomingDeadlines();
+      this.prepareChartData();
+    });
+
+    this.firestoreService.getProjects().pipe(take(1)).subscribe(projects => {
+      this.projects = projects.map(project => {
+        let progress = 0;
+        if (project.status === 'Completed') progress = 100;
+        else if (project.status === 'In Progress') progress = 50;
+        return { ...project, progress };
+      });
+      this.prepareProjectOverview();
+    });
+  }
+
+  
 }

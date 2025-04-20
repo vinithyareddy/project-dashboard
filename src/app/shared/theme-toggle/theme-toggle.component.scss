@@ -1,12 +1,78 @@
-.theme-toggle-btn {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 9999;
-  background: none;
-  border: none;
-  font-size: 1.8rem;
-  cursor: pointer;
-  transition: color 0.3s ease;
-  color: var(--text-color); // This depends on your theme CSS variables
+
+.fancy-toggle {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 32px;
+  margin-top: 8px;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right, #fbbf24, #1e3a8a);
+    transition: 0.4s;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6px;
+
+    .icon {
+      font-size: 16px;
+      z-index: 2;
+      pointer-events: none;
+      transition: transform 0.3s ease;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+      z-index: 1;
+    }
+  }
+
+  input:checked + .toggle-slider {
+    &::before {
+      transform: translateX(28px);
+    }
+
+    .sun {
+      transform: scale(0.8);
+      opacity: 0.5;
+    }
+
+    .moon {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+  }
+
+  input:not(:checked) + .toggle-slider {
+    .moon {
+      transform: scale(0.8);
+      opacity: 0.5;
+    }
+
+    .sun {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+  }
 }

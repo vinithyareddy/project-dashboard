@@ -82,6 +82,12 @@
      mat-error { 
       color: var(--text-color);
   background-color: var(--bg-color);color: #f87171; } // Error color
+  mat-label {
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: initial !important;
+  }
+  
   }
 
   .form-actions {
@@ -118,6 +124,12 @@
   background-color: var(--bg-color);
     flex: 1 1 250px; // Allow date field to grow
     min-width: 200px;
+    mat-label {
+      white-space: nowrap !important;
+      overflow: visible !important;
+      text-overflow: initial !important;
+    }
+    
   }
 
   // Style Angular Material components for dark theme
@@ -300,4 +312,18 @@
     height: 56px;
     white-space: nowrap;
   }
+}
+::ng-deep .mat-form-field-infix {
+  min-height: 56px; // ensure enough height for mat-select
+}
+
+::ng-deep .mat-select-placeholder,
+::ng-deep .mat-select-value-text {
+  color: #aaa !important;  // Placeholder-like gray
+  font-style: italic;
+  opacity: 1 !important;
+}
+
+::ng-deep .mat-select {
+  padding-top: 8px !important;
 }

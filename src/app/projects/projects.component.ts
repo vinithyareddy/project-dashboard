@@ -13,6 +13,7 @@ import { ThemeToggleComponent } from '../shared/theme-toggle/theme-toggle.compon
 import { FirestoreService } from '../services/firestore.service';
 import { Project } from '../models/project.model';
 import { take } from 'rxjs';
+import { RefreshService } from 'src/app/services/refresh.service';
 
 @Component({
   selector: 'app-projects',
@@ -54,29 +55,27 @@ export class ProjectsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private datePipe: DatePipe,
-    private firestoreService: FirestoreService
+    private firestoreService: FirestoreService,
+    private refreshService: RefreshService
   ) {}
 
   ngOnInit(): void {
     this.projectForm = this.fb.group({
       name: ['', Validators.required],
-      assignee: [''], // ✅ Include this line
+      assignee: [''],
       dueDate: [null, Validators.required],
       status: ['Not Started', Validators.required]
     });
-    
-
-   this.firestoreService.getProjects().pipe(take(1)).subscribe(projects => {
-  this.projects = projects.map(project => ({
-    ...project,
-    dueDate: project.dueDate instanceof Date
-      ? project.dueDate
-      : (project.dueDate && typeof project.dueDate === 'object' && 'toDate' in project.dueDate ? (project.dueDate as any).toDate() : null)
-  }));
-  this.applyFilters();
-});
-
+  
+    this.loadData();
+  
+    // ✅ This ensures new data shows after upload
+    this.refreshService.refresh$.subscribe(() => {
+      this.loadData();
+    });
   }
+  
+  
 
   applyFilters(): void {
     let temp = [...this.projects];
@@ -167,4 +166,19 @@ export class ProjectsComponent implements OnInit {
   toggleProjects(): void {
     this.showAllProjects = !this.showAllProjects;
   }
+  loadData(): void {
+    this.firestoreService.getProjects().pipe(take(1)).subscribe(projects => {
+      this.projects = projects.map(project => ({
+        ...project,
+        dueDate: project.dueDate instanceof Date
+          ? project.dueDate
+          : (project.dueDate && typeof project.dueDate === 'object' && 'toDate' in project.dueDate
+            ? (project.dueDate as any).toDate()
+            : null)
+      }));
+      this.applyFilters();
+    });
+  }
+  
+  
 }

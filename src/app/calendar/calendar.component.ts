@@ -5,6 +5,8 @@ import { FirestoreService } from '../services/firestore.service';
 import { Task } from '../models/task.model';
 import { Project } from '../models/project.model';
 import { take } from 'rxjs';
+import { RefreshService } from 'src/app/services/refresh.service';
+
 
 @Component({
   selector: 'app-calendar',
@@ -21,14 +23,23 @@ export class CalendarComponent implements OnInit {
   tasks: Task[] = [];
   projects: Project[] = [];
 
-  constructor(private firestoreService: FirestoreService) {
+  constructor(private firestoreService: FirestoreService,   private refreshService: RefreshService) {
     this.currentMonth = this.currentDate.getMonth();
     this.currentYear = this.currentDate.getFullYear();
   }
 
+
   ngOnInit() {
     this.generateCalendar();
+    this.loadData(); // 🔁 Initial fetch
 
+    // ✅ Reload on file upload
+    this.refreshService.refresh$.subscribe(() => {
+      this.loadData();
+    });
+  }
+
+  loadData(): void {
     this.firestoreService.getTasks().pipe(take(1)).subscribe(tasks => {
       this.tasks = tasks;
     });
@@ -37,7 +48,6 @@ export class CalendarComponent implements OnInit {
       this.projects = projects;
     });
   }
-
   generateCalendar() {
     const firstDay = new Date(this.currentYear, this.currentMonth, 1);
     const lastDay = new Date(this.currentYear, this.currentMonth + 1, 0);
