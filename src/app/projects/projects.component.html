@@ -38,23 +38,6 @@
       <mat-error *ngIf="projectForm.get('status')?.hasError('required')">Status is required</mat-error>
     </mat-form-field>
 
-<!-- Progress Slider -->
-<!-- <div class="progress-slider-wrapper">
-  <label class="slider-label">
-    Progress: {{ projectForm.get('progress')?.value }}%
-  </label>
-
-  <mat-slider
-    [ngModel]="projectForm.get('progress')?.value"
-    (ngModelChange)="projectForm.get('progress')?.setValue($event)"
-    min="0"
-    max="100"
-    step="5"
-    thumbLabel
-    tickInterval="10"
-  ></mat-slider>
-</div>
- -->
 
 
 
