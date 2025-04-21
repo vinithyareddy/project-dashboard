@@ -99,3 +99,28 @@
     transform: translateY(-100%) rotate(45deg);
   }
   
+  @media (max-width: 600px) {
+    .content-wrapper {
+      padding: 1.5rem;
+    }
+  
+    .website-title {
+      font-size: 2rem;
+      line-height: 2.4rem;
+      margin-bottom: 1.2rem;
+    }
+  
+    .tagline {
+      font-size: 1rem;
+      margin: 1.5rem 0;
+    }
+  
+    .get-started-button {
+      font-size: 1rem;
+      padding: 0.8rem 2rem;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 280px;
+    }
+  }
+  

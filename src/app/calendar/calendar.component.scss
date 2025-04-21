@@ -202,3 +202,93 @@
     font-size: 0.75rem;
   }
 }
+
+@media (max-width: 480px) {
+  .calendar-container {
+    padding: 0.5rem;
+    overflow-x: auto; // allow horizontal scroll
+  }
+
+  .calendar-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .month-navigation {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .month-year {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .navigation-buttons {
+      gap: 0.3rem;
+
+      .nav-button {
+        width: 44px;
+        height: 44px;
+      }
+    }
+  }
+
+  .weekday-header {
+    overflow-x: auto;
+
+    .calendar-grid {
+      min-width: 700px; // scrollable width
+      grid-template-columns: repeat(7, 120px); // wider columns
+    }
+
+    .weekday {
+      font-size: 0.8rem;
+      min-width: 120px;
+      text-align: center;
+    }
+  }
+
+  .calendar-days {
+    overflow-x: auto;
+    width: 100%;
+
+    .calendar-grid {
+      min-width: 840px; // 120px * 7 days
+      display: grid;
+      grid-template-columns: repeat(7, 120px); // wider days
+    }
+
+    .day {
+      min-height: 120px;
+      padding: 0.4rem;
+      font-size: 0.8rem;
+      overflow-wrap: break-word;
+    }
+
+    .date-number {
+      font-size: 1rem;
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+    }
+
+    .task-item,
+    .project-deadline-item {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.4rem;
+      background: #f3f4f6;
+      border-radius: 4px;
+      max-width: 100%;
+      white-space: normal;
+    }
+  }
+
+  .item-label {
+    font-size: 0.7rem;
+  }
+}

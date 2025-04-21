@@ -589,3 +589,98 @@
   background-color: #e0e7ff !important;
   color: #1e3a8a !important;
 }
+@media (max-width: 480px) {
+  .tasks-container {
+    padding: 1rem;
+  }
+
+  .task-form-container {
+    padding: 1rem;
+
+    form {
+      grid-template-columns: 1fr !important;
+      gap: 1rem;
+    }
+
+    .form-actions {
+      flex-direction: column;
+      align-items: stretch;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+
+  .filter-controls {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+
+    mat-form-field {
+      width: 100% !important;
+    }
+
+    .add-task-button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .task-card {
+    grid-template-columns: 1fr;
+    text-align: left;
+    padding: 1rem;
+
+    .task-info {
+      text-align: left;
+
+      h3 {
+        font-size: 1rem;
+      }
+
+      p {
+        font-size: 0.8rem;
+      }
+    }
+
+    .task-status {
+      margin-top: 0.5rem;
+      text-align: left;
+    }
+
+    .task-actions {
+      justify-content: flex-end;
+      margin-top: 0.5rem;
+    }
+  }
+
+  .show-more-container {
+    margin-top: 1rem;
+    button {
+      width: 100%;
+    }
+  }
+
+  .no-tasks {
+    padding: 2rem 1rem;
+  }
+  mat-form-field {
+    width: 100% !important;
+  
+    .mat-mdc-text-field-wrapper {
+      padding: 0.2rem 0.4rem !important;
+      min-height: 34px !important;
+    }
+  
+    .mat-mdc-form-field-input-control {
+      font-size: 0.8rem !important;
+    }
+  
+    .mat-mdc-form-field-infix {
+      padding: 0.2rem 0 !important;
+    }
+  }
+  
+  
+}

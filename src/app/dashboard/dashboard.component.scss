@@ -522,3 +522,103 @@ mat-icon {
 
   }
 }
+
+@media (max-width: 480px) {
+  .dashboard-container-original {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .left-column,
+  .right-column {
+    gap: 1.5rem;
+  }
+
+  .dashboard-card {
+    padding: 1rem;
+  }
+
+  .task-status-card-original .donut-chart-container {
+    width: 140px;
+    height: 140px;
+  }
+
+  .status-legend-original .status-item {
+    font-size: 0.85rem;
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+    }
+  }
+
+  .summary-list .summary-item {
+    font-size: 0.85rem;
+    padding-bottom: 0.6rem;
+  }
+
+  .project-overview-card {
+    padding: 1rem;
+
+    .overview-title {
+      font-size: 1.2rem;
+    }
+
+    .overview-grid {
+      grid-template-columns: 1fr; // Stack overview items vertically on mobile
+      gap: 1rem;
+    }
+
+    .overview-item {
+      flex-direction: row;
+      padding: 0.8rem;
+    }
+
+    .icon-circle {
+      width: 40px;
+      height: 40px;
+      font-size: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    
+    mat-icon {
+      font-size: 22px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+
+    .overview-text p {
+      font-size: 0.8rem;
+    }
+
+    .overview-text h3 {
+      font-size: 0.95rem;
+    }
+  }
+
+  .deadline-list-original .deadline-item {
+    font-size: 0.85rem;
+    padding-bottom: 0.6rem;
+  }
+
+  .show-more-container {
+    button {
+      padding: 8px 16px;
+      font-size: 0.85rem;
+
+      mat-icon {
+        font-size: 18px;
+      }
+    }
+  }
+}

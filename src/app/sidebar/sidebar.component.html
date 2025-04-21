@@ -1,5 +1,5 @@
 
-<div class="sidebar" [class.collapsed]="isCollapsed">
+<div class="sidebar" [class.active]="!isCollapsed" [class.collapsed]="isCollapsed">
 
   <nav class="nav-menu">
     <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">

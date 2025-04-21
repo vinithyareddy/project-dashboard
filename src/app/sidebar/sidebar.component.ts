@@ -4,16 +4,13 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
-import { ChangePasswordDialogComponent } from 'src/app/change-password-dialog/change-password-dialog.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { RouterModule, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../services/auth.service';
-import { User } from '@angular/fire/auth';
+import { ChangePasswordDialogComponent } from 'src/app/change-password-dialog/change-password-dialog.component';
 import { Observable } from 'rxjs';
-import {  MatSnackBarModule } from '@angular/material/snack-bar';
-import {  MatDialogModule } from '@angular/material/dialog';
-
+import { User } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-sidebar',
@@ -30,29 +27,32 @@ import {  MatDialogModule } from '@angular/material/dialog';
     MatSnackBarModule,
     MatDialogModule
   ]
-  })
+})
 export class SidebarComponent {
-  user$: Observable<User | null>;
   @Input() isCollapsed: boolean = false;
   @Output() toggleSidebar = new EventEmitter<void>();
+  user$: Observable<User | null>;
+  isSidebarVisible: boolean = false; // Used for mobile toggle
 
-  constructor(private snackBar: MatSnackBar,
+  constructor(
+    private snackBar: MatSnackBar,
     private authService: AuthService,
     private dialog: MatDialog,
     private router: Router
-  ) {  this.user$ = this.authService.getUser(); // 🔁 Stream of user data
-  }
-  onToggleSidebar(): void {
-    console.log('SidebarComponent: onToggleSidebar called');
-    this.toggleSidebar.emit();
+  ) {
+    this.user$ = this.authService.getUser(); // Stream of user auth data
   }
 
-  
-  logout() {
+  onToggleSidebar(): void {
+    this.isSidebarVisible = !this.isSidebarVisible; // For mobile slide-in
+    this.toggleSidebar.emit(); // Notify parent if needed
+  }
+
+  logout(): void {
     this.authService.logout().then(() => this.router.navigate(['/auth']));
   }
 
-  openChangePasswordDialog() {
+  openChangePasswordDialog(): void {
     this.dialog.open(ChangePasswordDialogComponent, {
       width: '800px',
       maxWidth: '95vw',
@@ -62,14 +62,14 @@ export class SidebarComponent {
     });
   }
 
-  showSuccess(message: string) {
+  showSuccess(message: string): void {
     this.snackBar.open(message, 'Close', {
       duration: 4000,
       panelClass: 'snackbar-success'
     });
   }
 
-  showError(message: string) {
+  showError(message: string): void {
     this.snackBar.open(message, 'Close', {
       duration: 4000,
       panelClass: 'snackbar-error'

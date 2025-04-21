@@ -429,3 +429,90 @@ margin-left: 30px;
     }
   }
 } 
+
+@media (max-width: 480px) {
+  .page-container {
+    margin-left: 1rem;
+    padding: 1rem;
+  }
+
+  .team-form-container {
+    padding: 1rem;
+
+    form {
+      grid-template-columns: 1fr !important;
+      gap: 1rem;
+    }
+
+    .form-actions {
+      flex-direction: column;
+      align-items: stretch;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+
+  .filter-controls {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+
+    mat-form-field {
+      width: 100% !important;
+    }
+
+    .add-member-button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .teams-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .team-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+    gap: 1rem;
+
+    .avatar {
+      margin-bottom: 0.5rem;
+    }
+
+    .member-actions {
+      justify-content: flex-end;
+      margin-left: auto;
+      margin-top: 0.5rem;
+    }
+  }
+
+  .show-more-container button {
+    width: 100%;
+  }
+
+  .no-members {
+    padding: 2rem 1rem;
+  }
+  mat-form-field {
+    width: 100% !important;
+  
+    .mat-mdc-text-field-wrapper {
+      padding: 0.2rem 0.4rem !important;
+      min-height: 34px !important;
+    }
+  
+    .mat-mdc-form-field-input-control {
+      font-size: 0.8rem !important;
+    }
+  
+    .mat-mdc-form-field-infix {
+      padding: 0.2rem 0 !important;
+    }
+  }
+  
+  
+}
