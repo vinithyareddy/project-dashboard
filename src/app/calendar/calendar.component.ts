@@ -27,18 +27,18 @@ export class CalendarComponent implements OnInit {
   tasks: Task[] = [];
   projects: Project[] = [];
 
-  constructor(private firestoreService: FirestoreService,   private refreshService: RefreshService, private dialog: MatDialog) {
+  constructor(private firestoreService: FirestoreService, private refreshService: RefreshService, private dialog: MatDialog) {
     this.currentMonth = this.currentDate.getMonth();
     this.currentYear = this.currentDate.getFullYear();
-    
+
   }
 
 
   ngOnInit() {
     this.generateCalendar();
-    this.loadData(); // 🔁 Initial fetch
+    this.loadData();
 
-    // ✅ Reload on file upload
+
     this.refreshService.refresh$.subscribe(() => {
       this.loadData();
     });
@@ -74,7 +74,7 @@ export class CalendarComponent implements OnInit {
     weeks.push(currentWeek);
     this.calendar = weeks;
     this.calendar = weeks;
-this.lastRowIndex = weeks.length - 1; // <== Track last row index
+    this.lastRowIndex = weeks.length - 1;
   }
 
   getTasksForDate(date: Date | null): Task[] {
@@ -82,8 +82,8 @@ this.lastRowIndex = weeks.length - 1; // <== Track last row index
     return this.tasks.filter(task => {
       const taskDate = task.dueDate instanceof Date ? task.dueDate : task.dueDate.toDate();
       return taskDate.getDate() === date.getDate() &&
-             taskDate.getMonth() === date.getMonth() &&
-             taskDate.getFullYear() === date.getFullYear();
+        taskDate.getMonth() === date.getMonth() &&
+        taskDate.getFullYear() === date.getFullYear();
     });
   }
 
@@ -92,8 +92,8 @@ this.lastRowIndex = weeks.length - 1; // <== Track last row index
     return this.projects.filter(project => {
       const projectDate = new Date(project.dueDate);
       return projectDate.getDate() === date.getDate() &&
-             projectDate.getMonth() === date.getMonth() &&
-             projectDate.getFullYear() === date.getFullYear();
+        projectDate.getMonth() === date.getMonth() &&
+        projectDate.getFullYear() === date.getFullYear();
     });
   }
 
@@ -122,30 +122,30 @@ this.lastRowIndex = weeks.length - 1; // <== Track last row index
   }
   getVisibleTasksForDate(date: Date): Task[] {
     const tasks = this.getTasksForDate(date);
-    return tasks.slice(0, 1); // show only the first one
+    return tasks.slice(0, 1);
   }
-  
+
   getHiddenTasksCount(date: Date): number {
     const tasks = this.getTasksForDate(date);
     return tasks.length > 1 ? tasks.length - 1 : 0;
   }
-  
+
   getAllTaskNames(date: Date): string {
     return this.getTasksForDate(date)
       .map((t, i) => `${i + 1}. ${t.name}`)
       .join('\n');
   }
-  
+
   getVisibleProjectsForDate(date: Date): Project[] {
     const projects = this.getProjectsForDate(date);
     return projects.slice(0, 1);
   }
-  
+
   getHiddenProjectsCount(date: Date): number {
     const projects = this.getProjectsForDate(date);
     return projects.length > 1 ? projects.length - 1 : 0;
   }
-  
+
   getAllProjectNames(date: Date): string {
     return this.getProjectsForDate(date)
       .map((p, i) => `${i + 1}. ${p.name}`)
@@ -158,12 +158,12 @@ this.lastRowIndex = weeks.length - 1; // <== Track last row index
         title: `Tasks on ${day.toDateString()}`,
         items: tasks
       },
-      disableClose: false,     // ✅ ESC & backdrop close allowed
+      disableClose: false,
       hasBackdrop: true
     });
   }
-  
-  
+
+
   openModalForProjects(day: Date) {
     const projects = this.getProjectsForDate(day).map(p => p.name);
     this.dialog.open(TaskModalComponent, {

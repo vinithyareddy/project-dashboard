@@ -13,7 +13,7 @@ import { DatePipe } from '@angular/common';
 import { FirestoreService } from '../services/firestore.service';
 import { Task } from '../models/task.model';
 import { take } from 'rxjs';
-import { Timestamp } from '@angular/fire/firestore'; // ✅ Needed to detect Timestamp type
+import { Timestamp } from '@angular/fire/firestore';
 import { RefreshService } from 'src/app/services/refresh.service';
 
 @Component({
@@ -32,7 +32,7 @@ import { RefreshService } from 'src/app/services/refresh.service';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule
-    ],
+  ],
   providers: [DatePipe]
 })
 export class TasksComponent implements OnInit {
@@ -52,7 +52,7 @@ export class TasksComponent implements OnInit {
     private datePipe: DatePipe,
     private firestoreService: FirestoreService,
     private refreshService: RefreshService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.taskForm = this.fb.group({
@@ -84,39 +84,38 @@ export class TasksComponent implements OnInit {
 
   applyFilters(): void {
     let tempTasks = [...this.tasks];
-  
+
     if (this.selectedAssignee && this.selectedAssignee !== 'All') {
       tempTasks = tempTasks.filter(task => task.assignee === this.selectedAssignee);
     }
-  
+
     if (this.selectedDate) {
       const filterDate = new Date(this.selectedDate);
       filterDate.setHours(0, 0, 0, 0);
       const filterTime = filterDate.getTime();
-  
+
       tempTasks = tempTasks.filter(task => {
         const taskDueDate = this.convertToDate(task.dueDate);
         taskDueDate.setHours(0, 0, 0, 0);
         return taskDueDate.getTime() === filterTime;
       });
     }
-  
-    // 🧠 Add status-based sorting here
+
     const statusOrder: { [key: string]: number } = {
       'Not Started': 0,
       'In Progress': 1,
       'Completed': 2
     };
-  
+
     tempTasks.sort((a, b) => {
       const statusDiff = statusOrder[a.status] - statusOrder[b.status];
       if (statusDiff !== 0) return statusDiff;
       return this.convertToDate(a.dueDate).getTime() - this.convertToDate(b.dueDate).getTime();
     });
-  
+
     this.filteredTasks = tempTasks;
   }
-  
+
   clearDateFilter(): void {
     this.selectedDate = null;
     this.applyFilters();
@@ -134,7 +133,7 @@ export class TasksComponent implements OnInit {
     this.taskForm.setValue({
       name: task.name,
       assignee: task.assignee,
-      dueDate: this.convertToDate(task.dueDate), // 🔁 ensure compatibility
+      dueDate: this.convertToDate(task.dueDate),
       status: task.status
     });
   }
@@ -181,9 +180,7 @@ export class TasksComponent implements OnInit {
     this.showAllTasks = !this.showAllTasks;
   }
 
-  /**
-   * 🔧 Handles both Firestore Timestamp and native Date types safely.
-   */
+
   convertToDate(input: any): Date {
     return input instanceof Date
       ? input
@@ -198,8 +195,8 @@ export class TasksComponent implements OnInit {
         dueDate: task.dueDate instanceof Date
           ? task.dueDate
           : (task.dueDate && typeof task.dueDate === 'object' && 'toDate' in task.dueDate
-              ? (task.dueDate as any).toDate()
-              : new Date(task.dueDate))
+            ? (task.dueDate as any).toDate()
+            : new Date(task.dueDate))
       }));
       this.updateAssigneeList();
       this.applyFilters();

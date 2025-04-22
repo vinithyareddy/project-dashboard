@@ -4,7 +4,6 @@
   background: #ffffff;
   border-radius: 12px;
   min-height: calc(100vh - 4rem);
- 
 }
 .more-indicator {
   font-size: 0.75rem;
@@ -13,16 +12,13 @@
   text-decoration: underline;
 }
 
-
 .calendar-header {
-   
   margin-bottom: 2rem;
 
   h1 {
     font-size: 2.5rem;
     font-weight: 500;
     margin-bottom: 1.5rem;
-   
   }
 }
 
@@ -31,23 +27,18 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
- 
 }
 
 .month-year {
- 
   font-size: 1.5rem;
   font-weight: 500;
 }
 
 .navigation-buttons {
- 
   display: flex;
   gap: 0.5rem;
 
   .nav-button {
-   
-   
     border: none;
 
     width: 56px;
@@ -74,9 +65,8 @@
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
   overflow: hidden;
-  background: #ffffff; // Optional: ensures clean edge coloring
-  overflow: clip; // 🔒 Prevents any small protrusions
-
+  background: #ffffff;
+  overflow: clip;
 }
 
 .calendar-grid,
@@ -86,17 +76,15 @@
 }
 
 .weekday-header {
- 
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   background: #2a2d35;
   padding: 0.4rem;
   border-top-left-radius: 12px;
-  border-top-right-radius: 12px; // ✅ Apply border radius to fix top-right edge
+  border-top-right-radius: 12px;
   overflow: hidden;
 
   .weekday {
-   
     text-align: center;
     color: #a0aec0;
     font-weight: 500;
@@ -104,20 +92,16 @@
     border-right: 1px solid #2a2d35;
   }
   &:last-child {
-    border-right: none; // ✅ Remove right border from Saturday
+    border-right: none;
   }
 }
 
 .calendar-days {
- 
   .week {
-   
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-   
 
     &:last-child {
-     
       border-bottom: 1px solid #2a2d35 !important;
     }
   }
@@ -130,14 +114,13 @@
     border-right: 1px solid #2a2d35;
     border-bottom: 1px solid #2a2d35;
     overflow: hidden;
-    box-sizing: border-box; // ✅ NEW: ensures border fits inside cell
+    box-sizing: border-box;
     border-radius: 0 !important;
 
-  
     &:last-child {
-      border-right: 1px solid #2a2d35 !important; // ✅ NEW: force right edge for last column
+      border-right: 1px solid #2a2d35 !important;
     }
-  
+
     .items-container {
       flex: 1;
       display: flex;
@@ -146,11 +129,6 @@
       overflow: hidden;
     }
   }
-  
-  
-  
-  
-  
 }
 .calendar-days .week:last-child .day:last-child {
   border-right: 1px solid #2a2d35 !important;
@@ -167,10 +145,7 @@
   box-sizing: border-box;
 }
 
-
-
 .date-number {
- 
   font-size: 1.1rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
@@ -181,12 +156,11 @@
   flex-direction: column;
   gap: 0.4rem;
   overflow-y: auto;
-  max-height: 100px; // 🧠 leaves space for date
+  max-height: 100px;
   padding-right: 4px;
 }
 
 .item-label {
- 
   font-size: 0.75rem;
   color: #000000;
   margin-top: 0.5rem;
@@ -194,7 +168,6 @@
 }
 
 .task-item {
- 
   font-size: 0.8rem;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
@@ -225,38 +198,32 @@
   background: #f1f1f1;
   color: #000000;
 
-  white-space: nowrap;         // ✅ one line only
-  overflow: hidden;            // ✅ hide overflow
-  text-overflow: ellipsis;     // ✅ show ...
-  max-width: 100%;             // ✅ ensure it doesn't stretch container
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .no-items {
- 
   font-size: 0.75rem;
   color: #000000;
   font-style: italic;
 }
 
 @media (max-width: 768px) {
-  
   .calendar-container {
-   
     padding: 1rem;
   }
 
   .calendar-header h1 {
-   
     font-size: 2rem;
   }
 
   .day {
-   
     min-height: 100px;
   }
 
   .task-item {
-   
     font-size: 0.75rem;
   }
 }
@@ -264,7 +231,7 @@
 @media (max-width: 480px) {
   .calendar-container {
     padding: 0.5rem;
-    overflow-x: auto; // allow horizontal scroll
+    overflow-x: auto;
   }
 
   .calendar-header {
@@ -301,10 +268,10 @@
     overflow-x: auto;
 
     .calendar-grid {
-      min-width: 700px; // scrollable width
-      grid-template-columns: repeat(7, 120px); // wider columns
-      border-radius: 12px;   // ✅ fine
-      overflow: visible;   
+      min-width: 700px;
+      grid-template-columns: repeat(7, 120px);
+      border-radius: 12px;
+      overflow: visible;
     }
 
     .weekday {
@@ -319,9 +286,9 @@
     width: 100%;
 
     .calendar-grid {
-      min-width: 840px; // 120px * 7 days
+      min-width: 840px;
       display: grid;
-      grid-template-columns: repeat(7, 120px); // wider days
+      grid-template-columns: repeat(7, 120px);
     }
 
     .day {

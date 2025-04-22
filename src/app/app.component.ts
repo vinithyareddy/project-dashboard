@@ -17,7 +17,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     RouterOutlet,
     SidebarComponent,
     MatIconModule,
-    MatSnackBarModule // Add this
+    MatSnackBarModule
   ]
 })
 export class AppComponent implements OnInit {
@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
   showMainLayout = false;
   title = 'project-dashboard';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.router.events.pipe(
@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
       const url = event.urlAfterRedirects;
       this.showMainLayout = !(url === '/' || url.startsWith('/auth'));
     });
-    
+
   }
 
   toggleSidebar(): void {

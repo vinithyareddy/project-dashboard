@@ -36,16 +36,13 @@
 
     <!-- Filter Controls -->
     <div class="filter-controls">
-       <mat-form-field appearance="outline" class="filter-name">
-        <input matInput 
-               [(ngModel)]="filterName" 
-               (ngModelChange)="applyFilters()" 
-               placeholder="Enter name...">
-         <button mat-icon-button matSuffix *ngIf="filterName" (click)="clearNameFilter()" aria-label="Clear name filter">
-            <mat-icon>close</mat-icon>
+      <mat-form-field appearance="outline" class="filter-name">
+        <input matInput [(ngModel)]="filterName" (ngModelChange)="applyFilters()" placeholder="Enter name...">
+        <button mat-icon-button matSuffix *ngIf="filterName" (click)="clearNameFilter()" aria-label="Clear name filter">
+          <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
-         
+
 
       <mat-form-field appearance="outline" class="filter-role">
         <mat-select [(ngModel)]="selectedRole" (ngModelChange)="applyFilters()">
@@ -62,8 +59,8 @@
 
     <!-- Team Grid Display -->
     <div class="teams-grid">
-      <!-- Iterate over filteredTeamMembers with slicing for pagination -->
-      <div class="team-card" *ngFor="let member of (showAllMembers ? filteredTeamMembers : filteredTeamMembers.slice(0, 6))">
+      <div class="team-card"
+        *ngFor="let member of (showAllMembers ? filteredTeamMembers : filteredTeamMembers.slice(0, 6))">
         <div class="avatar" [style.background-color]="member.avatarColor">
           {{ member.name.charAt(0) }}
         </div>
@@ -95,21 +92,19 @@
 
     <!-- Message when no members match filter -->
     <div *ngIf="filteredTeamMembers.length === 0" class="no-members">
-       No team members found matching the current filters. Try clearing filters or adding a member!
+      No team members found matching the current filters. Try clearing filters or adding a member!
     </div>
 
   </div>
-  
 
-<div *ngIf="teamMembers.length === 0" class="empty-state">
-  <img src="assets/empty-team.svg" alt="No team" class="empty-icon" />
-  <p>No team members found. Upload or add a team member.</p>
+
+  <div *ngIf="teamMembers.length === 0" class="empty-state">
+    <img src="assets/empty-team.svg" alt="No team" class="empty-icon" />
+    <p>No team members found. Upload or add a team member.</p>
+  </div>
+
+  <div *ngIf="teamMembers.length > 0">
+  </div>
+
+
 </div>
-
-<div *ngIf="teamMembers.length > 0">
-  <!-- Team member cards or table -->
-</div>
-
-
-</div>
-  

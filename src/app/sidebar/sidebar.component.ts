@@ -32,7 +32,7 @@ export class SidebarComponent {
   @Input() isCollapsed: boolean = false;
   @Output() toggleSidebar = new EventEmitter<void>();
   user$: Observable<User | null>;
-  isSidebarVisible: boolean = false; // Used for mobile toggle
+  isSidebarVisible: boolean = false;
 
   constructor(
     private snackBar: MatSnackBar,
@@ -40,12 +40,12 @@ export class SidebarComponent {
     private dialog: MatDialog,
     private router: Router
   ) {
-    this.user$ = this.authService.getUser(); // Stream of user auth data
+    this.user$ = this.authService.getUser();
   }
 
   onToggleSidebar(): void {
-    this.isSidebarVisible = !this.isSidebarVisible; // For mobile slide-in
-    this.toggleSidebar.emit(); // Notify parent if needed
+    this.isSidebarVisible = !this.isSidebarVisible;
+    this.toggleSidebar.emit();
   }
 
   logout(): void {

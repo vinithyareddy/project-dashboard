@@ -1,103 +1,97 @@
-/* New styles based on the image */
 .dashboard-container-original {
   display: grid;
-  grid-template-columns: 1fr 2fr; // Adjust column ratio as needed (e.g., 1fr 3fr)
+  grid-template-columns: 1fr 2fr;
   gap: 2rem;
   padding: 2rem;
- // Light default text color
-  font-family: 'Inter', sans-serif; // Assuming Inter font
+
+  font-family: "Inter", sans-serif;
   min-height: 100vh;
   margin-top: 30px;
-  background-color: #ffffff	;
+  background-color: #ffffff;
 }
 
-.left-column, .right-column {
- 
+.left-column,
+.right-column {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
 .dashboard-card {
-  border-radius: 12px; // Rounded corners
+  border-radius: 12px;
   padding: 1.5rem;
-  border: 1px solid #2a2d35; // Subtle border
+  border: 1px solid #2a2d35;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
   h2 {
     font-size: 1.1rem;
     font-weight: 600;
-    
-    margin: 0 0 1.5rem 0; // Title margin
+
+    margin: 0 0 1.5rem 0;
   }
 
   h3 {
     font-size: 1rem;
     font-weight: 500;
-    
+
     margin: 0 0 0.5rem 0;
   }
 }
 
-/* Task Status Card */
 .task-status-card-original {
   .donut-chart-container {
-   
     position: relative;
-    width: 180px; // Adjust size as needed
+    width: 180px;
     height: 200px;
-    margin: 1rem auto; 
+    margin: 1rem auto;
   }
 
   .status-legend-original {
-   
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
 
     .status-item {
-     
       display: flex;
       align-items: center;
-      gap: 0.8rem; // Gap between dot and text
+      gap: 0.8rem;
       font-size: 0.9rem;
 
       .status-dot {
-       
         width: 10px;
         height: 10px;
         border-radius: 50%;
 
-        &.completed { background-color: #4ade80; } // Greenish
-        &.in-progress { background-color: #60a5fa; } // Blueish
-        &.not-started { background-color: #a78bfa; } // Purpleish 
-        // Add other status colors (e.g., review) based on the donut chart colors
+        &.completed {
+          background-color: #4ade80;
+        }
+        &.in-progress {
+          background-color: #60a5fa;
+        }
+        &.not-started {
+          background-color: #a78bfa;
+        }
       }
 
       .status-text {
-      
-                flex-grow: 1; // Push count to the right
+        flex-grow: 1;
       }
 
       .status-count {
-      
-                font-weight: 500;
+        font-weight: 500;
       }
     }
   }
 }
 
-/* Task Summary Card */
 .task-summary-card-original {
   .summary-list {
-   
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
 
     .summary-item {
-     
       display: flex;
       justify-content: space-between;
       font-size: 0.9rem;
@@ -105,83 +99,68 @@
       border-bottom: 1px solid #2a2d35;
 
       &:last-child {
-       
         border-bottom: none;
       }
 
-
       span:last-child {
-      
-                font-weight: 500;
+        font-weight: 500;
         &.overdue {
-          color: #f87171; // Red color for overdue count
+          color: #f87171;
         }
       }
     }
   }
 }
 
-/* Placeholder Card */
 .placeholder-card-original {
-  // Add specific styles if needed, otherwise inherits .dashboard-card
   p {
-   
     margin: 0.5rem 0 0 0;
     font-size: 0.9rem;
   }
 }
 
-/* Project Overview Card */
 .project-overview-card-original {
   .progress-bar-original {
     width: 100%;
     height: 8px;
     border-radius: 4px;
-    background-color: #151d34; // Dark track
+    background-color: #151d34;
     overflow: hidden;
     margin: 1rem 0;
 
     .progress-fill {
       height: 100%;
-      background-color: #1a293b; // Blue progress fill
+      background-color: #1a293b;
       border-radius: 4px;
       transition: width 0.3s ease-in-out;
     }
   }
 
   .progress-info {
-   
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 0.9rem;
     .progress-percentage {
-     
       font-weight: 500;
     }
   }
 }
 
-/* Team Performance Card */
 .team-performance-card-original {
   .performance-chart-container {
-   
-    height: 200px; // Adjust height as needed
+    height: 200px;
     margin-top: 1rem;
-   
   }
 }
 
-/* Upcoming Deadlines Card */
 .upcoming-deadlines-card-original {
   .deadline-list-original {
-   
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
 
     .deadline-item {
-     
       display: flex;
       justify-content: space-between;
       font-size: 0.9rem;
@@ -189,61 +168,50 @@
       border-bottom: 1px solid #2a2d35;
 
       &:last-child {
-       
         border-bottom: none;
       }
     }
     .no-items {
-     
-       font-style: italic;
-       font-size: 0.9rem;
-       padding: 1rem 0;
+      font-style: italic;
+      font-size: 0.9rem;
+      padding: 1rem 0;
     }
   }
 }
 
-/* Responsive Adjustments */
-@media (max-width: 1024px) { // Tablet breakpoint
+@media (max-width: 1024px) {
   .dashboard-container-original {
-   
-    grid-template-columns: 1fr; // Stack columns on smaller screens
+    grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 768px) { // Mobile breakpoint
+@media (max-width: 768px) {
   .dashboard-container-original {
-   
     padding: 1rem;
   }
   .dashboard-card {
-   
     padding: 1rem;
   }
   .task-status-card-original .donut-chart-container {
-   
     width: 150px;
     height: 150px;
   }
 }
 
-/* Remove styles associated with the old table-based structure */
-
 .toggle-button {
- 
-  display: none; /* Hide old button style */
+  display: none;
 }
 
 .show-more-container {
- 
   display: flex;
   justify-content: center;
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
-  
+
   button {
     min-width: 140px;
     padding: 10px 20px;
-   
+
     border: none;
     border-radius: 30px;
     font-weight: 500;
@@ -256,31 +224,32 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    
+
     mat-icon {
       font-size: 20px;
       height: 20px;
       width: 20px;
       transition: transform 0.3s ease;
-     
     }
-    
+
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(45deg, rgba(76, 201, 240, 0.15), rgba(114, 9, 183, 0.15));
+      background: linear-gradient(
+        45deg,
+        rgba(76, 201, 240, 0.15),
+        rgba(114, 9, 183, 0.15)
+      );
       opacity: 1;
       border-radius: 30px;
-     
     }
-    
+
     &::after {
-     
-      content: '';
+      content: "";
       position: absolute;
       top: -2px;
       left: -2px;
@@ -292,32 +261,32 @@
       opacity: 0.3;
       transition: opacity 0.3s ease;
     }
-    
+
     &:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
       background-color: #3a3d45;
       color: #ffffff;
-      
+
       &::before {
-       
         opacity: 1;
-        background: linear-gradient(45deg, rgba(76, 201, 240, 0.25), rgba(114, 9, 183, 0.25));
+        background: linear-gradient(
+          45deg,
+          rgba(76, 201, 240, 0.25),
+          rgba(114, 9, 183, 0.25)
+        );
       }
-      
+
       &::after {
-       
         opacity: 0.8;
       }
-      
+
       mat-icon {
         transform: scale(1.2);
-      
-              }
+      }
     }
-    
+
     &:active {
-     
       transform: translateY(1px);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }
@@ -325,11 +294,10 @@
 }
 
 .progress-bar-original {
- 
   position: relative;
 }
 
-.progress-percentage-line{
+.progress-percentage-line {
   margin-left: 95%;
   margin-top: -10px;
 }
@@ -343,7 +311,7 @@
   display: flex;
   margin-right: 85px;
   margin-bottom: 30px;
-background-color: #ffffff;
+  background-color: #ffffff;
 
   .header-actions {
     background-color: #ffffff;
@@ -354,7 +322,7 @@ background-color: #ffffff;
   }
 
   .mat-icon-button {
-    color: #3f51b5; // you can adjust this accent color
+    color: #3f51b5;
   }
 }
 
@@ -459,7 +427,7 @@ mat-icon {
   border-radius: 16px;
   border: 1px solid #2a2d35;
   margin-bottom: 2rem;
-  box-shadow: 0 0 10px rgba(0,0,0,0.08);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
 
   .overview-title {
     font-size: 1.4rem;
@@ -470,7 +438,7 @@ mat-icon {
 
   .overview-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); // Two columns
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
 
@@ -495,10 +463,18 @@ mat-icon {
     font-size: 24px;
   }
 
-  .blue-icon    { background-color: #3b82f6; }
-  .orange-icon  { background-color: #f59e0b; }
-  .gray-icon    { background-color: #6b7280; }
-  .green-icon   { background-color: #10b981; }
+  .blue-icon {
+    background-color: #3b82f6;
+  }
+  .orange-icon {
+    background-color: #f59e0b;
+  }
+  .gray-icon {
+    background-color: #6b7280;
+  }
+  .green-icon {
+    background-color: #10b981;
+  }
 
   .overview-text {
     p {
@@ -519,7 +495,6 @@ mat-icon {
     color: white !important;
     padding: 26px;
     margin-top: 14px;
-
   }
 }
 
@@ -566,7 +541,7 @@ mat-icon {
     }
 
     .overview-grid {
-      grid-template-columns: 1fr; // Stack overview items vertically on mobile
+      grid-template-columns: 1fr;
       gap: 1rem;
     }
 
@@ -585,7 +560,7 @@ mat-icon {
       justify-content: center;
       flex-shrink: 0;
     }
-    
+
     mat-icon {
       font-size: 22px !important;
       margin: 0 !important;
@@ -595,7 +570,6 @@ mat-icon {
       align-items: center;
       justify-content: center;
     }
-    
 
     .overview-text p {
       font-size: 0.8rem;

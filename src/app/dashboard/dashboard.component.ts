@@ -62,7 +62,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   currentYear = this.currentDate.getFullYear();
   calendar: (Date | null)[][] = [];
 
-  constructor(private datePipe: DatePipe, private firestoreService: FirestoreService, private authService: AuthService, private refreshService: RefreshService) {}
+  constructor(private datePipe: DatePipe, private firestoreService: FirestoreService, private authService: AuthService, private refreshService: RefreshService) { }
 
   ngOnInit(): void {
     this.authService.getUser().subscribe(user => {

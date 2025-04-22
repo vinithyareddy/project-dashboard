@@ -28,7 +28,7 @@ import { RefreshService } from 'src/app/services/refresh.service';
     MatInputModule,
     MatSelectModule,
     MatChipsModule,
-   
+
   ],
   providers: [DatePipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -44,14 +44,14 @@ export class TeamsComponent implements OnInit {
   filterName: string = '';
   selectedRole: string = 'All';
   showAllMembers = false;
-  
+
 
   constructor(
     private fb: FormBuilder,
     private datePipe: DatePipe,
     private firestoreService: FirestoreService,
     private refreshService: RefreshService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.teamMemberForm = this.fb.group({

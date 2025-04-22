@@ -1,121 +1,120 @@
-
 <div class="projects-container">
   <h1>Projects</h1>
 
- <!-- Add/Edit Project Form (Styled like Filter Inputs) -->
-<div class="project-form-container" *ngIf="isEditing">
-  <h2>{{ editingProjectId === null ? 'Add New Project' : 'Edit Project' }}</h2>
-  <form [formGroup]="projectForm" (ngSubmit)="saveProject()" class="filter-controls">
+  <!-- Add/Edit Project Form (Styled like Filter Inputs) -->
+  <div class="project-form-container" *ngIf="isEditing">
+    <h2>{{ editingProjectId === null ? 'Add New Project' : 'Edit Project' }}</h2>
+    <form [formGroup]="projectForm" (ngSubmit)="saveProject()" class="filter-controls">
 
-    <!-- Project Name -->
-    <mat-form-field appearance="outline">
+      <!-- Project Name -->
+      <mat-form-field appearance="outline">
+        <mat-label>Project Name</mat-label>
+        <input matInput placeholder="Enter project name" formControlName="name" required />
+        <mat-error *ngIf="projectForm.get('name')?.hasError('required')">Project name is required</mat-error>
+      </mat-form-field>
+
+      <!-- Assignee (as plain input) -->
+      <mat-form-field appearance="outline">
+        <mat-label>Assignee</mat-label>
+        <input matInput placeholder="Enter assignee name" formControlName="assignee" />
+      </mat-form-field>
+
+      <!-- Due Date -->
+      <mat-form-field appearance="outline">
+        <mat-label>Due Date</mat-label>
+        <input matInput [matDatepicker]="picker" placeholder="Pick a due date" formControlName="dueDate" required />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="projectForm.get('dueDate')?.hasError('required')">Due date is required</mat-error>
+      </mat-form-field>
+
+      <!-- Status -->
+      <mat-form-field appearance="outline">
+        <mat-select placeholder="Select status..." formControlName="status" required>
+          <mat-option value="" disabled>Select status...</mat-option>
+          <mat-option *ngFor="let status of projectStatuses" [value]="status">{{ status }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="projectForm.get('status')?.hasError('required')">Status is required</mat-error>
+      </mat-form-field>
+
+
+
+
+      <!-- Save/Cancel -->
+      <div class="form-actions">
+        <button mat-raised-button type="submit" [disabled]="projectForm.invalid">Save Project</button>
+        <button mat-stroked-button type="button" (click)="cancelEdit()">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+
+  <div class="add-project-btn-container">
+    <button mat-raised-button color="primary" (click)="showAddProjectForm()">+ Add Project</button>
+  </div>
+
+  <!--  Dropdown Filter Controls -->
+  <div class="filter-dropdown-container">
+    <mat-form-field appearance="fill">
       <mat-label>Project Name</mat-label>
-      <input matInput placeholder="Enter project name" formControlName="name" required />
-      <mat-error *ngIf="projectForm.get('name')?.hasError('required')">Project name is required</mat-error>
+      <mat-select [(ngModel)]="filterProjectName" (selectionChange)="applyFilters()">
+        <mat-option value="">All</mat-option>
+        <mat-option *ngFor="let name of projectNameList" [value]="name">{{ name }}</mat-option>
+      </mat-select>
     </mat-form-field>
 
-    <!-- Assignee (as plain input) -->
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="fill">
       <mat-label>Assignee</mat-label>
-      <input matInput placeholder="Enter assignee name" formControlName="assignee" />
+      <mat-select [(ngModel)]="filterAssignee" (selectionChange)="applyFilters()">
+        <mat-option value="">All</mat-option>
+        <mat-option *ngFor="let assignee of assigneeList" [value]="assignee">{{ assignee }}</mat-option>
+      </mat-select>
     </mat-form-field>
 
-    <!-- Due Date -->
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="fill">
       <mat-label>Due Date</mat-label>
-      <input matInput [matDatepicker]="picker" placeholder="Pick a due date" formControlName="dueDate" required />
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-      <mat-error *ngIf="projectForm.get('dueDate')?.hasError('required')">Due date is required</mat-error>
+      <mat-select [(ngModel)]="filterDateString" (selectionChange)="onDateFilterChange($event.value)">
+        <mat-option value="">All</mat-option>
+        <mat-option *ngFor="let date of uniqueDueDates" [value]="date">{{ date }}</mat-option>
+      </mat-select>
     </mat-form-field>
 
-    <!-- Status -->
-    <mat-form-field appearance="outline">
-      <mat-select placeholder="Select status..." formControlName="status" required>
-        <mat-option value="" disabled>Select status...</mat-option>
+    <mat-form-field appearance="fill">
+      <mat-label>Status</mat-label>
+      <mat-select [(ngModel)]="filterStatus" (selectionChange)="applyFilters()">
+        <mat-option value="">All</mat-option>
         <mat-option *ngFor="let status of projectStatuses" [value]="status">{{ status }}</mat-option>
       </mat-select>
-      <mat-error *ngIf="projectForm.get('status')?.hasError('required')">Status is required</mat-error>
     </mat-form-field>
 
+    <button mat-button class="reset-btn" (click)="resetFilters()">Reset</button>
+  </div>
 
 
+  <!-- Project Grid Display -->
+  <div class="projects-grid" *ngIf="filteredProjects.length > 0">
+    <div class="project-card" *ngFor="let project of filteredProjects">
+      <div class="project-content">
+        <h2 class="project-title">{{ project.name }}</h2>
+        <p class="project-assignee" *ngIf="project.assignee">{{ project.assignee }}</p>
+        <p class="project-due-date" *ngIf="project.dueDate">Due: {{ project.dueDate | date:'mediumDate' }}</p>
+      </div>
 
-    <!-- Save/Cancel -->
-    <div class="form-actions">
-      <button mat-raised-button  type="submit" [disabled]="projectForm.invalid">Save Project</button>
-      <button mat-stroked-button type="button" (click)="cancelEdit()">Cancel</button>
-    </div>
-  </form>
-</div>
-
-
-<div class="add-project-btn-container">
-  <button mat-raised-button color="primary" (click)="showAddProjectForm()">+ Add Project</button>
-</div>
-
-<!-- Stylish Dropdown Filter Controls -->
-<div class="filter-dropdown-container">
-  <mat-form-field appearance="fill">
-    <mat-label>Project Name</mat-label>
-    <mat-select [(ngModel)]="filterProjectName" (selectionChange)="applyFilters()">
-      <mat-option value="">All</mat-option>
-      <mat-option *ngFor="let name of projectNameList" [value]="name">{{ name }}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Assignee</mat-label>
-    <mat-select [(ngModel)]="filterAssignee" (selectionChange)="applyFilters()">
-      <mat-option value="">All</mat-option>
-      <mat-option *ngFor="let assignee of assigneeList" [value]="assignee">{{ assignee }}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Due Date</mat-label>
-    <mat-select [(ngModel)]="filterDateString" (selectionChange)="onDateFilterChange($event.value)">
-      <mat-option value="">All</mat-option>
-      <mat-option *ngFor="let date of uniqueDueDates" [value]="date">{{ date }}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Status</mat-label>
-    <mat-select [(ngModel)]="filterStatus" (selectionChange)="applyFilters()">
-      <mat-option value="">All</mat-option>
-      <mat-option *ngFor="let status of projectStatuses" [value]="status">{{ status }}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <button mat-button class="reset-btn" (click)="resetFilters()">Reset</button>
-</div>
-
-
-<!-- Project Grid Display -->
-<div class="projects-grid" *ngIf="filteredProjects.length > 0">
-  <div class="project-card" *ngFor="let project of filteredProjects">
-    <div class="project-content">
-      <h2 class="project-title">{{ project.name }}</h2>
-      <p class="project-assignee" *ngIf="project.assignee">{{ project.assignee }}</p>
-      <p class="project-due-date" *ngIf="project.dueDate">Due: {{ project.dueDate | date:'mediumDate' }}</p>
-    </div>
-    
-    <div class="project-status" [class]="project.status.toLowerCase().replace(' ', '-')">
-      {{ project.status }}
-    </div>
-    <div class="project-actions">
-      <button mat-icon-button color="primary" aria-label="Edit project" (click)="editProject(project)">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-icon-button color="warn" aria-label="Delete project" (click)="deleteProject(project.id!)">
-        <mat-icon>delete</mat-icon>
-      </button>
+      <div class="project-status" [class]="project.status.toLowerCase().replace(' ', '-')">
+        {{ project.status }}
+      </div>
+      <div class="project-actions">
+        <button mat-icon-button color="primary" aria-label="Edit project" (click)="editProject(project)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" aria-label="Delete project" (click)="deleteProject(project.id!)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
-</div>
 
-<div *ngIf="filteredProjects.length === 0" class="no-projects">
-  No projects found matching the current filter. Try clearing the filter or adding a project!
-</div>
+  <div *ngIf="filteredProjects.length === 0" class="no-projects">
+    No projects found matching the current filter. Try clearing the filter or adding a project!
+  </div>
 </div>

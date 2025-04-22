@@ -5,13 +5,9 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { importProvidersFrom } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
-
-// Firebase Initialization
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-
-// Environment & Routes
 import { environment } from './environments/environment';
 import { routes } from './app/app-routing.module';
 
@@ -22,10 +18,7 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(),
 
     importProvidersFrom(
-      // ✅ Angular Material Dialog
       MatDialogModule,
-
-      // ✅ Firebase
       provideFirebaseApp(() => initializeApp(environment.firebase)),
       provideAuth(() => getAuth()),
       provideFirestore(() => getFirestore())

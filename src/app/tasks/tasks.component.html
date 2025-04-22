@@ -1,4 +1,3 @@
-
 <div class="tasks-container">
   <h1>Tasks</h1>
 
@@ -6,7 +5,7 @@
   <div class="task-form-container" *ngIf="isEditing">
     <h2>{{ editingTaskId === null ? 'Add New Task' : 'Edit Task' }}</h2>
     <form [formGroup]="taskForm" (ngSubmit)="saveTask()">
-      
+
       <mat-form-field appearance="outline">
         <mat-label>Task Name</mat-label>
         <input matInput formControlName="name" required>
@@ -16,7 +15,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Assignee</mat-label>
         <input matInput formControlName="assignee" required>
-         <mat-error *ngIf="taskForm.get('assignee')?.hasError('required')">Assignee is required</mat-error>
+        <mat-error *ngIf="taskForm.get('assignee')?.hasError('required')">Assignee is required</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -25,7 +24,7 @@
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
-         <mat-error *ngIf="taskForm.get('dueDate')?.hasError('required')">Due date is required</mat-error>
+        <mat-error *ngIf="taskForm.get('dueDate')?.hasError('required')">Due date is required</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -35,7 +34,7 @@
             {{ status }}
           </mat-option>
         </mat-select>
-         <mat-error *ngIf="taskForm.get('status')?.hasError('required')">Status is required</mat-error>
+        <mat-error *ngIf="taskForm.get('status')?.hasError('required')">Status is required</mat-error>
       </mat-form-field>
 
       <div class="form-actions">
@@ -51,7 +50,8 @@
     <!-- Filter Controls -->
     <div class="filter-controls bg-white">
       <mat-form-field appearance="outline" class="filter-assignee">
-        <mat-select [(ngModel)]="selectedAssignee" (ngModelChange)="applyFilters()" placeholder="Choose Assignee" text-blue-500>
+        <mat-select [(ngModel)]="selectedAssignee" (ngModelChange)="applyFilters()" placeholder="Choose Assignee"
+          text-blue-500>
           <mat-option [value]="null">All Assignees</mat-option>
           <mat-option *ngFor="let assignee of assigneeList" [value]="assignee">
             {{ assignee }}
@@ -60,23 +60,19 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="filter-date">
-        <input matInput 
-               [matDatepicker]="filterDatePicker" 
-               [(ngModel)]="selectedDate" 
-               (dateChange)="applyFilters()"
-               placeholder=" Choose date">
+        <input matInput [matDatepicker]="filterDatePicker" [(ngModel)]="selectedDate" (dateChange)="applyFilters()"
+          placeholder=" Choose date">
         <mat-datepicker-toggle matIconSuffix [for]="filterDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #filterDatePicker></mat-datepicker>
       </mat-form-field>
 
-       <button mat-flat-button color="primary" class="add-task-button" (click)="showAddTaskForm()">
-         <mat-icon>add</mat-icon> Add Task
-       </button>
+      <button mat-flat-button color="primary" class="add-task-button" (click)="showAddTaskForm()">
+        <mat-icon>add</mat-icon> Add Task
+      </button>
     </div>
 
     <!-- Task List Display -->
     <div class="task-list">
-      <!-- Iterate over filteredTasks with slicing for pagination -->
       <div class="task-card" *ngFor="let task of (showAllTasks ? filteredTasks : filteredTasks.slice(0, 6))">
         <div class="task-info">
           <h3 class="task-name">{{ task.name }}</h3>
@@ -84,8 +80,8 @@
           <p class="task-due-date">
             Due: {{ convertToDate(task.dueDate) | date: 'mediumDate' }}
           </p>
-          
-                    
+
+
         </div>
         <div class="task-status">
           <span class="status-badge" [class]="task.status.toLowerCase().replace(' ', '-')">
@@ -101,7 +97,7 @@
           </button>
         </div>
       </div>
-      
+
       <!-- Show More/Less Button -->
       <div *ngIf="filteredTasks.length > 6" class="show-more-container">
         <button mat-stroked-button (click)="toggleTasksDisplay()">
@@ -109,7 +105,7 @@
           {{ showAllTasks ? 'Show Less' : 'Show More' }}
         </button>
       </div>
-      
+
       <!-- Update empty message check -->
       <div *ngIf="filteredTasks.length === 0" class="no-tasks">
         No tasks found matching the current filters. Try adjusting filters or adding a task!
@@ -131,6 +127,5 @@
 </div>
 
 <ng-template #taskList>
-  <!-- Your existing task table -->
-</ng-template>
 
+</ng-template>

@@ -1,61 +1,56 @@
 <div class="auth-outer-wrapper">
-<div class="auth-container">
-  <h2>{{ isRegisterMode ? 'Register' : 'Login' }}</h2>
+  <div class="auth-container">
+    <h2>{{ isRegisterMode ? 'Register' : 'Login' }}</h2>
 
-  <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="outline" class="full-width custom-field">
-      <mat-label>Email</mat-label>
-      <input matInput formControlName="email" type="email" class="custom-input" />
-    </mat-form-field>
-  
-    <!-- Password Field with toggle -->
-    <mat-form-field appearance="outline" class="full-width password-field">
-      <mat-label>Password</mat-label>
-      <input matInput class="custom-input" [type]="showPassword ? 'text' : 'password'" formControlName="password" />
-      <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()" [attr.aria-label]="'Toggle Password'">
-        <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
-      </button>
-    </mat-form-field>
-    <!-- Remember Me Checkbox -->
-<!-- <div class="remember-me">
-  <mat-checkbox formControlName="rememberMe">Remember Me</mat-checkbox>
-</div>
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="full-width custom-field">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" class="custom-input" />
+      </mat-form-field>
 
-    <div class="forgot-link" *ngIf="!isRegisterMode">
-      <a href="#" (click)="onForgotPassword($event)">Forgot password?</a>
-    </div> -->
 
-    <div class="remember-me">
-      <mat-checkbox formControlName="rememberMe">Remember Me</mat-checkbox>
-      <a href="#" (click)="onForgotPassword($event)">Forgot password?</a>
-    </div>
-    
-  
-    <!-- Confirm Password Field (Only for Register) -->
-    <ng-container *ngIf="isRegisterMode">
       <mat-form-field appearance="outline" class="full-width password-field">
-        <mat-label>Confirm Password</mat-label>
-        <input matInput class="custom-input" [type]="showConfirm ? 'text' : 'password'" formControlName="confirmPassword" />
-        <button mat-icon-button matSuffix type="button" (click)="toggleConfirmVisibility()" [attr.aria-label]="'Toggle Confirm Password'">
-          <mat-icon>{{ showConfirm ? 'visibility_off' : 'visibility' }}</mat-icon>
+        <mat-label>Password</mat-label>
+        <input matInput class="custom-input" [type]="showPassword ? 'text' : 'password'" formControlName="password" />
+        <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()"
+          [attr.aria-label]="'Toggle Password'">
+          <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
       </mat-form-field>
-    </ng-container>
-  
-    <!-- Error / Success Message -->
-    <div *ngIf="errorMsg" class="error-msg" [ngClass]="{ 'success': errorMsg.includes('✅'), 'error': errorMsg.includes('❌') }">
-      {{ errorMsg }}
-    </div>
-  
-    <!-- Submit & Mode Switch -->
-    <button mat-raised-button color="primary" class="full-width" type="submit">
-      {{ isRegisterMode ? 'Register' : 'Login' }}
-    </button>
-  
-    <button mat-button color="accent" class="full-width" type="button" (click)="toggleMode()">
-      Switch to {{ isRegisterMode ? 'Login' : 'Register' }}
-    </button>
-  </form>
-  
-</div>
+
+      <div class="remember-me">
+        <mat-checkbox formControlName="rememberMe">Remember Me</mat-checkbox>
+        <a href="#" (click)="onForgotPassword($event)">Forgot password?</a>
+      </div>
+
+
+      <ng-container *ngIf="isRegisterMode">
+        <mat-form-field appearance="outline" class="full-width password-field">
+          <mat-label>Confirm Password</mat-label>
+          <input matInput class="custom-input" [type]="showConfirm ? 'text' : 'password'"
+            formControlName="confirmPassword" />
+          <button mat-icon-button matSuffix type="button" (click)="toggleConfirmVisibility()"
+            [attr.aria-label]="'Toggle Confirm Password'">
+            <mat-icon>{{ showConfirm ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+      </ng-container>
+
+
+      <div *ngIf="errorMsg" class="error-msg"
+        [ngClass]="{ 'success': errorMsg.includes('✅'), 'error': errorMsg.includes('❌') }">
+        {{ errorMsg }}
+      </div>
+
+
+      <button mat-raised-button color="primary" class="full-width" type="submit">
+        {{ isRegisterMode ? 'Register' : 'Login' }}
+      </button>
+
+      <button mat-button color="accent" class="full-width" type="button" (click)="toggleMode()">
+        Switch to {{ isRegisterMode ? 'Login' : 'Register' }}
+      </button>
+    </form>
+
+  </div>
 </div>

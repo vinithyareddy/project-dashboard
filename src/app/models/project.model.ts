@@ -4,6 +4,6 @@ export interface Project {
   description: string;
   dueDate: Date;
   status: 'Not Started' | 'In Progress' | 'Completed';
-  assignee?: string; // ✅ Add this line
-  progress?: number; // Optional: for dashboard progress bar
+  assignee?: string; 
+  progress?: number; 
 }

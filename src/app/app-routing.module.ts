@@ -6,12 +6,12 @@ import { TeamsComponent } from './teams/teams.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { CalendarComponent } from './calendar/calendar.component';
-import { AuthGuard } from './auth/auth.guard'; // ✅ Correct path
+import { AuthGuard } from './auth/auth.guard';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 
 
-export const routes: Routes = [ // 👈 this makes them usable in main.ts
+export const routes: Routes = [
   { path: '', component: WelcomeComponent },
   {
     path: 'auth',
@@ -22,7 +22,7 @@ export const routes: Routes = [ // 👈 this makes them usable in main.ts
   { path: 'tasks', component: TasksComponent, canActivate: [AuthGuard] },
   { path: 'teams', component: TeamsComponent, canActivate: [AuthGuard] },
   { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
-  // { path: '**', component: NotFoundComponent }
+
 
 ];
 
@@ -31,6 +31,6 @@ export const routes: Routes = [ // 👈 this makes them usable in main.ts
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
 
 

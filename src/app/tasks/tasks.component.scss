@@ -1,6 +1,6 @@
 .tasks-container {
   padding: 2rem;
-    min-height: calc(100vh - 4rem);
+  min-height: calc(100vh - 4rem);
 
   h1 {
     font-size: 1.8rem;
@@ -17,15 +17,12 @@
   }
 }
 
-
-
 .tasks-table {
   background: #1a1d25;
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid #2a2d35;
-
-  }
+}
 
 .table-header {
   display: grid;
@@ -34,12 +31,10 @@
   background: #1a1d25;
   border-bottom: 1px solid #2a2d35;
 
-  
   .header-cell {
     font-size: 0.9rem;
     font-weight: 500;
-  
-      }
+  }
 }
 
 .table-body {
@@ -49,8 +44,7 @@
     padding: 1rem 1.5rem;
     border-bottom: 1px solid #2a2d35;
     transition: background-color 0.2s ease;
-  
-    
+
     &:last-child {
       border-bottom: none;
     }
@@ -67,7 +61,6 @@
   color: #ffffff;
   font-size: 0.95rem;
 
-  
   &.task-cell {
     font-weight: 500;
   }
@@ -87,7 +80,6 @@
   font-size: 0.875rem;
   font-weight: 500;
 
-  
   &.in-progress {
     background: rgba(255, 145, 0, 0.1);
     color: #ff9100;
@@ -103,8 +95,6 @@
     color: #ff4757;
   }
 }
-
-// --- Task Form Styles --- 
 .task-form-container {
   background-color: #ffffff;
   padding: 2rem;
@@ -112,7 +102,6 @@
   margin-bottom: 2rem;
   border: 1px solid #2a2d35;
 
-  
   h2 {
     font-size: 1.4rem;
     margin-bottom: 1.5rem;
@@ -121,263 +110,203 @@
 
   form {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); // Responsive columns
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
   }
 
-  // Style Angular Material components for dark theme
   mat-form-field {
     width: 100%;
 
     .mat-mdc-text-field-wrapper {
-        background-color: #000000; // Dark background for input
-        border-radius: 8px;
-      
-            }
+      background-color: #000000;
+      border-radius: 8px;
+    }
 
     .mat-mdc-form-field-input-control,
     .mat-mdc-select-value,
     .mat-mdc-select-arrow,
     mat-label {
-      color: #000000 !important; // Light text
-    
-          }
+      color: #000000 !important;
+    }
 
     mat-hint {
-       color: #000000; 
-     
-           }
-    
+      color: #000000;
+    }
+
     .mdc-line-ripple::before,
     .mdc-line-ripple::after {
-      border-bottom-color: rgba(255, 255, 255, 0.7) !important; // Underline color
-    
-          }
+      border-bottom-color: rgba(255, 255, 255, 0.7) !important;
+    }
   }
 
-
   .form-actions {
-    grid-column: 1 / -1; // Span full width
+    grid-column: 1 / -1;
     display: flex;
     gap: 1rem;
     justify-content: flex-end;
     margin-top: 1rem;
-  
-    
+
     button {
       min-width: 100px;
-    
-          }
+    }
   }
 }
 
-
-// --- Filter Styles --- 
-
 .filter-controls {
-
-    display: flex;
+  display: flex;
   gap: 1.5rem;
   margin-bottom: 2rem;
-  flex-wrap: wrap; // Allow filters to wrap on smaller screens
+  flex-wrap: wrap;
   padding: 1.5rem;
   background-color: #ffffff;
   border-radius: 12px;
   border: 1px solid #2a2d35;
 
   mat-form-field {
-  
-        flex: 1 1 200px; // Allow fields to grow and shrink, base size 200px
+    flex: 1 1 200px;
     min-width: 200px;
   }
 
-  // Style Angular Material components for dark theme
   mat-form-field {
-  
-        .mat-mdc-text-field-wrapper { 
-    
-        border-radius: 8px; 
+    .mat-mdc-text-field-wrapper {
+      border-radius: 8px;
     }
-    
-    // Fix for mat-label display
+
     .mdc-floating-label {
-    
-            font-weight: 500 !important;
+      font-weight: 500 !important;
     }
-    
-    // Improve visibility of text in select dropdown and input fields
-    .mat-mdc-form-field-input-control, 
-    .mat-mdc-select-value, 
+
+    .mat-mdc-form-field-input-control,
+    .mat-mdc-select-value,
     .mat-mdc-select-value-text,
     .mat-mdc-select-min-line {
-    
-            font-weight: 500 !important; // Make text slightly bolder
+      font-weight: 500 !important;
     }
-    
-    // Target specific classes for date input and placeholder
+
     input.mat-mdc-input-element {
-    
-            &::placeholder {
-      
-                opacity: 1 !important;
+      &::placeholder {
+        opacity: 1 !important;
       }
     }
-    
-    // Target specific classes for selected text
+
     .mdc-select__selected-text,
     .mat-select-value-text {
-    
-            opacity: 1 !important;
+      opacity: 1 !important;
       font-weight: 500 !important;
-      text-shadow: 0 0 1px rgba(255, 255, 255, 0.3); // Subtle text shadow for better visibility
+      text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
     }
-    
-    // Make label and icon more visible
-    mat-label, 
-    .mat-mdc-select-arrow { 
-    
-                  font-weight: 500 !important; // Make label text slightly bolder
+
+    mat-label,
+    .mat-mdc-select-arrow {
+      font-weight: 500 !important;
     }
-    
-    // Date picker icon styling
+
     .mat-datepicker-toggle {
-    
-      background-color: var(--bg-color);      
+      background-color: var(--bg-color);
       .mat-datepicker-toggle-default-icon {
-      
-                width: 24px !important;
+        width: 24px !important;
         height: 24px !important;
       }
     }
-    
-    // Improve hint text visibility
-    mat-hint { 
-    
-      background-color: var(--bg-color);    }
-    
-    // Improve clear button visibility
+
+    mat-hint {
+      background-color: var(--bg-color);
+    }
+
     .mat-mdc-icon-button .mat-icon {
-    
-      background-color: var(--bg-color);      font-size: 20px !important;
+      background-color: var(--bg-color);
+      font-size: 20px !important;
     }
-    
+
     .mdc-line-ripple::before,
-    .mdc-line-ripple::after { 
-    
-            border-bottom-color: rgba(255, 255, 255, 0.8) !important; // Brighter underline color
+    .mdc-line-ripple::after {
+      border-bottom-color: rgba(255, 255, 255, 0.8) !important;
     }
-    
-    // Enhance the focused state
+
     &.mat-focused {
       .mat-mdc-select-arrow,
       .mat-mdc-form-field-required-marker,
       .mat-mdc-form-field-label {
-      
-        background-color: var(--bg-color);      }
-      
+        background-color: var(--bg-color);
+      }
+
       .mdc-line-ripple::after {
-      
-                border-bottom-color: #60a5fa !important; // Blue accent underline
+        border-bottom-color: #60a5fa !important;
       }
     }
   }
-  
-  // Specific styling for the add button in the filter bar
+
   .add-task-button {
-  
-        flex-shrink: 0; // Prevent button from shrinking
-    margin-left: auto; // Push to the right if space allows
-    align-self: center; // Center vertically
+    flex-shrink: 0;
+    margin-left: auto;
+    align-self: center;
   }
-  
-  // Fix for filter-date specifically
+
   .filter-date {
     .mdc-floating-label--float-above {
       display: block !important;
       opacity: 1 !important;
-    
-            transform: translateY(-130%) scale(0.75) !important;
+
+      transform: translateY(-130%) scale(0.75) !important;
       background-color: transparent !important;
       z-index: 1 !important;
     }
-    
+
     .mdc-floating-label {
-    
-            transform: translateY(-130%) scale(0.85) !important;
+      transform: translateY(-130%) scale(0.85) !important;
     }
-    
-    // Ensure placeholder text is visible when no date is selected
+
     .mat-mdc-input-element::placeholder {
-    
-        opacity: 1 !important;
+      opacity: 1 !important;
       padding-top: 16px !important;
       z-index: 2 !important;
     }
-    
-    // Add padding to input to push it down slightly
+
     .mat-mdc-form-field-input-control {
-    
-            padding-top: 16px !important;
+      padding-top: 16px !important;
     }
-    
-    // Ensure the label doesn't get clipped
-    // .mat-mdc-form-field-infix {
-    //   // min-height: 36px !important; 
-    // }
-    
-    // Fix for different Material themes
+
     .mat-mdc-text-field-wrapper {
       .mdc-line-ripple {
-      
-                bottom: 0 !important;
+        bottom: 0 !important;
       }
     }
-    
-    // Fix for the input container and form field
+
     .mat-mdc-form-field-flex {
-    
-            display: flex !important;
+      display: flex !important;
       align-items: center !important;
       position: relative !important;
-      
+
       .mat-mdc-form-field-infix {
-      
-                padding-top: 12px !important;
+        padding-top: 12px !important;
         padding-bottom: 12px !important;
       }
     }
-    
-    // Fix for calendar toggle
+
     .mat-datepicker-toggle {
-    
-            position: relative !important;
+      position: relative !important;
       z-index: 3 !important;
     }
   }
 }
 
-
-
-
 .task-list {
-
-    display: grid;
+  display: grid;
   gap: 1.5rem;
 }
 
 .task-card {
-
-    border-radius: 12px;
+  border-radius: 12px;
   padding: 1.5rem;
   border: 1px solid #2a2d35;
   display: grid;
-  grid-template-columns: 1fr auto auto; // Info | Status | Actions
+  grid-template-columns: 1fr auto auto;
   gap: 1.5rem;
   align-items: center;
   transition: box-shadow 0.2s ease-in-out;
 
   &:hover {
-     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   }
 }
 
@@ -386,8 +315,7 @@
     font-size: 1.1rem;
     font-weight: 500;
     margin: 0 0 0.5rem 0;
-  
-      }
+  }
 
   p {
     font-size: 0.85rem;
@@ -397,25 +325,20 @@
 }
 
 .task-status {
-
-    text-align: center;
-  // Uses .status-badge defined previously
+  text-align: center;
 }
 
 .task-actions {
-
-    display: flex;
+  display: flex;
   gap: 0.5rem;
 }
 
-// Show More/Less Button Container
 .show-more-container {
-
-    display: flex;
+  display: flex;
   justify-content: center;
   margin-top: 2rem;
   margin-bottom: 1.5rem;
-  
+
   button {
     min-width: 140px;
     padding: 10px 20px;
@@ -433,7 +356,7 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    
+
     mat-icon {
       font-size: 20px;
       height: 20px;
@@ -441,21 +364,25 @@
       transition: transform 0.3s ease;
       color: #4cc9f0;
     }
-    
+
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(45deg, rgba(76, 201, 240, 0.15), rgba(114, 9, 183, 0.15));
+      background: linear-gradient(
+        45deg,
+        rgba(76, 201, 240, 0.15),
+        rgba(114, 9, 183, 0.15)
+      );
       opacity: 1;
       border-radius: 30px;
     }
-    
+
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       top: -2px;
       left: -2px;
@@ -467,28 +394,32 @@
       opacity: 0.3;
       transition: opacity 0.3s ease;
     }
-    
+
     &:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
       background-color: #3a3d45;
       color: #ffffff;
-      
+
       &::before {
         opacity: 1;
-        background: linear-gradient(45deg, rgba(76, 201, 240, 0.25), rgba(114, 9, 183, 0.25));
+        background: linear-gradient(
+          45deg,
+          rgba(76, 201, 240, 0.25),
+          rgba(114, 9, 183, 0.25)
+        );
       }
-      
+
       &::after {
         opacity: 0.8;
       }
-      
+
       mat-icon {
         transform: scale(1.2);
         color: #ffffff;
       }
     }
-    
+
     &:active {
       transform: translateY(1px);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -496,10 +427,8 @@
   }
 }
 
-// No tasks message
 .no-tasks {
-
-    text-align: center;
+  text-align: center;
   color: #a0aec0;
   padding: 3rem;
   background-color: #1a1d25;
@@ -507,35 +436,28 @@
   border: 1px dashed #2a2d35;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .task-card {
-  
-        grid-template-columns: 1fr; // Stack on mobile
+    grid-template-columns: 1fr;
     gap: 1rem;
     text-align: center;
   }
   .task-actions {
-  
-         justify-content: center;
+    justify-content: center;
   }
   .task-form-container form {
-  
-         grid-template-columns: 1fr; // Single column form on mobile
+    grid-template-columns: 1fr;
   }
 }
 
-// Custom date filter styles - completely separated label from input
 .custom-date-filter {
-
-    display: flex;
-  flex-direction: column; // Stack label and input vertically
+  display: flex;
+  flex-direction: column;
   flex: 1 1 200px;
   min-width: 200px;
 
   .date-filter-label {
-  
-        font-size: 14px;
+    font-size: 14px;
     font-weight: 500;
 
     margin-bottom: 8px;
@@ -543,21 +465,20 @@
 
   .date-input-container {
     display: flex;
-    align-items: center; // Center items vertically
-  
-        border-radius: 8px;
+    align-items: center;
+
+    border-radius: 8px;
     border: 1px solid #3a3e4e;
     padding: 4px 12px;
     transition: border-color 0.2s ease;
 
-    // Ensure the input takes full width
     .date-input {
-      flex: 1; // Allow input to grow
+      flex: 1;
       background: transparent;
       border: none;
       outline: none;
-    
-            font-size: 14px;
+
+      font-size: 14px;
       padding: 10px 0;
 
       &::placeholder {
@@ -566,22 +487,22 @@
       }
     }
   }
-} 
+}
 ::ng-deep .mat-mdc-select-panel {
-  background-color: #ffffff !important; // Make it solid white (or use #f9fafb for soft white)
+  background-color: #ffffff !important;
   color: #1a1a1a !important;
   border-radius: 8px;
-  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2); // Optional shadow
-  z-index: 1001 !important; // Make sure it floats on top
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+  z-index: 1001 !important;
 }
 
 ::ng-deep .mat-mdc-option {
-  background-color: #ffffff !important; // Each option solid white
+  background-color: #ffffff !important;
   color: #1a1a1a !important;
   font-weight: 500;
 
   &:hover {
-    background-color: #f3f4f6 !important; // Light hover effect
+    background-color: #f3f4f6 !important;
   }
 }
 
@@ -667,20 +588,18 @@
   }
   mat-form-field {
     width: 100% !important;
-  
+
     .mat-mdc-text-field-wrapper {
       padding: 0.2rem 0.4rem !important;
       min-height: 34px !important;
     }
-  
+
     .mat-mdc-form-field-input-control {
       font-size: 0.8rem !important;
     }
-  
+
     .mat-mdc-form-field-infix {
       padding: 0.2rem 0 !important;
     }
   }
-  
-  
 }

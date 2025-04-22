@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatDialogModule } from '@angular/material/dialog'; // ✅ Required for modal structure
-import { MatButtonModule } from '@angular/material/button'; // ✅ For close button
+import { MatDialogModule } from '@angular/material/dialog'; 
+import { MatButtonModule } from '@angular/material/button'; 
 
 @Component({
   selector: 'app-task-modal',
@@ -11,8 +11,8 @@ import { MatButtonModule } from '@angular/material/button'; // ✅ For close but
   standalone: true,
   imports: [
     CommonModule,
-    MatDialogModule,    // ✅ Enables <mat-dialog-content> and <mat-dialog-actions>
-    MatButtonModule     // ✅ Enables <button mat-button>
+    MatDialogModule,    
+    MatButtonModule     
   ]
 })
 export class TaskModalComponent {

@@ -1,4 +1,3 @@
-
 <div class="calendar-container">
   <div class="calendar-header">
     <h1>Calendar</h1>
@@ -19,73 +18,61 @@
 
   <div class="calendar-grid-wrapper">
     <div class="calendar-grid">
-  
-    <div class="weekday-header">
-      <div class="weekday">Sun</div>
-      <div class="weekday">Mon</div>
-      <div class="weekday">Tue</div>
-      <div class="weekday">Wed</div>
-      <div class="weekday">Thu</div>
-      <div class="weekday">Fri</div>
-      <div class="weekday">Sat</div>
-    </div>
 
-    <div class="calendar-days">
-      <div class="week"
-      *ngFor="let week of calendar; let rowIndex = index">
-      
-   <div class="day"
-        *ngFor="let day of week; let colIndex = index"
-        [class.bottom-right-fix]="rowIndex === calendar.length - 1 && colIndex === 6"
-        [class.empty]="!day">
- 
-          <ng-container *ngIf="day">
-            <div class="date-number">{{ day.getDate() }}</div>
-            <div class="items-container">
-              <ng-container *ngIf="getTasksForDate(day).length > 0">
-                <div class="item-label">Tasks:</div>
-              
-                <!-- Show first task -->
-                <div class="task-item"
-                     *ngFor="let task of getVisibleTasksForDate(day)"
-                     [class]="task.status"
-                     [matTooltip]="task.name"
-                     matTooltipPosition="above">
-                  {{ task.name }}
-                </div>
-              
-                <!-- Show +N more if hidden -->
-                <div class="more-indicator"
-                *ngIf="getHiddenTasksCount(day) > 0"
-                (click)="openModalForTasks(day)">
-             +{{ getHiddenTasksCount(day) }} more
-           </div>
-              </ng-container>
-              
-              <ng-container *ngIf="getProjectsForDate(day).length > 0">
-                <div class="item-label">Project Deadlines:</div>
-              
-                <!-- Show first project -->
-                <div class="project-deadline-item"
-                     *ngFor="let project of getVisibleProjectsForDate(day)"
-                     [matTooltip]="project.name"
-                     matTooltipPosition="above">
-                  {{ project.name }}
-                </div>
-              
-                <!-- Show +N more -->
-                <div class="more-indicator"
-                *ngIf="getHiddenProjectsCount(day) > 0"
-                (click)="openModalForProjects(day)">
-             +{{ getHiddenProjectsCount(day) }} more
-           </div>
-              </ng-container>
-              
-            </div>
-          </ng-container>
+      <div class="weekday-header">
+        <div class="weekday">Sun</div>
+        <div class="weekday">Mon</div>
+        <div class="weekday">Tue</div>
+        <div class="weekday">Wed</div>
+        <div class="weekday">Thu</div>
+        <div class="weekday">Fri</div>
+        <div class="weekday">Sat</div>
+      </div>
+
+      <div class="calendar-days">
+        <div class="week" *ngFor="let week of calendar; let rowIndex = index">
+
+          <div class="day" *ngFor="let day of week; let colIndex = index"
+            [class.bottom-right-fix]="rowIndex === calendar.length - 1 && colIndex === 6" [class.empty]="!day">
+
+            <ng-container *ngIf="day">
+              <div class="date-number">{{ day.getDate() }}</div>
+              <div class="items-container">
+                <ng-container *ngIf="getTasksForDate(day).length > 0">
+                  <div class="item-label">Tasks:</div>
+
+
+                  <div class="task-item" *ngFor="let task of getVisibleTasksForDate(day)" [class]="task.status"
+                    [matTooltip]="task.name" matTooltipPosition="above">
+                    {{ task.name }}
+                  </div>
+
+
+                  <div class="more-indicator" *ngIf="getHiddenTasksCount(day) > 0" (click)="openModalForTasks(day)">
+                    +{{ getHiddenTasksCount(day) }} more
+                  </div>
+                </ng-container>
+
+                <ng-container *ngIf="getProjectsForDate(day).length > 0">
+                  <div class="item-label">Project Deadlines:</div>
+
+
+                  <div class="project-deadline-item" *ngFor="let project of getVisibleProjectsForDate(day)"
+                    [matTooltip]="project.name" matTooltipPosition="above">
+                    {{ project.name }}
+                  </div>
+
+                  <div class="more-indicator" *ngIf="getHiddenProjectsCount(day) > 0"
+                    (click)="openModalForProjects(day)">
+                    +{{ getHiddenProjectsCount(day) }} more
+                  </div>
+                </ng-container>
+
+              </div>
+            </ng-container>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>

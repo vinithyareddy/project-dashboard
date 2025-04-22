@@ -21,7 +21,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 export class AuthService {
   private userSubject = new BehaviorSubject<User | null>(null);
   private inactivityTimer: any;
-  private readonly INACTIVITY_LIMIT = 15 * 60 * 1000; // 15 minutes
+  private readonly INACTIVITY_LIMIT = 15 * 60 * 1000;
 
   constructor(private auth: Auth, private ngZone: NgZone) {
     onAuthStateChanged(this.auth, user => {
@@ -52,7 +52,7 @@ export class AuthService {
     return createUserWithEmailAndPassword(this.auth, email, password).then(async ({ user }) => {
       await updateProfile(user, {
         displayName: name,
-        photoURL: phone // Temporarily using photoURL for phone
+        photoURL: phone
       });
       this.userSubject.next(user);
     });
@@ -74,11 +74,11 @@ export class AuthService {
     });
   }
 
-  // ✅ Updated to use Firebase SDK directly to avoid mismatch with AngularFire types
+
   sendPasswordResetEmail(email: string): Promise<void> {
     return sendPasswordResetEmail(this.auth, email);
   }
-  
+
 
   logout() {
     this.clearInactivityTimer();

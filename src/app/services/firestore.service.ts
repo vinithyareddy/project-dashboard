@@ -20,7 +20,7 @@ import { from, Observable, of, switchMap, take, map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class FirestoreService {
-  constructor(private firestore: Firestore, private authService: AuthService) {}
+  constructor(private firestore: Firestore, private authService: AuthService) { }
 
   private getUserPath(type: 'projects' | 'tasks' | 'teams'): Observable<string> {
     return this.authService.getUser().pipe(

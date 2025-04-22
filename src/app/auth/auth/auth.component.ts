@@ -16,10 +16,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   standalone: true,
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
-  
+
   imports: [
     CommonModule,
-    MatCheckboxModule, 
+    MatCheckboxModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatFormFieldModule,
@@ -28,7 +28,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     RouterModule
   ],
   providers: [AuthService]
-  
+
 })
 export class AuthComponent implements OnInit {
   authForm: FormGroup;
@@ -46,9 +46,9 @@ export class AuthComponent implements OnInit {
       name: [''],
       phone: [''],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.minLength(6)]], // 👈 only required in login/register flow
+      password: ['', [Validators.minLength(6)]],
       confirmPassword: [''],
-      rememberMe: [false] // 👈 add this line
+      rememberMe: [false]
 
     });
   }
@@ -59,7 +59,7 @@ export class AuthComponent implements OnInit {
       this.authForm.get('email')?.setValue(rememberedEmail);
       this.authForm.get('rememberMe')?.setValue(true);
     }
-  
+
     this.authService.getUser().subscribe(user => {
       if (user) {
         this.router.navigate(['/dashboard']);
@@ -85,13 +85,13 @@ export class AuthComponent implements OnInit {
   onForgotPassword(event: Event) {
     event.preventDefault();
     const email = this.authForm.get('email')?.value;
-    console.log('📩 Forgot password triggered with email:', email); // <-- add this
-  
+    console.log('📩 Forgot password triggered with email:', email);
+
     if (!email) {
       this.errorMsg = '❌ Please enter your email to reset password';
       return;
     }
-  
+
     this.authService.sendPasswordResetEmail(email)
       .then(() => {
         this.errorMsg = '✅ Password reset link sent to your email';
@@ -110,7 +110,7 @@ export class AuthComponent implements OnInit {
         }
       });
   }
-  
+
 
   async onSubmit() {
     const { name, phone, email, password, confirmPassword } = this.authForm.value;
@@ -120,7 +120,7 @@ export class AuthComponent implements OnInit {
       return;
     }
 
-    // Register Flow
+
     if (this.isRegisterMode) {
       if (!password || password.length < 6) {
         this.errorMsg = '❌ Password must be at least 6 characters';
@@ -143,7 +143,7 @@ export class AuthComponent implements OnInit {
       return;
     }
 
-    // Login Flow
+
     if (!password) {
       this.errorMsg = '❌ Password is required';
       return;
@@ -151,13 +151,13 @@ export class AuthComponent implements OnInit {
 
     try {
       await this.authService.login(email, password);
-        // ✅ Remember Me Logic
-  const remember = this.authForm.get('rememberMe')?.value;
-  if (remember) {
-    localStorage.setItem('rememberedEmail', email);
-  } else {
-    localStorage.removeItem('rememberedEmail');
-  }
+
+      const remember = this.authForm.get('rememberMe')?.value;
+      if (remember) {
+        localStorage.setItem('rememberedEmail', email);
+      } else {
+        localStorage.removeItem('rememberedEmail');
+      }
 
 
       this.router.navigate(['/dashboard']);

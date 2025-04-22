@@ -30,7 +30,7 @@ import { MatSliderModule } from '@angular/material/slider';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSelectModule,  MatSliderModule   ],
+    MatSelectModule, MatSliderModule],
   providers: [DatePipe]
 })
 export class ProjectsComponent implements OnInit {
@@ -59,7 +59,7 @@ export class ProjectsComponent implements OnInit {
     private fb: FormBuilder,
     private datePipe: DatePipe,
     private firestoreService: FirestoreService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.projectForm = this.fb.group({
@@ -67,10 +67,10 @@ export class ProjectsComponent implements OnInit {
       assignee: [''],
       dueDate: [null, Validators.required],
       status: ['Not Started', Validators.required],
-      progress: [0] // ✅ This must be added!
+      progress: [0]
     });
-    
-  
+
+
     this.firestoreService.getProjects().pipe(take(1)).subscribe(projects => {
       this.projects = projects.map(project => ({
         ...project,
@@ -78,10 +78,10 @@ export class ProjectsComponent implements OnInit {
           ? project.dueDate
           : (project.dueDate && typeof project.dueDate === 'object' && 'toDate' in project.dueDate ? (project.dueDate as any).toDate() : null)
       }));
-      this.afterChange(); // ✅ keep this if you're using it
+      this.afterChange();
     });
   }
-  
+
 
   applyFilters(): void {
     let temp = [...this.projects];
@@ -111,13 +111,13 @@ export class ProjectsComponent implements OnInit {
       'In Progress': 1,
       'Completed': 2
     };
-    
+
     this.filteredProjects = temp.sort((a, b) => {
       const statusDiff = statusOrder[a.status] - statusOrder[b.status];
       if (statusDiff !== 0) return statusDiff;
       return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
     });
-      }
+  }
 
   onDateFilterChange(value: string): void {
     this.filterDateString = value;
@@ -198,5 +198,5 @@ export class ProjectsComponent implements OnInit {
     const value = event.value;
     this.projectForm.get('progress')?.setValue(value);
   }
-  
+
 }
