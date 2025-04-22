@@ -106,8 +106,18 @@ export class ProjectsComponent implements OnInit {
       });
     }
 
-    this.filteredProjects = temp.sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime());
-  }
+    const statusOrder: { [key: string]: number } = {
+      'Not Started': 0,
+      'In Progress': 1,
+      'Completed': 2
+    };
+    
+    this.filteredProjects = temp.sort((a, b) => {
+      const statusDiff = statusOrder[a.status] - statusOrder[b.status];
+      if (statusDiff !== 0) return statusDiff;
+      return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
+    });
+      }
 
   onDateFilterChange(value: string): void {
     this.filterDateString = value;

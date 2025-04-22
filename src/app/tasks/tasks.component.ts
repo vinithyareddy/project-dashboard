@@ -84,24 +84,39 @@ export class TasksComponent implements OnInit {
 
   applyFilters(): void {
     let tempTasks = [...this.tasks];
+  
     if (this.selectedAssignee && this.selectedAssignee !== 'All') {
       tempTasks = tempTasks.filter(task => task.assignee === this.selectedAssignee);
     }
+  
     if (this.selectedDate) {
       const filterDate = new Date(this.selectedDate);
       filterDate.setHours(0, 0, 0, 0);
       const filterTime = filterDate.getTime();
+  
       tempTasks = tempTasks.filter(task => {
         const taskDueDate = this.convertToDate(task.dueDate);
         taskDueDate.setHours(0, 0, 0, 0);
         return taskDueDate.getTime() === filterTime;
       });
     }
-    this.filteredTasks = tempTasks.sort((a, b) =>
-      this.convertToDate(a.dueDate).getTime() - this.convertToDate(b.dueDate).getTime()
-    );
+  
+    // 🧠 Add status-based sorting here
+    const statusOrder: { [key: string]: number } = {
+      'Not Started': 0,
+      'In Progress': 1,
+      'Completed': 2
+    };
+  
+    tempTasks.sort((a, b) => {
+      const statusDiff = statusOrder[a.status] - statusOrder[b.status];
+      if (statusDiff !== 0) return statusDiff;
+      return this.convertToDate(a.dueDate).getTime() - this.convertToDate(b.dueDate).getTime();
+    });
+  
+    this.filteredTasks = tempTasks;
   }
-
+  
   clearDateFilter(): void {
     this.selectedDate = null;
     this.applyFilters();

@@ -1,10 +1,10 @@
-// main.ts
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { importProvidersFrom } from '@angular/core';
+import { MatDialogModule } from '@angular/material/dialog';
 
 // Firebase Initialization
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
@@ -21,8 +21,11 @@ bootstrapApplication(AppComponent, {
     provideAnimations(),
     provideHttpClient(),
 
-    // ✅ Firebase Initialization using AngularFire
     importProvidersFrom(
+      // ✅ Angular Material Dialog
+      MatDialogModule,
+
+      // ✅ Firebase
       provideFirebaseApp(() => initializeApp(environment.firebase)),
       provideAuth(() => getAuth()),
       provideFirestore(() => getFirestore())

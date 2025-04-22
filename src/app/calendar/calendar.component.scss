@@ -6,6 +6,13 @@
   min-height: calc(100vh - 4rem);
  
 }
+.more-indicator {
+  font-size: 0.75rem;
+  color: #4a5568;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 
 .calendar-header {
    
@@ -59,9 +66,23 @@
 }
 
 .calendar-grid {
- 
-  border-radius: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  border-left: 1px solid #2a2d35;
+  border-right: 1px solid #2a2d35;
+  border-bottom: 1px solid #2a2d35;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
   overflow: hidden;
+  background: #ffffff; // Optional: ensures clean edge coloring
+  overflow: clip; // 🔒 Prevents any small protrusions
+
+}
+
+.calendar-grid,
+.weekday-header {
+  -webkit-mask-image: radial-gradient(#000 100%, transparent 100.1%);
+  mask-image: radial-gradient(#000 100%, transparent 100.1%);
 }
 
 .weekday-header {
@@ -70,6 +91,9 @@
   grid-template-columns: repeat(7, 1fr);
   background: #2a2d35;
   padding: 0.4rem;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px; // ✅ Apply border radius to fix top-right edge
+  overflow: hidden;
 
   .weekday {
    
@@ -77,6 +101,10 @@
     color: #a0aec0;
     font-weight: 500;
     font-size: 0.9rem;
+    border-right: 1px solid #2a2d35;
+  }
+  &:last-child {
+    border-right: none; // ✅ Remove right border from Saturday
   }
 }
 
@@ -86,32 +114,60 @@
    
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    border-bottom: 1px solid #2a2d35;
+   
 
     &:last-child {
      
-      border-bottom: none;
+      border-bottom: 1px solid #2a2d35 !important;
     }
   }
 
   .day {
-   
-    min-height: 120px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
     padding: 0.5rem;
     border-right: 1px solid #2a2d35;
-    position: relative;
+    border-bottom: 1px solid #2a2d35;
+    overflow: hidden;
+    box-sizing: border-box; // ✅ NEW: ensures border fits inside cell
+    border-radius: 0 !important;
 
+  
     &:last-child {
-     
-      border-right: none;
+      border-right: 1px solid #2a2d35 !important; // ✅ NEW: force right edge for last column
     }
-
-    &.empty {
-     
-      background: rgba(0, 0, 0, 0.2);
+  
+    .items-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      overflow: hidden;
     }
   }
+  
+  
+  
+  
+  
 }
+.calendar-days .week:last-child .day:last-child {
+  border-right: 1px solid #2a2d35 !important;
+  border-bottom: 1px solid #2a2d35 !important;
+}
+
+.bottom-right {
+  border-right: 1px solid #2a2d35 !important;
+  border-bottom: 1px solid #2a2d35 !important;
+}
+.bottom-right-fix {
+  border-right: 1px solid #2a2d35 !important;
+  border-bottom: 1px solid #2a2d35 !important;
+  box-sizing: border-box;
+}
+
+
 
 .date-number {
  
@@ -121,10 +177,12 @@
 }
 
 .items-container {
- 
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.4rem;
+  overflow-y: auto;
+  max-height: 100px; // 🧠 leaves space for date
+  padding-right: 4px;
 }
 
 .item-label {
@@ -161,16 +219,16 @@
 }
 
 .project-deadline-item {
- 
-  font-size: 0.8rem;
-  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.4rem;
   border-radius: 4px;
-  background: rgba(150, 150, 150, 0.1);
+  background: #f1f1f1;
   color: #000000;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  border-left: 3px solid #a0aec0;
+
+  white-space: nowrap;         // ✅ one line only
+  overflow: hidden;            // ✅ hide overflow
+  text-overflow: ellipsis;     // ✅ show ...
+  max-width: 100%;             // ✅ ensure it doesn't stretch container
 }
 
 .no-items {
@@ -245,6 +303,8 @@
     .calendar-grid {
       min-width: 700px; // scrollable width
       grid-template-columns: repeat(7, 120px); // wider columns
+      border-radius: 12px;   // ✅ fine
+      overflow: visible;   
     }
 
     .weekday {
